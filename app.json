@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "DaccApp",
+    "slug": "DaccApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "DaccApp"
+}
