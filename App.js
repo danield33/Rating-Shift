@@ -10,6 +10,9 @@ export default function App() {
     </View>
   );
 }
+/*
+Rating  Shift
+ */
 
 const styles = StyleSheet.create({
   container: {
