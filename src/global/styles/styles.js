@@ -1,11 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {colors} from "./index";
+import colors from "./colors";
 
-module.exports = StyleSheet.create({
+export default StyleSheet.create({
     background: {
         flex: 1,
         padding: 20,
-        backgroundColor: colors.aqua
+        backgroundColor: colors.blue,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container: {
         flex:1,
