@@ -2,6 +2,7 @@ import * as React from 'react';
 import {FlatList} from 'react-native';
 import {View, Image, Text, Dimensions} from 'react-native';
 import colors from "../global/styles/colors";
+import {HorizontalFlatList} from "./HorizontalFlatList";
 
 const renderAppItem = (item) => {
     const app = item.item;
@@ -24,19 +25,9 @@ const renderAppItem = (item) => {
 
 export function SideAppSelector({apps}) {
     return (
-        <FlatList
-            contentContainerStyle={{alignSelf: 'flex-start'}}
-            style={{borderRadius: 10, backgroundColor: colors.red, flexGrow: 0}}
-            key={apps.length}
-            data={apps}
-            numColumns={Math.ceil(apps.length/3)}
-            pagingEnabled={true}
-            alwaysBounceHorizontal={false}
-            alwaysBounceVertical={false}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderAppItem}
-            keyExtractor={(item, index) => index.toString()}
-        />
+        <HorizontalFlatList items={apps}
+                            listStyle={{backgroundColor: colors.red}}
+                            renderItem={renderAppItem}
+                            numColums={Math.ceil(apps.length/3)}/>
     );
 };
