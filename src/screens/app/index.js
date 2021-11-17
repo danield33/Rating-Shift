@@ -10,7 +10,7 @@ export default function Apps() {
     const [apps, setApps] = useState([]);
 
     useEffect(() => {
-        RShift.ftMatters.top({limit: 21}).then(apps => {
+        RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
             setApps(apps.app_list);
         })
     }, [])
@@ -24,7 +24,7 @@ export default function Apps() {
                         color: 'white',
                         fontSize: 25,
                         padding: 3
-                    }}>Top Apps</Text>
+                    }}>Top Free Apps</Text>
                     <Button title={'See All'} color={colors.pink}/>
                 </View>
                 <SideAppSelector apps={apps}/>

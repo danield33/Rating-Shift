@@ -6,12 +6,27 @@ module.exports = class FTMatters{
 
 
     async top(options){
-        return new Promise((resolve) => {
-            fetch(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`+new URLSearchParams({
+        return this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
+    }
+
+    async lookup(options){
+        return this.getData(`${this.baseURL}v2.0/${this.type}/lookup.json?`, options)
+    }
+
+    async reviews(options){
+        return this.getData(`${this.baseURL}v4.0/${this.type}/reviews.json?`, options)
+    }
+
+    async search(options){
+        return this.getData(`${this.baseURL}v2.0/${this.type}/search.json?`, options);
+    }
+
+    getData(url, options){
+        return new Promise(resolve => {
+            fetch(url+new URLSearchParams({
                 access_token: this.#token,
                 ...options
-            }))
-                .then(async res => resolve(await res.json())).catch(err => console.log(err));
+            })).then(async res => resolve(await res.json()))
         })
     }
 
