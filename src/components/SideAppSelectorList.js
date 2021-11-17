@@ -17,7 +17,7 @@ const renderAppItem = (item) => {
                 </Text>
             </View>
 
-            <View style={{height: 2, width: '100%', backgroundColor: 'white'}}/>
+            <View style={{height: 2, width: '105%', backgroundColor: 'white'}}/>
         </View>
     )
 }
