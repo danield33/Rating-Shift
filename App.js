@@ -4,7 +4,7 @@ import {  Text, View } from 'react-native';
 import {Styles} from "./src/global";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import {Apps} from "./src/screens/app";
+import {Apps} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
 

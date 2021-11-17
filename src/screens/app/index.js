@@ -2,8 +2,7 @@ import * as React from 'react';
 import {View, Text} from 'react-native';
 import {Styles} from "../../global";
 
-
-export function Apps() {
+export default function Apps() {
     return (
         <View style={Styles.background}>
 
