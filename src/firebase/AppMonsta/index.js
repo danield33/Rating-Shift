@@ -41,7 +41,13 @@ module.exports = class AppMonsta{
 
     getData(url, options={}){
         return new Promise(resolve => {
-            fetch('https://api.appmonsta.com/v1/stores/android/rankings.json?date=2021-11-18&country=US', {
+            const today = new Date(), yesterday = new Date(today);
+            yesterday.setDate(today.getDate()-1);
+            const date = yesterday.toISOString().split('T')[0];
+            fetch(url+ new URLSearchParams({
+                date: date,
+                country: 'US'
+            }), {
                 headers: {
                     'Authorization': 'Basic ' + Base64.encode(this.#token+':X')
                 }
@@ -50,7 +56,6 @@ module.exports = class AppMonsta{
                 const textData = text.split('\n').join(',');
                 const data = JSON.parse('['+textData.substring(0, textData.length-1)+']');
                 resolve(data);
-
             })
         })
     }

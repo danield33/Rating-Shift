@@ -10,11 +10,11 @@ const renderAppItem = (item) => {
     return(
         <View style={{ borderRadius: 10, width: Dimensions.get('window').width-40, padding: 5}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image source={{uri: app.artworkUrl512}} style={{width: 50, height: 50, borderRadius: 10}}/>
+                <Image source={{uri: app.icon_url}} style={{width: 50, height: 50, borderRadius: 10}}/>
                 <Text adjustsFontSizeToFit={true}
                       numberOfLines={1}
                       style={{fontSize: 30, color: 'white', flexDirection: 'row', flexWrap: 'wrap', flex: 1}} >
-                    {app.trackCensoredName}
+                    {app.app_name}
                 </Text>
             </View>
 
@@ -26,6 +26,7 @@ const renderAppItem = (item) => {
 export function SideAppSelector({apps}) {
     return (
         <HorizontalFlatList items={apps}
+                            key={apps.length}
                             listStyle={{backgroundColor: colors.red}}
                             renderItem={renderAppItem}
                             numColums={Math.ceil(apps.length/3)}/>

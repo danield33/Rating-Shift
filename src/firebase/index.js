@@ -2,7 +2,7 @@ import AppMonsta from "./AppMonsta";
 
 class RShift {
 
-    ftMatters = new AppMonsta();
+    appMonsta = new AppMonsta();
 
 }
 
