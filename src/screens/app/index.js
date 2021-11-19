@@ -26,12 +26,12 @@ export default function Apps() {
 
     const [freeApps, setFreeApps] = useState([]);
     const [paidApps, setPaidApps] = useState([]);
-    const [newestApps, setNewest] = useState([]);
+    const [headerApps, setHeaderApps] = useState([]);
 
 
     useEffect(() => {
         RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
-            setPaidApps(apps.app_list);
+             setPaidApps(apps.app_list);
         })
         RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
             setFreeApps(apps.app_list);
@@ -50,18 +50,34 @@ export default function Apps() {
                 }
             }
         }).then(apps => {
-            setNewest(apps.results);
-        })
+            apps.title = 'Newest Apps';
+            headerApps.push(apps);
+            setHeaderApps(headerApps);
+        });
+
+
+        const getGenre = (genreID) => {
+            RShift.ftMatters.getTopGenreApps(genreID).then(apps => {
+                apps.title = genreID;
+                headerApps.push(apps);
+                console.log(apps.title)
+                if(!RShift.ftMatters.genres[genreID]) return;
+                setTimeout(() => getGenre(genreID+2), 300);
+            })
+        }
+        getGenre(6000);
+        setHeaderApps(headerApps);
 
     }, []);
 
 
     return (
         <View style={Styles.background}>
-            <ScrollView style={{flex: 1}}>
-                <LargeAppDisplay apps={newestApps} title={'Newest Apps'}/>
-                {/*{sliderContainer(freeApps, 'Top Free Apps')}*/}
-                {/*{sliderContainer(paidApps, 'Top Paid Apps')}*/}
+            <ScrollView style={{flex: 1}}
+                        showsVerticalScrollIndicator={false}>
+                <LargeAppDisplay apps={headerApps}/>
+                {sliderContainer(freeApps, 'Top Free Apps')}
+                {sliderContainer(paidApps, 'Top Paid Apps')}
             </ScrollView>
 
         </View>
