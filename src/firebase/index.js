@@ -1,8 +1,8 @@
-import FTMatters from "./42Matters";
+import AppMonsta from "./AppMonsta";
 
 class RShift {
 
-    ftMatters = new FTMatters();
+    appMonsta = new AppMonsta();
 
 }
 

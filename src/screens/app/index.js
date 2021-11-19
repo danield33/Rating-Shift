@@ -30,27 +30,9 @@ export default function Apps() {
 
 
     useEffect(() => {
-        RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
-            setPaidApps(apps.app_list);
-        })
-        RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
-            setFreeApps(apps.app_list);
-        })
-
-        RShift.ftMatters.query({
-            lang: 'en',
-            limit: 21
-        }, {
-            query:{
-                query_params:{
-                    from: 0,
-                    num: 10,
-                    sort: 'score',
-                    released_after_dynamic: 'last_day'
-                }
-            }
-        }).then(apps => {
-            setNewest(apps.results);
+        RShift.appMonsta.top().then(apps => {
+            setFreeApps(apps);
+            // setPaidApps(apps.app_list);
         })
 
     }, []);
@@ -59,8 +41,8 @@ export default function Apps() {
     return (
         <View style={Styles.background}>
             <ScrollView style={{flex: 1}}>
-                <LargeAppDisplay apps={newestApps} title={'Newest Apps'}/>
-                {/*{sliderContainer(freeApps, 'Top Free Apps')}*/}
+                {/*<LargeAppDisplay apps={newestApps} title={'Newest Apps'}/>*/}
+                {sliderContainer(freeApps, 'Top Free Apps')}
                 {/*{sliderContainer(paidApps, 'Top Paid Apps')}*/}
             </ScrollView>
 
