@@ -31,9 +31,11 @@ export default function Apps() {
 
     useEffect(() => {
         RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
-            setPaidApps(apps.app_list);
+            console.log(apps)
+            // setPaidApps(apps.app_list);
         })
-        RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
+        return;
+        RShift.ftMatters.top().then(apps => {
             setFreeApps(apps.app_list);
         })
 
