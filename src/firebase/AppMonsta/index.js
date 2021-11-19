@@ -46,10 +46,11 @@ module.exports = class AppMonsta{
                     'Authorization': 'Basic ' + Base64.encode(this.#token+':X')
                 }
             }).then(async app => {
-                const data = JSON.parse(JSON.stringify(await app.text())).split('}').join('},');
+                const text = JSON.parse(JSON.stringify(await app.text()));
+                const textData = text.split('\n').join(',');
+                const data = JSON.parse('['+textData.substring(0, textData.length-1)+']');
+                resolve(data);
 
-                  const appData = JSON.parse('['+data.substring(0, data.length-2)+']')
-                console.log(appData, (this.#token+':X').toString('base64'), 1);
             })
         })
     }
