@@ -4,6 +4,7 @@ module.exports = class AppMonsta{
 
     #type = 'itunes';
     #token = 'f252f4f8ef92ad623affb93bc2640c36b04cc486';
+//email: cbnxnjyhmjgsqfiwtr@sdvrecft.com
 
     get baseURL() {
         return 'https://api.appmonsta.com/v1/stores/'+this.#type;
