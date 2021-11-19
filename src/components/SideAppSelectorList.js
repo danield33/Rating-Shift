@@ -26,7 +26,6 @@ const renderAppItem = (item) => {
 export function SideAppSelector({apps}) {
     return (
         <HorizontalFlatList items={apps}
-                            key={apps.length}
                             listStyle={{backgroundColor: colors.red}}
                             renderItem={renderAppItem}
                             numColums={Math.ceil(apps.length/3)}/>
