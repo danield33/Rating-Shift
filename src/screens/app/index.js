@@ -24,14 +24,14 @@ const sliderContainer = (apps, title) => {
 
 export default function Apps() {
 
-    const [freeApps, setFreeApps] = useState([]);
+    const [topApps, setTopApps] = useState([]);
     const [paidApps, setPaidApps] = useState([]);
     const [newestApps, setNewest] = useState([]);
 
 
     useEffect(() => {
-        RShift.appMonsta.top().then(apps => {
-            setFreeApps(apps);
+        RShift.appMonsta.top({limit: 3}).then(apps => {
+            setTopApps(apps);
             // setPaidApps(apps.app_list);
         })
 
@@ -42,7 +42,7 @@ export default function Apps() {
         <View style={Styles.background}>
             <ScrollView style={{flex: 1}}>
                 {/*<LargeAppDisplay apps={newestApps} title={'Newest Apps'}/>*/}
-                {sliderContainer(freeApps, 'Top Free Apps')}
+                {sliderContainer(topApps, 'Top Apps')}
                 {/*{sliderContainer(paidApps, 'Top Paid Apps')}*/}
             </ScrollView>
 
