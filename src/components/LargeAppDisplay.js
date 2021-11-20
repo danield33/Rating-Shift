@@ -7,21 +7,22 @@ const renderApp = (appList) => {
     const url = item.artworkUrl512;
 
     return(
-        <View style={{flex: 1}}>
-            <Text style={{
-                fontSize: 30,
-                color: 'white'
-            }}>{appList.item.title}</Text>
+        <>
             <View style={{width: Dimensions.get('window').width-40, alignSelf: 'center'}}>
+                <Text style={{
+                    fontSize: 30,
+                    color: 'white'
+                }}>{appList.item.title}</Text>
                 <Image source={{uri: url}}
                        style={{
-                           width: Dimensions.get('window').width,
+                           width: Dimensions.get('window').width-40,
                            height: 250,
                            resizeMode: 'cover',
-                           borderRadius: 20
+                           borderRadius: 20,
+                           alignSelf: 'center'
                        }}/>
             </View>
-        </View>
+        </>
 
     );
 
@@ -29,7 +30,6 @@ const renderApp = (appList) => {
 
 export function LargeAppDisplay({apps}) {
 
-    // console.log(apps)
     return (
             <HorizontalFlatList items={apps}
                                 key={apps.length}

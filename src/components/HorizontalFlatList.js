@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {FlatList} from 'react-native';
 
-export function HorizontalFlatList({items, renderItem, numColums, listStyle, key}) {
+export function HorizontalFlatList({items, renderItem, numColums, listStyle, keyID}) {
     return (
             <FlatList
-                key={key}
+                key={keyID}
                 contentContainerStyle={{alignSelf: 'flex-start'}}
                 style={{borderRadius: 10, flexGrow: 0, ...listStyle}}
                 data={items}

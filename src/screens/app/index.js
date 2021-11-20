@@ -1,13 +1,14 @@
-import {View, Text, Button, ScrollView} from 'react-native';
+import {Button, ScrollView, Text, View, ActivityIndicator} from 'react-native';
 import {Styles} from "../../global";
 import {SideAppSelector} from "../../components/SideAppSelectorList";
 import React, {useEffect, useState} from "react";
 import RShift from '../../firebase';
 import colors from "../../global/styles/colors";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
+import {useForceUpdate} from "../../hooks/useForceUpdate";
 
 const sliderContainer = (apps, title) => {
-    return(
+    return (
         <View style={{}}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{
@@ -27,11 +28,12 @@ export default function Apps() {
     const [freeApps, setFreeApps] = useState([]);
     const [paidApps, setPaidApps] = useState([]);
     const [headerApps, setHeaderApps] = useState([]);
+    const forceUpdate = useForceUpdate();
 
 
     useEffect(() => {
         RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
-             setPaidApps(apps.app_list);
+            setPaidApps(apps.app_list);
         })
         RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
             setFreeApps(apps.app_list);
@@ -41,8 +43,8 @@ export default function Apps() {
             lang: 'en',
             limit: 21
         }, {
-            query:{
-                query_params:{
+            query: {
+                query_params: {
                     from: 0,
                     num: 10,
                     sort: 'score',
@@ -52,30 +54,37 @@ export default function Apps() {
         }).then(apps => {
             apps.title = 'Newest Apps';
             headerApps.push(apps);
-            setHeaderApps(headerApps);
+            // setHeaderApps(headerApps);
+
         });
 
 
         const getGenre = (genreID) => {
             RShift.ftMatters.getTopGenreApps(genreID).then(apps => {
                 apps.title = genreID;
+                console.log(genreID)
                 headerApps.push(apps);
-                console.log(apps.title)
-                if(!RShift.ftMatters.genres[genreID]) return;
-                setTimeout(() => getGenre(genreID+2), 300);
+                if(!RShift.ftMatters.genres[genreID]) {
+                    forceUpdate();
+                }else setTimeout(() => getGenre(genreID+2), 300);
             })
         }
         getGenre(6000);
-        setHeaderApps(headerApps);
 
     }, []);
 
+    console.log('render')
 
     return (
         <View style={Styles.background}>
             <ScrollView style={{flex: 1}}
                         showsVerticalScrollIndicator={false}>
-                <LargeAppDisplay apps={headerApps}/>
+                {
+                    headerApps.length ?
+                        <LargeAppDisplay apps={headerApps}/>
+                        : <ActivityIndicator size={'large'}/>
+                }
+
                 {sliderContainer(freeApps, 'Top Free Apps')}
                 {sliderContainer(paidApps, 'Top Paid Apps')}
             </ScrollView>

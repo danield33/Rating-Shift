@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import {  Text, View } from 'react-native';
+import React, {useEffect} from 'react';
+import {LogBox, Text, View} from 'react-native';
 import {Styles} from "./src/global";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,9 +10,14 @@ import colors from "./src/global/styles/colors";
 
 const Tab = createBottomTabNavigator();
 
+
+LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews'])
+
 export default function App() {
 
-  return(
+
+
+    return(
 
           <NavigationContainer>
               <Tab.Navigator
