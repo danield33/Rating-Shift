@@ -25,6 +25,7 @@ export default function RatingsPage({reviewData}) {
             <Line style={{marginBottom: 0}}/>
 
             <FlatList data={reviews.reviews}
+                      keyExtractor={(item, index) => index.toString()}
                       showsVerticalScrollIndicator={false}
                       renderItem={renderItem}
             />
