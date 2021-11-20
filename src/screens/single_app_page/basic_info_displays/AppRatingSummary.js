@@ -4,6 +4,7 @@ import {colors} from "../../../global/styles";
 import StarRating from "react-native-star-rating";
 
 export function AppRatingSummary({userRatingCount, averageUserRating}) {
+    console.log(userRatingCount)
     return (
         <View style={{alignItems: 'center'}}>
 
