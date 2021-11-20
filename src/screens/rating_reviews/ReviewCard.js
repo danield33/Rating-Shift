@@ -19,7 +19,6 @@ export function ReviewCard({review, size, canExpand}) {
         setExpanded(!isExpanded)
     }
 
-
     return (
 
         <View

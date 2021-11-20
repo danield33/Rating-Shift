@@ -19,6 +19,7 @@ export function AppDescription({description}) {
 
     const toggleShow = () => {
 
+        console.log(isExpanded, 1)
         setExpanded(!isExpanded);
 
     }
