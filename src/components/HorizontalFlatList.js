@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FlatList, Dimensions} from 'react-native';
+import {FlatList} from 'react-native';
 
 
 
@@ -14,7 +14,6 @@ export function HorizontalFlatList({items, renderItem, numColums, listStyle, key
                 style={{borderRadius: 10, flexGrow: 0, ...listStyle}}
                 data={items}
                 numColumns={numColums}
-
                 pagingEnabled={true}
                 alwaysBounceHorizontal={false}
                 alwaysBounceVertical={false}

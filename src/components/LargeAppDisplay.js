@@ -8,7 +8,7 @@ const itemWidth = width/(previewCount+.5);
 const startScroll = (itemWidth*3/4);
 
 const renderApp = (appList) => {
-    const item = appList.item.results[0]
+    const item = appList.item.results[0];
     const url = item.artworkUrl512;
 
     return (
