@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Styles} from '../../global/index'
 import PropTypes from 'prop-types'
 
-export function SingleApp({app}) {
+export default function SingleApp({app}) {
     return (
         <View style={Styles.background}>
 
