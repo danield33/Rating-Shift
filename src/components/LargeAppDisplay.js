@@ -33,7 +33,7 @@ const renderApp = (appList) => {
 
 }
 
-export function LargeAppDisplay({apps}) {
+export function LargeAppDisplay({apps, renderItem=renderApp}) {
 
     const snapToOffset = apps.map((_, i) => {
         return ((i * itemWidth) + startScroll)
@@ -47,7 +47,7 @@ export function LargeAppDisplay({apps}) {
                             snapToAlignment={'center'}
                             key={apps.length}
                             numColums={undefined}
-                            renderItem={renderApp}
+                            renderItem={(item) => renderItem(item, itemWidth)}
         />
     );
 }

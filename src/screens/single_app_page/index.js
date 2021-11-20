@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {ScrollView, View, Text} from 'react-native';
+import {Image, ScrollView, Text, View} from 'react-native';
 import {colors, Styles} from '../../global/styles'
 import PropTypes from 'prop-types'
 import {useNavigation} from "@react-navigation/native";
 import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
 import {AppInfo} from "./basic_info_displays";
+import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 
 
 const line = () => {
@@ -25,7 +26,6 @@ export default function SingleApp({app}) {
     const appData = app ?? navigation.getState().routes[1].params.params.app;
     const image = appData.artworkUrl512
 
-
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
                     contentContainerStyle={{alignItems: 'center'}}>
@@ -45,11 +45,19 @@ export default function SingleApp({app}) {
                     fontWeight: '600'
                 }}>Preview</Text>
 
-                
+                <LargeAppDisplay apps={appData.screenshotUrls || []} renderItem={(item, itemWidth) => {
+                    const pic = item.item;
+                    return (
+                        <View style={{width: itemWidth-10, margin: 5}}>
+                            <Image source={{uri: pic}} style={{width: itemWidth-10, height: 600, borderRadius: 30}}/>
+                        </View>
+                    );
+                }}/>
 
             </View>
 
 
+            <View style={{margin: 50}}/>
         </ScrollView>
     );
 };
