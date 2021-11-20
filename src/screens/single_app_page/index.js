@@ -6,6 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
 import {AppInfo} from "./basic_info_displays";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
+import {AppPreview} from "./AppPreview";
 
 
 const line = () => {
@@ -38,24 +39,7 @@ export default function SingleApp({app}) {
 
             {line()}
 
-            <View style={{width: '100%'}}>
-                <Text style={{
-                    color: 'white',
-                    fontSize: 25,
-                    fontWeight: '600'
-                }}>Preview</Text>
-
-                <LargeAppDisplay apps={appData.screenshotUrls || []} renderItem={(item, itemWidth) => {
-                    const pic = item.item;
-                    return (
-                        <View style={{width: itemWidth-10, margin: 5}}>
-                            <Image source={{uri: pic}} style={{width: itemWidth-10, height: 600, borderRadius: 30}}/>
-                        </View>
-                    );
-                }}/>
-
-            </View>
-
+            <AppPreview screenshotsUrls={appData.screenshotUrls}/>
 
             <View style={{margin: 50}}/>
         </ScrollView>
