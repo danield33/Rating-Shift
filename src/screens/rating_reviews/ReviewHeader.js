@@ -2,17 +2,20 @@ import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
+import {useNavigation} from "@react-navigation/native";
+
+
 
 export function ReviewHeader({reviews}) {
+    const navigation = useNavigation();
 
     const [rating, setRating] = useState(0);
-
 
     return (
         <View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
-                <Button title={'See More'} color={colors.red}/>
+                <Button title={'See More'} color={colors.red} onPress={() => navigation.navigate('RatingsReviews')}/>
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View>
