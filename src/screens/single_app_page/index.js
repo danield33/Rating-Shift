@@ -7,6 +7,7 @@ import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
 import {AppInfo} from "./basic_info_displays";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {AppPreview} from "./AppPreview";
+import {AppDescription} from "./AppDescription";
 
 
 const line = () => {
@@ -40,6 +41,12 @@ export default function SingleApp({app}) {
             {line()}
 
             <AppPreview screenshotsUrls={appData.screenshotUrls}/>
+
+            {line()}
+
+            <AppDescription description={appData.description}/>
+
+            {line()}
 
             <View style={{margin: 50}}/>
         </ScrollView>
