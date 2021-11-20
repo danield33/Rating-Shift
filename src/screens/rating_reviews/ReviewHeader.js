@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 
 
 
-export function ReviewHeader({reviews}) {
+export function ReviewHeader({reviews, hideButton=false}) {
     const navigation = useNavigation();
 
     const [rating, setRating] = useState(0);
@@ -15,7 +15,12 @@ export function ReviewHeader({reviews}) {
         <View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
-                <Button title={'See More'} color={colors.red} onPress={() => navigation.navigate('RatingsReviews')}/>
+                {hideButton ? null :
+                    <Button title={'See More'} color={colors.red} onPress={() => navigation.navigate('RatingsReviews', {
+                        params: {reviews: reviews}
+                    })}/>
+                }
+
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View>
