@@ -32,12 +32,14 @@ export default function Apps() {
 
 
     useEffect(() => {
+
+        headerApps.length = 0;
         RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
             setPaidApps(apps.app_list);
-        })
+        });
         RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
             setFreeApps(apps.app_list);
-        })
+        });
 
         RShift.ftMatters.query({
             lang: 'en',
@@ -72,7 +74,6 @@ export default function Apps() {
 
     }, []);
 
-    console.log('render')
 
     return (
         <View style={Styles.background}>
