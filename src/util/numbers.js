@@ -12,3 +12,4 @@ Number.prototype.toSymbolic = function() {
     }
 
 }
+

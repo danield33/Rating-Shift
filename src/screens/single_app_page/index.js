@@ -27,7 +27,7 @@ export default function SingleApp({app}) {
 
     const navigation = useNavigation();
     const appData = app ?? navigation.getState().routes[1].params.params.app;
-    const image = appData.artworkUrl512l;
+    const image = appData.artworkUrl512;
 
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
