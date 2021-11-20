@@ -63,7 +63,7 @@ export default function Apps() {
             RShift.ftMatters.getTopGenreApps(genreID).then(apps => {
                 apps = JSON.parse(JSON.stringify(apps))//TODO: test remove this when using actual api
                 apps.title = RShift.ftMatters.genres[genreID];
-                console.log(genreID)
+
                 headerApps.push(apps);
                 if (!RShift.ftMatters.genres[genreID + 2]) {
                     forceUpdate();
