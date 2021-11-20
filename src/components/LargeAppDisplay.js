@@ -39,7 +39,6 @@ export function LargeAppDisplay({apps}) {
         return ((i * itemWidth) + startScroll)
     })
 
-
     return (
         <HorizontalFlatList items={apps}
                             decelerationRate={0}
