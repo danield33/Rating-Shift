@@ -8,7 +8,7 @@ import {ReviewCard} from "./ReviewCard";
 
 const renderItem = (item) => {
     const review = item.item;
-    return <ReviewCard review={review}/>
+    return <ReviewCard review={review} canExpand={true}/>
 }
 
 export default function RatingsPage({reviewData}) {
@@ -25,6 +25,7 @@ export default function RatingsPage({reviewData}) {
             <Line style={{marginBottom: 0}}/>
 
             <FlatList data={reviews.reviews}
+                      keyExtractor={item => item.author_hash}
                       showsVerticalScrollIndicator={false}
                       renderItem={renderItem}
             />

@@ -1,30 +1,38 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {Text, TouchableOpacity, View, Animated} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
 import {Ionicons} from "@expo/vector-icons";
 
-export function ReviewCard({review, size}) {
+export function ReviewCard({review, size, canExpand = false}) {
 
-    const startingHeight = 50;
+    const startingHeight = 70;
     const animatedHeight = useRef(new Animated.Value(startingHeight)).current;
     const [isExpanded, setExpanded] = useState(false);
-    const [fullHeight, setFullHeight] = useState(startingHeight);
+    const [contentHeight, setContentHeight] = useState(70);
+    const [titleHeight, setTitleHeight] = useState(70)
 
     useEffect(() => {
+        console.log(contentHeight + titleHeight, 'fHeight')
         Animated.spring(animatedHeight, {
             friction: 500,
-            toValue: isExpanded ? fullHeight : startingHeight,
+            toValue: isExpanded ? contentHeight + titleHeight : startingHeight,
             useNativeDriver: false
         }).start();
     }, [isExpanded])
 
     const onTextLayout = (event) => {
         let {height} = event.nativeEvent.layout;
+        console.log(height, 'height');
         height = Math.floor(height) + 40;
-        if(height > startingHeight){
-            setFullHeight(height);
+        if (height > startingHeight) {
+            setContentHeight(height);
         }
+    }
+
+    const toggleShow = () => {
+        if (canExpand)
+            setExpanded(!isExpanded)
     }
 
     return (
@@ -34,10 +42,16 @@ export function ReviewCard({review, size}) {
             padding: 10,
             width: size ? size - 10 : undefined,
             margin: 5,
-            borderRadius: 10
+            borderRadius: 10,
+            overflow: 'hidden',
+            height: animatedHeight
         }}>
 
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}} onLayout={(e) => {
+                const {height} = e.nativeEvent.layout;
+                console.log(height, 'tHeight')
+                setTitleHeight(height);
+            }}>
                 <View>
                     <Text
                         style={{
@@ -70,18 +84,19 @@ export function ReviewCard({review, size}) {
 
             </View>
 
-            <View>
-                <Text numberOfLines={3}
-                      ellipsizeMode={'tail'}
-                      style={{
-                          color: 'white',
-                          fontSize: 15,
-                          fontWeight: '500'
-                      }}>{review.content}</Text>
-            </View>
+            <Text numberOfLines={canExpand ? undefined : 3}
+                  ellipsizeMode={canExpand ? undefined : 'tail'}
+                  onLayout={onTextLayout}
+                  style={{
+                      color: 'white',
+                      fontSize: 15,
+                      fontWeight: '500'
+                  }}>{review.content}</Text>
 
             <View style={{justifyContent: 'flex-end', flex: 1}}>
-                <TouchableOpacity style={{marginTop: 5, right: 5, alignSelf: 'flex-end'}}>
+                <TouchableOpacity
+                    onPress={toggleShow}
+                    style={{marginTop: 5, right: 5, alignSelf: 'flex-end'}}>
                     <Text style={{color: colors.red, fontSize: 20}}>See More</Text>
                 </TouchableOpacity>
             </View>
