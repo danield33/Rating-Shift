@@ -1,4 +1,4 @@
-import {Button, ScrollView, Text, View, ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Button, ScrollView, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {SideAppSelector} from "../../components/SideAppSelectorList";
 import React, {useEffect, useState} from "react";
@@ -65,9 +65,9 @@ export default function Apps() {
                 apps.title = RShift.ftMatters.genres[genreID];
                 console.log(genreID)
                 headerApps.push(apps);
-                if(!RShift.ftMatters.genres[genreID+2]) {
+                if (!RShift.ftMatters.genres[genreID + 2]) {
                     forceUpdate();
-                }else setTimeout(() => getGenre(genreID+2), 300);
+                } else setTimeout(() => getGenre(genreID + 2), 300);
             })
         }
         getGenre(6000);

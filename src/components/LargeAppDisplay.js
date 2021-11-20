@@ -4,8 +4,8 @@ import {HorizontalFlatList} from "./HorizontalFlatList";
 
 const {width} = Dimensions.get('window');
 const previewCount = 1;
-const itemWidth = width/(previewCount+.5);
-const startScroll = (itemWidth*3/4);
+const itemWidth = width / (previewCount + .5);
+const startScroll = (itemWidth * 3 / 4);
 
 const renderApp = (appList) => {
     const item = appList.item.results[0];
@@ -13,7 +13,7 @@ const renderApp = (appList) => {
 
     return (
 
-        <View style={{ margin: 5, alignSelf: 'center', width: itemWidth-10}}>
+        <View style={{margin: 5, alignSelf: 'center', width: itemWidth - 10}}>
             <Text style={{
                 fontSize: 30,
                 color: 'white'
@@ -50,4 +50,4 @@ export function LargeAppDisplay({apps}) {
                             renderItem={renderApp}
         />
     );
-};
+}
