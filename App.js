@@ -62,7 +62,11 @@ export default function App() {
                 <Stack.Screen name={'RatingsReviews'}
                               component={RatingsPage}
                               options={{
-                                  headerShown: true, headerTitle: 'Ratings & Reviews',
+                                  headerShown: true,
+                                  headerTitle: 'Ratings & Reviews',
+                                  headerTitleStyle: {
+                                    color: colors.aqua
+                                  },
                                   headerBackTitle: 'Back',
                                   headerBackTitleStyle: {
                                       color: 'white'
