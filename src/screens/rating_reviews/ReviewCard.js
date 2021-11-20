@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Animated, Text, TouchableOpacity, View} from 'react-native';
+import {Animated, Text, TouchableOpacity, View, LayoutAnimation} from 'react-native';
 import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
 import {Ionicons} from "@expo/vector-icons";
@@ -22,23 +22,24 @@ export function ReviewCard({review, size, canExpand}) {
     const onTextLayout = (event) => {
         let {height} = event.nativeEvent.layout;
         height = Math.floor(height) + 40;
-        if (height > startingHeight) {
-            setFullHeight(height);
+        const titleHeight = Math.abs(startingHeight - height);
+        console.log(height, startingHeight - titleHeight)
+        if (height > titleHeight) {
+            setFullHeight(height + titleHeight);
         }
     }
 
     return (
 
-        <Animated.View
+        <View
             style={{
                 backgroundColor: colors.dark_blue,
                 padding: 10,
                 width: size ? size - 10 : undefined,
                 margin: 5,
                 borderRadius: 10,
-                height: canExpand ? animatedHeight : undefined,
                 overflow: 'hidden',
-                flex: canExpand ? 1 : undefined
+                flex: canExpand ? 1 : undefined,
             }}>
 
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -74,8 +75,9 @@ export function ReviewCard({review, size, canExpand}) {
 
             </View>
 
-            <View style={{flex: 1}}>
-                <Text numberOfLines={canExpand ? undefined : 3}
+            <View style={{flex: 1}}
+                  onLayout={onTextLayout}>
+                <Text numberOfLines={canExpand ? isExpanded ? undefined : 3 : 3}
                       ellipsizeMode={'tail'}
                       style={{
                           color: 'white',
@@ -86,13 +88,21 @@ export function ReviewCard({review, size, canExpand}) {
 
             <View style={{justifyContent: 'flex-end'}}>
                 <TouchableOpacity
-                    onPress={() => setExpanded(!isExpanded)}
+                    onPress={() => {
+                        LayoutAnimation.configureNext(
+                            LayoutAnimation.create(
+                                500,
+                                LayoutAnimation.Types.easeInEaseOut,
+                            )
+                        );
+                        setExpanded(!isExpanded)
+                    }}
                     style={{marginTop: 5, right: 5, alignSelf: 'flex-end'}}>
                     <Text style={{color: colors.red, fontSize: 20}}>See More</Text>
                 </TouchableOpacity>
             </View>
 
-        </Animated.View>
+        </View>
 
     )
 };
