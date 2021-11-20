@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {View, Image, Dimensions, Text} from 'react-native';
 import {HorizontalFlatList} from "./HorizontalFlatList";
+import RShift from '../firebase'
 
 const renderApp = (appList) => {
-    const item = appList.item.results[0]
+    const item = appList.item.results[2]
     const url = item.artworkUrl512;
 
     return(
