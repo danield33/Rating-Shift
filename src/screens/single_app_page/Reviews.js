@@ -13,6 +13,7 @@ const renderReview = (reviewItem, size) => {
 
 export function AppReviews({appID, reviewObj}) {
 
+    const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState(reviewObj);
 
     useEffect(() => {
@@ -65,8 +66,8 @@ export function AppReviews({appID, reviewObj}) {
                     fullStarColor={colors.red}
                     halfStarEnabled={false}
                     halfStarColor={colors.red}
-                    rating={0}
-                    selectedStar={console.log}
+                    rating={rating}
+                    selectedStar={setRating}
                 />
             </View>
 
