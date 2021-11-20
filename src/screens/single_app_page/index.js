@@ -3,32 +3,22 @@ import {ScrollView, View} from 'react-native';
 import {colors, Styles} from '../../global/styles'
 import PropTypes from 'prop-types'
 import {useNavigation} from "@react-navigation/native";
-import {AppTitleHeading} from "./AppTitleHeading";
-import {AppRatingSummary} from "./AppRatingSummary";
-import {DeveloperInfo} from "./DeveloperIcon";
-import {MainLanguageDisp} from "./MainLanguage";
-import {AppSizeDisplay} from "./AppSize";
-import {ContentAdvisoryDisplay} from "./ContentAdvisoryDisplay";
+import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
+import {AppRatingSummary} from "./basic_info_displays/AppRatingSummary";
+import {DeveloperInfo} from "./basic_info_displays/DeveloperIcon";
+import {MainLanguageDisp} from "./basic_info_displays/MainLanguage";
+import {AppSizeDisplay} from "./basic_info_displays/AppSize";
+import {ContentAdvisoryDisplay} from "./basic_info_displays/ContentAdvisoryDisplay";
+import {AppInfo} from "./basic_info_displays";
 
-const semiVerticalLine = () => {
-    return (
-        <View style={{
-            backgroundColor: colors.blue,
-            width: 2,
-            height: '80%',
-            marginLeft: 5,
-            marginRight: 5,
-            alignSelf: 'center'
-        }}/>
-    )
-}
+
 
 export default function SingleApp({app}) {
 
     const navigation = useNavigation();
     const appData = app ?? navigation.getState().routes[1].params.params.app;
     const image = appData.artworkUrl512
-    console.log(appData.fileSizeBytesNumeric)
+
 
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
@@ -38,37 +28,10 @@ export default function SingleApp({app}) {
                              name={appData.trackCensoredName}
                              imageURL={image}
             />
+            <AppInfo appData={appData}/>
 
-            <ScrollView horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        style={{
-                            borderTopWidth: 1,
-                            width: '100%',
-                            borderBottomWidth: 1,
-                            padding: 5,
-                            backgroundColor: colors.dark_blue,
-                        }} contentContainerStyle={{alignItems: 'center'}}>
-                <AppRatingSummary
-                    averageUserRating={appData.averageUserRating}
-                    userRatingCount={appData.userRatingCount}/>
 
-                {semiVerticalLine()}
-
-                <DeveloperInfo name={appData.artistName}/>
-
-                {semiVerticalLine()}
-
-                <MainLanguageDisp mainLanguage={appData.lang} additionalLanguagesSize={appData.i18n_lang.length}/>
-
-                {semiVerticalLine()}
-
-                <AppSizeDisplay appSizeBytes={appData.fileSizeBytesNumeric}/>
-
-                {semiVerticalLine()}
-
-                <ContentAdvisoryDisplay age={appData.contentAdvisoryRating}/>
-
-            </ScrollView>
+            
 
 
         </ScrollView>

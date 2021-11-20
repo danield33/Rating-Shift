@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Text, View} from 'react-native';
-import {colors} from "../../global/styles";
+import {colors} from "../../../global/styles";
 
 export function MainLanguageDisp({mainLanguage, additionalLanguagesSize}) {
     return (

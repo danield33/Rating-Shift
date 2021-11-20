@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Image, Text, View} from 'react-native';
-import {colors} from "../../global/styles";
+import {colors} from "../../../global/styles";
 
 export function AppTitleHeading({name, subtitle, imageURL}) {
     return (
