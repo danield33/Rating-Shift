@@ -1,6 +1,6 @@
 import {ActivityIndicator, Button, ScrollView, Text, View} from 'react-native';
 import {Styles} from "../../global";
-import {SideAppSelector} from "../../components/SideAppSelectorList";
+import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import React, {useEffect, useState} from "react";
 import RShift from '../../firebase';
 import colors from "../../global/styles/colors";
@@ -18,7 +18,7 @@ const sliderContainer = (apps, title) => {
                 }}>{title}</Text>
                 <Button title={'See All'} color={colors.pink}/>
             </View>
-            <SideAppSelector apps={apps}/>
+            <SideAppSelectorList apps={apps}/>
         </View>
     )
 }
