@@ -40,11 +40,14 @@ export default function SingleApp({app}) {
 
             {line()}
 
-            <AppPreview screenshotsUrls={appData.screenshotUrls}/>
+
+            <AppDescription description={appData.description}/>
+
 
             {line()}
 
-            <AppDescription description={appData.description}/>
+            <AppPreview screenshotsUrls={appData.screenshotUrls}/>
+
 
             {line()}
 

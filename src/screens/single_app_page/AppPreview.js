@@ -4,6 +4,8 @@ import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 
 export function AppPreview({screenshotsUrls}) {
 
+    if(!screenshotsUrls) return null;
+
     return (
         <View style={{width: '100%'}}>
             <Text style={{
