@@ -8,6 +8,7 @@ import {AppInfo} from "./basic_info_displays";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {AppPreview} from "./AppPreview";
 import {AppDescription} from "./AppDescription";
+import {AppReviews} from "./Reviews";
 
 
 const line = () => {
@@ -26,7 +27,7 @@ export default function SingleApp({app}) {
 
     const navigation = useNavigation();
     const appData = app ?? navigation.getState().routes[1].params.params.app;
-    const image = appData.artworkUrl512
+    const image = appData.artworkUrl512l;
 
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
@@ -40,16 +41,15 @@ export default function SingleApp({app}) {
 
             {line()}
 
-
             <AppDescription description={appData.description}/>
-
 
             {line()}
 
             <AppPreview screenshotsUrls={appData.screenshotUrls}/>
 
-
             {line()}
+
+            <AppReviews appData={appData}/>
 
             <View style={{margin: 50}}/>
         </ScrollView>
