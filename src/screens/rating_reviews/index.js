@@ -8,7 +8,7 @@ import {ReviewCard} from "./ReviewCard";
 
 const renderItem = (item) => {
     const review = item.item;
-    return <ReviewCard review={review}/>
+    return <ReviewCard review={review} canExpand={true}/>
 }
 
 export default function RatingsPage({reviewData}) {
