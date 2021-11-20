@@ -9,19 +9,9 @@ import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {AppPreview} from "./AppPreview";
 import {AppDescription} from "./AppDescription";
 import {AppReviews} from "./Reviews";
+import {Line} from "../../components/Line";
 
 
-const line = () => {
-    return (
-        <View style={{
-            width: '100%',
-            height: 2,
-            backgroundColor: colors.dark_blue,
-            marginTop: 10,
-            marginBottom: 10
-        }}/>
-    )
-}
 
 export default function SingleApp({app}) {
 
@@ -39,15 +29,15 @@ export default function SingleApp({app}) {
             />
             <AppInfo appData={appData}/>
 
-            {line()}
+            <Line/>
 
             <AppDescription description={appData.description}/>
 
-            {line()}
+            <Line/>
 
             <AppPreview screenshotsUrls={appData.screenshotUrls}/>
 
-            {line()}
+            <Line/>
 
             <AppReviews appData={appData}/>
 
