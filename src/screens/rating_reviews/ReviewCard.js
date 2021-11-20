@@ -91,14 +91,14 @@ export function ReviewCard({review, size, canExpand}) {
                     onPress={() => {
                         LayoutAnimation.configureNext(
                             LayoutAnimation.create(
-                                500,
+                                250,
                                 LayoutAnimation.Types.easeInEaseOut,
                             )
                         );
                         setExpanded(!isExpanded)
                     }}
                     style={{marginTop: 5, right: 5, alignSelf: 'flex-end'}}>
-                    <Text style={{color: colors.red, fontSize: 20}}>See More</Text>
+                    <Text style={{color: colors.red, fontSize: 20}}>See {isExpanded ? 'Less' : 'More'}</Text>
                 </TouchableOpacity>
             </View>
 
