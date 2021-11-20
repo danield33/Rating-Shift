@@ -21,7 +21,10 @@ export function AppSizeDisplay({appSizeBytes}) {
         <View style={{alignItems: 'center'}}>
             <Text style={{color: colors.pink, fontSize: 15, fontWeight: '600'}}>Size</Text>
             <Ionicons name={'file-tray-stacked-outline'} size={35} color={'white'}/>
-            <Text style={{color: colors.aqua, fontSize: 15, fontWeight: '700'}}>{formatBytes(appSizeBytes, 1)}</Text>
+            <Text
+                adjustsFontSizeToFit={true}
+                numberOfLines={1}
+                style={{color: colors.aqua, fontSize: 15, fontWeight: '700'}}>{formatBytes(appSizeBytes, 1)}</Text>
         </View>
     );
 };

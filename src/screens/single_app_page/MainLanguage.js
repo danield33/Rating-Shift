@@ -13,11 +13,14 @@ export function MainLanguageDisp({mainLanguage, additionalLanguagesSize}) {
                 marginTop: 6,
                 marginBottom: 6
             }}>{mainLanguage.toUpperCase()}</Text>
-            <Text style={{
-                fontSize: 15,
-                fontWeight: '600',
-                color: colors.aqua
-            }}>+{additionalLanguagesSize} More</Text>
+            <Text
+                adjustsFontSizeToFit={true}
+                numberOfLines={1}
+                style={{
+                    fontSize: 15,
+                    fontWeight: '600',
+                    color: colors.aqua
+                }}>+{additionalLanguagesSize} More</Text>
         </View>
     );
 };
