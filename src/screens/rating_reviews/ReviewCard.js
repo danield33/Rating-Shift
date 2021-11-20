@@ -1,33 +1,24 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Animated, Text, TouchableOpacity, View, LayoutAnimation} from 'react-native';
+import React, {useState} from 'react';
+import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
 import {Ionicons} from "@expo/vector-icons";
 
 export function ReviewCard({review, size, canExpand}) {
 
-    const startingHeight = 150;
-    const animatedHeight = useRef(new Animated.Value(startingHeight)).current;
     const [isExpanded, setExpanded] = useState(false);
-    const [fullHeight, setFullHeight] = useState(startingHeight);
 
-    useEffect(() => {
-        Animated.spring(animatedHeight, {
-            friction: 500,
-            toValue: isExpanded ? fullHeight : startingHeight,
-            useNativeDriver: false
-        }).start();
-    }, [isExpanded])
-
-    const onTextLayout = (event) => {
-        let {height} = event.nativeEvent.layout;
-        height = Math.floor(height) + 40;
-        const titleHeight = Math.abs(startingHeight - height);
-        console.log(height, startingHeight - titleHeight)
-        if (height > titleHeight) {
-            setFullHeight(height + titleHeight);
-        }
+    const toggleExpanded = () => {
+        if(!canExpand) return;
+        LayoutAnimation.configureNext(
+            LayoutAnimation.create(
+                250,
+                LayoutAnimation.Types.easeInEaseOut,
+            )
+        );
+        setExpanded(!isExpanded)
     }
+
 
     return (
 
@@ -39,7 +30,6 @@ export function ReviewCard({review, size, canExpand}) {
                 margin: 5,
                 borderRadius: 10,
                 overflow: 'hidden',
-                flex: canExpand ? 1 : undefined,
             }}>
 
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -75,28 +65,18 @@ export function ReviewCard({review, size, canExpand}) {
 
             </View>
 
-            <View style={{flex: 1}}
-                  onLayout={onTextLayout}>
-                <Text numberOfLines={canExpand ? isExpanded ? undefined : 3 : 3}
-                      ellipsizeMode={'tail'}
-                      style={{
-                          color: 'white',
-                          fontSize: 15,
-                          fontWeight: '500'
-                      }}>{review.content}</Text>
-            </View>
+
+            <Text numberOfLines={canExpand ? isExpanded ? undefined : 3 : 3}
+                  ellipsizeMode={'tail'}
+                  style={{
+                      color: 'white',
+                      fontSize: 15,
+                      fontWeight: '500'
+                  }}>{review.content}</Text>
 
             <View style={{justifyContent: 'flex-end'}}>
                 <TouchableOpacity
-                    onPress={() => {
-                        LayoutAnimation.configureNext(
-                            LayoutAnimation.create(
-                                250,
-                                LayoutAnimation.Types.easeInEaseOut,
-                            )
-                        );
-                        setExpanded(!isExpanded)
-                    }}
+                    onPress={toggleExpanded}
                     style={{marginTop: 5, right: 5, alignSelf: 'flex-end'}}>
                     <Text style={{color: colors.red, fontSize: 20}}>See {isExpanded ? 'Less' : 'More'}</Text>
                 </TouchableOpacity>
