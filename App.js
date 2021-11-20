@@ -1,33 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useEffect} from 'react';
-import {LogBox, Text, View} from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import {LogBox} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
 import {Apps, SingleApp} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews'])
 
-function MainPage(){
-    return(
+function MainPage() {
+    return (
         <Tab.Navigator
             screenOptions={{
                 headerStyle: {
                     backgroundColor: colors.dark_blue,
                 },
-                tabBarStyle:{
+                tabBarStyle: {
                     backgroundColor: colors.dark_blue
                 },
-                tabBarLabelStyle:{
+                tabBarLabelStyle: {
                     fontSize: 15,
                     color: colors.red
                 },
-                headerTitleStyle:{
+                headerTitleStyle: {
                     color: colors.aqua
                 }
 
@@ -40,23 +39,33 @@ function MainPage(){
 export default function App() {
 
 
-    return(
+    return (
 
-          <NavigationContainer>
-              <Stack.Navigator>
-                  <Stack.Screen name={'Main Page'}
-                                component={MainPage}
-                                options={{headerShown: false}}/>
-                  <Stack.Screen name={'Single App'}
-                                component={SingleApp}
-                                options={{headerShown: false}}/>
-              </Stack.Navigator>
-          </NavigationContainer>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name={'Main Page'}
+                              component={MainPage}
+                              options={{headerShown: false}}/>
+                <Stack.Screen name={'Single App'}
+                              component={SingleApp}
+                              options={{
+                                  headerShown: true, headerTitle: '',
+                                  headerBackTitle: 'Back',
+                                  headerBackTitleStyle: {
+                                      color: 'white'
+                                  },
+                                  headerStyle: {
+                                      backgroundColor: colors.dark_blue
+                                  }
+                              }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
 
-  )
+    )
 }
 
-function iconRender(name, color, size=25){
+function iconRender(name, color, size = 25) {
     return () => (
         <Ionicons name={name} color={color} size={size}/>
     )
