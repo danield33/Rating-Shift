@@ -1,1 +1,1 @@
-export {default as Apps} from './app/index';
+export {default as Apps} from './apps_page/index';
