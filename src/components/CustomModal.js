@@ -13,7 +13,7 @@ export function CustomModal({children, onClose, isOpen, iconColor}) {
                     <Ionicons name={"close"}
                               style={{position: 'absolute', left: 20, top: 40, padding: 10, zIndex: 3}}
                               size={24}
-                              color={iconColor || colors.dark_blue}
+                              color={iconColor || colors.red}
                               onPress={onClose}/>
                     {children}
                 </View>
