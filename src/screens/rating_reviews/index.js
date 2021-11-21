@@ -1,7 +1,6 @@
 import React from 'react';
 import {FlatList, View} from 'react-native';
 import {Styles} from "../../global";
-import {useNavigation} from "@react-navigation/native";
 import {ReviewHeader} from "./ReviewHeader";
 import {Line} from "../../components/Line";
 import {ReviewCard} from "./ReviewCard";
@@ -10,7 +9,6 @@ import {useSelector} from "react-redux";
 
 export default function RatingsPage({reviewData, allExpanded, showHeader=true}) {
     const reviewsSel = useSelector(state => state.currentReviews)
-    const navigation = useNavigation();
     const reviews = reviewData ?? reviewsSel;
 
     const renderItem = (item) => {

@@ -4,7 +4,7 @@ import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
 import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
-import RatingsPage from "./index";
+import {RatingsPage} from "../index";
 
 export function ReviewCard({review, size, canExpand, defaultExpanded=false}) {
 
