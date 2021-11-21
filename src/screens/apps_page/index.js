@@ -5,6 +5,8 @@ import RShift from '../../firebase';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
 import {SliderContainer} from "./SliderContainer";
+import colors from "../../global/styles/colors";
+import {LargeCategoryImage} from "./LargeCategoryImage";
 
 
 export default function Apps() {
@@ -65,8 +67,8 @@ export default function Apps() {
                         showsVerticalScrollIndicator={false}>
                 {
                     headerApps.length ?
-                        <LargeAppDisplay apps={headerApps}/>
-                        : <ActivityIndicator size={'large'}/>
+                        <LargeAppDisplay apps={headerApps} renderItem={(item, size) => <LargeCategoryImage appList={item} width={size}/>}/>
+                        : <ActivityIndicator size={'large'} color={colors.red}/>
                 }
 
                 <SliderContainer apps={freeApps} title={'Top Free Apps'}/>
