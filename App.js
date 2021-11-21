@@ -6,6 +6,8 @@ import {Apps, SingleApp, RatingsPage, AppsList} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
+import store from "./src/global/redux/store";
+import {Provider} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -41,43 +43,45 @@ export default function App() {
 
     return (
 
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{
-                headerShown: true,
-                headerBackTitle: 'Back',
-                headerTitleStyle: {
-                    color: colors.aqua
-                },
-                headerBackTitleStyle: {
-                    color: 'white'
-                },
-                headerStyle: {
-                    backgroundColor: colors.dark_blue
-                }
-            }}>
-                <Stack.Screen name={'Main Page'}
-                              component={MainPage}
-                              options={{headerShown: false}}/>
-                <Stack.Screen name={'Single App'}
-                              component={SingleApp}
-                              options={{
-                                  headerTitle: '',
-                              }}
-                />
-                <Stack.Screen name={'RatingsReviews'}
-                              component={RatingsPage}
-                              options={{
-                                  headerTitle: 'Ratings & Reviews',
-                              }}
-                />
-                <Stack.Screen name={'AppsList'}
-                              component={AppsList}
-                              options={{
-                                  headerTitle: ''
-                              }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{
+                    headerShown: true,
+                    headerBackTitle: 'Back',
+                    headerTitleStyle: {
+                        color: colors.aqua
+                    },
+                    headerBackTitleStyle: {
+                        color: 'white'
+                    },
+                    headerStyle: {
+                        backgroundColor: colors.dark_blue
+                    }
+                }}>
+                    <Stack.Screen name={'Main Page'}
+                                  component={MainPage}
+                                  options={{headerShown: false}}/>
+                    <Stack.Screen name={'Single App'}
+                                  component={SingleApp}
+                                  options={{
+                                      headerTitle: '',
+                                  }}
+                    />
+                    <Stack.Screen name={'RatingsReviews'}
+                                  component={RatingsPage}
+                                  options={{
+                                      headerTitle: 'Ratings & Reviews',
+                                  }}
+                    />
+                    <Stack.Screen name={'AppsList'}
+                                  component={AppsList}
+                                  options={{
+                                      headerTitle: ''
+                                  }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
 
     )
 }
