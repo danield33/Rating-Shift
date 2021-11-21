@@ -24,7 +24,7 @@ module.exports = class FTMatters {
         return this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
     }
 
-    async query(options, body) {
+    async query(options, body) {//TODO create some kind of api cache
         // return Query;
         return new Promise(resolve => {
             fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
