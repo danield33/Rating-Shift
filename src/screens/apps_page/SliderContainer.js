@@ -3,10 +3,15 @@ import {Button, Text, View, TouchableOpacity} from 'react-native';
 import colors from "../../global/styles/colors";
 import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import {useNavigation} from "@react-navigation/native";
+import {connect} from 'react-redux';
+import {bindActionCreators} from "redux";
+import {setApps} from "../../global/redux/actions/AppsListActions";
 
-export function SliderContainer({apps, title}) {
+
+function SliderContainer({apps, title, setApps, appList}) {
     const navigation = useNavigation();
 
+    console.log(appList, 'appList', 1)
     return (
         <View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -15,7 +20,10 @@ export function SliderContainer({apps, title}) {
                     fontSize: 25,
                     padding: 3
                 }}>{title}</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("AppsList")}>
+                <TouchableOpacity onPress={() => {
+                    setApps(apps);
+                    navigation.navigate("AppsList");
+                }}>
                     <Text style={{fontSize: 20, fontWeight: '700', color: colors.pink}}>See All</Text>
                 </TouchableOpacity>
             </View>
@@ -23,3 +31,17 @@ export function SliderContainer({apps, title}) {
         </View>
     )
 }
+
+const mapStateToProps = (state) => {
+    // console.log(state)
+    const {currentApps} = state;
+    return {currentApps};
+}
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        setApps,
+    }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SliderContainer);

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import RShift from '../../firebase';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
-import {SliderContainer} from "./SliderContainer";
+import SliderContainer from "./SliderContainer";
 
 export default function Apps() {
 
