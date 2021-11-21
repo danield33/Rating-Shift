@@ -10,7 +10,7 @@ import {Line} from "../../components/Line";
 
 const renderReview = (reviewItem, size) => {
     const review = reviewItem.item;
-    return <ReviewCard review={review} size={size}/>
+    return <ReviewCard review={review} size={size} canExpand={false}/>
 }
 
 export function AppReviews({appID, reviewObj}) {
