@@ -2,11 +2,11 @@ import * as React from 'react';
 import {View, FlatList} from 'react-native';
 import {Styles} from "../../global";
 import {useSelector} from "react-redux";
-import {SideAppSelector} from "../../components/SideAppSelector";
+import {AppInList} from "./AppInList";
 
 const renderApp = (appItem) => {
     const app = appItem.item;
-    return <SideAppSelector app={app}/>
+    return <AppInList app={app}/>
 }
 
 export default function AppsList() {
@@ -18,9 +18,10 @@ export default function AppsList() {
     return (
         <View style={Styles.background}>
             <FlatList data={apps}
+                      indicatorStyle={'white'}
+                      style={{flex: 1, width: '100%'}}
                       renderItem={renderApp}
                       keyExtractor={(item, index) => index.toString()}
-
             />
         </View>
     );
