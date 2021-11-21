@@ -30,8 +30,9 @@ export function ReviewCard({review, size, canExpand, defaultExpanded=false}) {
         <>
 
             <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
-                <View style={{margin: 20}}/>
-                <RatingsPage reviewData={{reviews: [review]}} allExpanded={true} showHeader={false}/>
+                <View style={{padding: 20, flex: 1, width: '100%'}}>
+                    <RatingsPage reviewData={{reviews: [review]}} allExpanded={true} showHeader={false} />
+                </View>
             </CustomModal>
 
             <View

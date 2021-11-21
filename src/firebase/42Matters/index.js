@@ -5,7 +5,7 @@ module.exports = class FTMatters {
 
     #type = 'ios/apps';
     baseURL = 'https://data.42matters.com/api/';
-    #token = '168485c1a07f83261eb76ca727665ba27b5a51d9';
+    #token = '436fe0e7c686e3314117b171e1b37dcf27d56189';
     genres = IOSGenres;
 
     async getTopGenreApps(genreID) {
@@ -21,40 +21,43 @@ module.exports = class FTMatters {
     }
 
     async top(options) {
-        return TopApps;//this.getData('top_appstore_charts.json')//`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
+        return this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
     }
 
     async query(options, body) {
-        return Query
-        // new Promise(resolve => {
-        //     fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
-        //         access_token: this.#token,
-        //         ...options,
-        //     }), {
-        //         method: 'post',
-        //         body: JSON.stringify(body),
-        //         headers: {'Content-Type': 'application/json'}
-        //     }).then(async res => resolve(await res.json())).catch(console.error);
-        // })
+        return Query;
+        return new Promise(resolve => {
+            fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
+                access_token: this.#token,
+                ...options,
+            }), {
+                method: 'post',
+                body: JSON.stringify(body),
+                headers: {'Content-Type': 'application/json'}
+            }).then(async res => resolve(await res.json())).catch(console.error);
+        })
     }
 
     async lookup(options) {
-        return Lookup//this.getData(`${this.baseURL}v2.0/${this.type}/lookup.json?`, options)
+        return this.getData(`${this.baseURL}v2.0/${this.type}/lookup.json?`, options)
     }
 
     async reviews(options) {
-        return Reviews//this.getData(`${this.baseURL}v4.0/${this.type}/reviews.json?`, options)
+        return this.getData(`${this.baseURL}v4.0/${this.type}/reviews.json?`, options)
     }
 
     async search(options) {
         return Search//this.getData(`${this.baseURL}v2.0/${this.type}/search.json?`, options);
     }
 
-    getData(url, options) {// new Promise(resolve => {
-        fetch(url + new URLSearchParams({
-            access_token: this.#token,
-            ...options
-        })).then(async res => resolve(await res.json()));
+    getData(url, options) {
+
+        return new Promise(resolve => {
+            fetch(url + new URLSearchParams({
+                access_token: this.#token,
+                ...options
+            })).then(async res => resolve(await res.json()));
+        })
     }
 
 

@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
 import {setReviews} from "../../global/redux/actions/AppListActions";
 
 
-export function ReviewHeader({reviews, hideButton=false}) {
+export function ReviewHeader({reviews, appData, hideButton=false}) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
@@ -31,7 +31,7 @@ export function ReviewHeader({reviews, hideButton=false}) {
                         fontSize: 40,
                         fontWeight: 'bold',
                         color: colors.aqua,
-                    }}>{(Math.round(reviews.averageUserRating*10)/10).toString()}</Text>
+                    }}>{(Math.round(appData.averageUserRating*10)/10).toString()}</Text>
                     <Text style={{
                         fontSize: 15,
                         fontWeight: '600',
@@ -43,7 +43,7 @@ export function ReviewHeader({reviews, hideButton=false}) {
                     color: 'white',
                     fontSize: 15,
                     fontWeight: '600'
-                }}>{Number(reviews.userRatingCount).toLocaleString()} Ratings</Text>
+                }}>{Number(appData.userRatingCount).toLocaleString()} Ratings</Text>
 
             </View>
 
