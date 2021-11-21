@@ -1,9 +1,7 @@
-import {ActivityIndicator, Button, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator, ScrollView, View} from 'react-native';
 import {Styles} from "../../global";
-import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import React, {useEffect, useState} from "react";
 import RShift from '../../firebase';
-import colors from "../../global/styles/colors";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
 import {SliderContainer} from "./SliderContainer";
@@ -71,7 +69,7 @@ export default function Apps() {
                 }
 
                 <SliderContainer apps={freeApps} title={'Top Free Apps'}/>
-                <SliderContainer apps={freeApps} title={'Top Paid Apps'}/>
+                <SliderContainer apps={paidApps} title={'Top Paid Apps'}/>
 
             </ScrollView>
 

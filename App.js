@@ -73,7 +73,7 @@ export default function App() {
                 <Stack.Screen name={'AppsList'}
                               component={AppsList}
                               options={{
-                                  headerTitle: 'None'
+                                  headerTitle: ''
                               }}
                 />
             </Stack.Navigator>
