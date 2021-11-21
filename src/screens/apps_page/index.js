@@ -6,22 +6,7 @@ import RShift from '../../firebase';
 import colors from "../../global/styles/colors";
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
-
-const sliderContainer = (apps, title) => {
-    return (
-        <View style={{}}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{
-                    color: 'white',
-                    fontSize: 25,
-                    padding: 3
-                }}>{title}</Text>
-                <Button title={'See All'} color={colors.pink}/>
-            </View>
-            <SideAppSelectorList apps={apps}/>
-        </View>
-    )
-}
+import {SliderContainer} from "./SliderContainer";
 
 export default function Apps() {
 
@@ -85,8 +70,9 @@ export default function Apps() {
                         : <ActivityIndicator size={'large'}/>
                 }
 
-                {sliderContainer(freeApps, 'Top Free Apps')}
-                {sliderContainer(paidApps, 'Top Paid Apps')}
+                <SliderContainer apps={freeApps} title={'Top Free Apps'}/>
+                <SliderContainer apps={freeApps} title={'Top Paid Apps'}/>
+
             </ScrollView>
 
         </View>
