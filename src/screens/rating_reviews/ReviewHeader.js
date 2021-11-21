@@ -5,14 +5,15 @@ import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {setReviews} from "../../global/redux/actions/AppListActions";
+import {useSelector} from "react-redux";
 
 
 export function ReviewHeader({reviews, appData, hideButton=false}) {
     const navigation = useNavigation();
+    const appDataStore = useSelector(state => state.currentlyViewing.item);
+    appData = appData || appDataStore;
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
-
-    console.log(appData)
 
     return (
         <View>
@@ -20,6 +21,7 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
                     <Button title={'See More'} color={colors.red} onPress={() => {
+                        console.log(reviews)
                         dispatch(setReviews(reviews));
                         navigation.navigate('RatingsReviews');
                     }}/>
@@ -32,7 +34,7 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
                         fontSize: 40,
                         fontWeight: 'bold',
                         color: colors.aqua,
-                    }}>{(Math.round(appData.averageUserRating*10)/10).toString()}</Text>
+                    }}>{(Math.round(appData?.averageUserRating*10)/10).toString()}</Text>
                     <Text style={{
                         fontSize: 15,
                         fontWeight: '600',
@@ -44,7 +46,7 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
                     color: 'white',
                     fontSize: 15,
                     fontWeight: '600'
-                }}>{Number(appData.userRatingCount).toLocaleString()} Ratings</Text>
+                }}>{Number(appData?.userRatingCount).toLocaleString()} Ratings</Text>
 
             </View>
 

@@ -25,7 +25,6 @@ module.exports = class FTMatters {
     }
 
     async query(options, body) {//TODO create some kind of api cache
-        // return Query;
         return new Promise(resolve => {
             fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
                 access_token: this.#token,
