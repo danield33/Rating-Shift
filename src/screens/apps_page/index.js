@@ -6,6 +6,7 @@ import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
 import {SliderContainer} from "./SliderContainer";
 
+
 export default function Apps() {
 
     const [freeApps, setFreeApps] = useState([]);

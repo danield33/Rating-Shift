@@ -10,13 +10,12 @@ import {AppPreview} from "./AppPreview";
 import {AppDescription} from "./AppDescription";
 import {AppReviews} from "./Reviews";
 import {Line} from "../../components/Line";
-
+import {useSelector} from "react-redux";
 
 
 export default function SingleApp({app}) {
-
-    const navigation = useNavigation();
-    const appData = app ?? navigation.getState().routes[1].params.params.app;
+    const viewingApp = useSelector(state => state.currentlyViewing.item);
+    const appData = app ?? viewingApp;
     const image = appData.artworkUrl512;
 
     return (

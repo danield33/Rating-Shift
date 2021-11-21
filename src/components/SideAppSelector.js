@@ -1,16 +1,20 @@
-import React, {use} from 'react';
+import React from 'react';
 import {Dimensions, Image, Text, View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types'
 import {useNavigation} from "@react-navigation/native";
+import {useDispatch} from "react-redux";
+import {viewApp} from "../global/redux/actions/AppListActions";
 
 export function SideAppSelector({app}) {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     return (
         <TouchableOpacity style={{borderRadius: 10, width: Dimensions.get('window').width - 40, padding: 5}}
-                          onPress={() => navigation.navigate('Single App', {
-                              params: {app: app}
-                          })}>
+                          onPress={() => {
+                              dispatch(viewApp(app));
+                              navigation.navigate('Single App');
+                          }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image source={{uri: app.artworkUrl512}} style={{width: 50, height: 50, borderRadius: 10}}/>
                 <Text adjustsFontSizeToFit={true}

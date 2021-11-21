@@ -5,13 +5,13 @@ import {useNavigation} from "@react-navigation/native";
 import {ReviewHeader} from "./ReviewHeader";
 import {Line} from "../../components/Line";
 import {ReviewCard} from "./ReviewCard";
-
+import {useSelector} from "react-redux";
 
 
 export default function RatingsPage({reviewData, allExpanded, showHeader=true}) {
-
+    const reviewsSel = useSelector(state => state.currentReviews)
     const navigation = useNavigation();
-    const reviews = reviewData ?? navigation.getState().routes[2].params.params.reviews;
+    const reviews = reviewData ?? reviewsSel;
 
     const renderItem = (item) => {
         const review = item.item;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import colors from "../../global/styles/colors";
 import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import {useNavigation} from "@react-navigation/native";
@@ -8,7 +8,7 @@ import {setApps} from "../../global/redux/actions/AppListActions";
 
 export function SliderContainer({apps, title}) {
     const dispatch = useDispatch();
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     const onPress = () => {
         dispatch(setApps(apps));

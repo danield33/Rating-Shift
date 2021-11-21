@@ -9,3 +9,13 @@ export const appendApps = apps => ({
     type: actionTypes.APPEND_APPS,
     payload: apps
 })
+
+export const viewApp = app => ({
+    type: actionTypes.VIEW_APP,
+    payload: app
+})
+
+export const setReviews = reviews => ({
+    type: actionTypes.SET_REVIEWS,
+    payload: reviews
+})

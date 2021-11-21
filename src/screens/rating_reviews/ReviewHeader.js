@@ -3,12 +3,13 @@ import {Button, Text, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
-
+import {useDispatch} from "react-redux";
+import {setReviews} from "../../global/redux/actions/AppListActions";
 
 
 export function ReviewHeader({reviews, hideButton=false}) {
     const navigation = useNavigation();
-
+    const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
 
     return (
@@ -16,9 +17,11 @@ export function ReviewHeader({reviews, hideButton=false}) {
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
-                    <Button title={'See More'} color={colors.red} onPress={() => navigation.navigate('RatingsReviews', {
-                        params: {reviews: reviews}
-                    })}/>
+                    <Button title={'See More'} color={colors.red} onPress={() => {
+                        console.log(reviews, 1)
+                        dispatch(setReviews(reviews));
+                        navigation.navigate('RatingsReviews');
+                    }}/>
                 }
 
             </View>

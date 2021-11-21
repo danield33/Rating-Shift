@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Dimensions, Image, Text, View} from 'react-native';
 import colors from "../global/styles/colors";
 import {HorizontalFlatList} from "./HorizontalFlatList";
 import {SideAppSelector} from "./SideAppSelector";
