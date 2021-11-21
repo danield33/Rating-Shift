@@ -21,10 +21,11 @@ module.exports = class FTMatters {
     }
 
     async top(options) {
-        return this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
+        return TopApps//this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
     }
 
     async query(options, body) {//TODO create some kind of api cache
+        return Query;
         return new Promise(resolve => {
             fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
                 access_token: this.#token,
@@ -42,7 +43,7 @@ module.exports = class FTMatters {
     }
 
     async reviews(options) {
-        return this.getData(`${this.baseURL}v4.0/${this.type}/reviews.json?`, options)
+        return Reviews//this.getData(`${this.baseURL}v4.0/${this.type}/reviews.json?`, options)
     }
 
     async search(options) {

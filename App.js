@@ -8,6 +8,7 @@ import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
 import store from "./src/global/redux/store";
 import {Provider} from 'react-redux';
+import Account from "./src/screens/account";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,7 +23,7 @@ function MainPage() {
                     backgroundColor: colors.dark_blue,
                 },
                 tabBarStyle: {
-                    backgroundColor: colors.dark_blue
+                    backgroundColor: colors.dark_blue,
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
@@ -30,10 +31,25 @@ function MainPage() {
                 },
                 headerTitleStyle: {
                     color: colors.aqua
+                },
+                tabsStyle: {
+                    tabBarSelectedButtonColor: 'black',
+                    tabBarButtonColor: 'white',
+                    tabBarBackgroundColor: '#fff',
+                },
+                tabBarOptions: {
+                    activeTintColor: 'red'
                 }
-
             }}>
-            <Tab.Screen name={'Apps'} component={Apps} options={{tabBarIcon: iconRender('layers', colors.aqua, 30)}}/>
+            <Tab.Screen name={'Apps'} component={Apps}
+                        options={{
+                            tabBarActiveTintColor: colors.aqua,
+                            tabBarIcon: ({color}) => iconRender('layers', color, 30)()}}/>
+            <Tab.Screen name={'Account'} component={Account}
+                        options={{
+                            tabBarActiveTintColor: colors.aqua,
+                            tabBarIcon: ({color}) => iconRender('person-circle-outline', color, 30)()}}
+            />
         </Tab.Navigator>
     )
 }
@@ -87,6 +103,7 @@ export default function App() {
 }
 
 function iconRender(name, color, size = 25) {
+    console.log(color)
     return () => (
         <Ionicons name={name} color={color} size={size}/>
     )
