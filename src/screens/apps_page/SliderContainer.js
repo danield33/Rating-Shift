@@ -4,7 +4,7 @@ import colors from "../../global/styles/colors";
 import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
-import {setApps} from "../../global/redux/actions/AppListReducer";
+import {setApps} from "../../global/redux/actions/AppListActions";
 
 export function SliderContainer({apps, title}) {
     const dispatch = useDispatch();
