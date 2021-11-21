@@ -8,8 +8,9 @@ export function LargeCategoryImage({appList, width}) {
     const item = appList.item.results[0];
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const url = item.artworkUrl512;
+    const url = item?.artworkUrl512;
 
+    if(!url) return null;
     const onPress = () => {
         dispatch(setApps(appList.item.results));
         navigation.navigate('AppsList')

@@ -5,7 +5,7 @@ module.exports = class FTMatters {
 
     #type = 'ios/apps';
     baseURL = 'https://data.42matters.com/api/';
-    #token = '436fe0e7c686e3314117b171e1b37dcf27d56189';
+    #token = 'cc0966d239a6da778649d22b7cd4f8aa88b77f80';
     genres = IOSGenres;
 
     async getTopGenreApps(genreID) {
@@ -14,7 +14,7 @@ module.exports = class FTMatters {
                 query_params: {
                     from: 0,
                     sort: 'score',
-                    cat_keys: [this.genres[genreID]]
+                    primaryGenreId: genreID
                 }
             }
         })
@@ -25,7 +25,7 @@ module.exports = class FTMatters {
     }
 
     async query(options, body) {
-        return Query;
+        // return Query;
         return new Promise(resolve => {
             fetch(`${this.baseURL}v2.0/${this.type}/query.json?` + new URLSearchParams({
                 access_token: this.#token,

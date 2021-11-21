@@ -12,13 +12,14 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);
 
+    console.log(appData)
+
     return (
         <View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
                     <Button title={'See More'} color={colors.red} onPress={() => {
-                        console.log(reviews, 1)
                         dispatch(setReviews(reviews));
                         navigation.navigate('RatingsReviews');
                     }}/>

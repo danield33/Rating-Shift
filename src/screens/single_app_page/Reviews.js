@@ -37,7 +37,7 @@ export function AppReviews({appData, reviewObj}) {
     return (
         <View style={{width: '100%'}}>
 
-            <ReviewHeader reviews={reviews} appData={appData}/>
+            <ReviewHeader reviews={reviews} appData={appData} hideButton={reviews === 402}/>
 
             <View>
                 <Line/>
