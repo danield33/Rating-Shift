@@ -11,7 +11,9 @@ const renderApp = (appItem) => {
 
 export default function AppsList() {
 
-    const apps = useSelector(state => state.currentApps);
+    const apps = useSelector(state => {
+        return state.currentApps
+    });
 
     return (
         <View style={Styles.background}>

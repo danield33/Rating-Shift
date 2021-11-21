@@ -9,18 +9,19 @@ const appReducer = (state=INITIAL_STATE, action) => {
 
     switch (action.type) {
         case actionTypes.SET_APPS:{
-            let {currentApps} = state;
+            let {currentApps, ...restOfState} = state;
             currentApps = action.payload;
-            return {currentApps};
+            return {currentApps, ...restOfState};
         }
-
         case actionTypes.APPEND_APPS:{
-            const {currentApps} = state;
+            const {currentApps, ...restOfState} = state;
             const newApps = currentApps.concat(action.payload);
-            return {currentApps: newApps};
+            return {currentApps: newApps, ...restOfState};
         }
         case actionTypes.VIEW_APP:{
-            return {currentlyViewing: {item: action.payload}}
+            let {currentlyViewing, ...restOfState} = state;
+            currentlyViewing = {item: action.payload}
+            return {currentlyViewing, ...restOfState}
         }
         case actionTypes.SET_REVIEWS:{
             let {currentReviews, ...restOfState} = state;
