@@ -21,7 +21,6 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
                     <Button title={'See More'} color={colors.red} onPress={() => {
-                        console.log(reviews)
                         dispatch(setReviews(reviews));
                         navigation.navigate('RatingsReviews');
                     }}/>
