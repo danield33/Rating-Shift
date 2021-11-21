@@ -1,22 +1,20 @@
 import * as React from 'react';
 import {View, FlatList} from 'react-native';
 import {Styles} from "../../global";
-import {connect} from 'react-redux';
 import {useNavigation} from "@react-navigation/native";
 
 const renderApp = (appItem) => {
     console.log(appItem);
 }
 
-function AppsList({...props}) {
+export default function AppsList({apps}) {
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
+    console.log(navigation.getState())
 
-    console.log(props, 1)
-    return null;
     return (
         <View style={Styles.background}>
-            <FlatList data={currentApps}
+            <FlatList data={apps}
                       renderItem={renderApp}
                       keyExtractor={(item, index) => index.toString()}
 
@@ -24,10 +22,3 @@ function AppsList({...props}) {
         </View>
     );
 };
-
-const mapStateToProps = (state) => {
-    const {currentApps} = state;
-    return {currentApps};
-}
-
-export default connect(mapStateToProps)(AppsList);

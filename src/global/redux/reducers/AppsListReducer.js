@@ -8,8 +8,9 @@ const appReducer = (state=INITIAL_STATE, action) => {
     switch(action.type){
         case 'SET_APPS':{
             let {currentApps} = state;
-            [].splice.apply(currentApps, [0, currentApps.length].concat(action.payload))
-            return {currentApps};
+            currentApps = action.payload
+            const newState = {currentApps};
+            return newState;
         }
         case 'APPEND_APPS':{
             const {currentApps} = state;
