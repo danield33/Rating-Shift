@@ -21,7 +21,7 @@ export default function RatingsPage({reviewData, allExpanded, showHeader=true}) 
     return (
         <View style={Styles.background}>
 
-            {showHeader ?(
+            {showHeader ? (
                 <>
                     <View style={{width: '100%'}}>
                         <ReviewHeader reviews={reviews} hideButton={true}/>
