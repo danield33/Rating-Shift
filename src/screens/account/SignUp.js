@@ -146,7 +146,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                         placeholder={'Confirm Password'}
                         secureTextEntry
                     />
-                    {errMessages.confirmPassword && <Text>{errMessages.confirmPassword}</Text>}
+                    {errMessages.confirmPass && <Text>{errMessages.confirmPass}</Text>}
                 </>
             </If>
 
