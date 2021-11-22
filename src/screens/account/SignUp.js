@@ -7,43 +7,76 @@ import {TextInputValue} from "../../components/TextInputValue";
 import * as yup from 'yup';
 import {FlatButton} from "../../components/FlatButton";
 
-const yupSchema = yup.object().shape({
-    username: yup.string().required("Please input a username").min(3),
-    password: yup.string().required("Please input a password").min(6),
-});
+const input = {
+    username: '',
+    password: '',
+    confirmPass: ''
+}
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const verification = {
+    username: (text) => {
+        text = text.trim();
+        const b = text.length >= 3 && text.length <= 15;
+        if(b)
+            return b;
+        return "Input a name between 3 and 15 characters"
+    },
+    email: (text) => {
+        const b = emailRegex.test(text.trim());
+        if(b)
+            return b;
+        return "Input a valid email"
+    },
+    password: (text) => {
+        const b = text.length >= 6;
+        if(b)
+            return b;
+        return "Input a password greater than 6 characters"
+    },
+    confirmPass: (text, text2) => {
+        const b = text === text2;
+        if(b)
+            return b;
+        return "Passwords do not match"
+    }
+}
 
 export function SignUp({confirmPassword, onSubmit}) {
+
 
     const [errMessages, setErrMessages] = useState({
         username: null,
         password: null,
-        confirmPassword: null
+        email: null,
+        confirmPass: null
     })
 
-    const input = {
-        username: '',
-        password: '',
-        // confirmPass: ''
-    }
+
     let confirmPassSchema;
 
     useEffect(() => {
         if(confirmPassword)
             confirmPassSchema = yup.string().required("Please confirm your password").min(6)
+        return () => {
+            input.username = '';
+            input.password = '';
+            if(input.email)
+                input.email = null
+            if(input.confirmPass)
+                input.confirmPass = null;
+        }
     }, [])
 
     const textChange = (inputKey) => {
         return (text) => {
             input[inputKey] = text;
-            confirmPassSchema?.validate(input.confirmPass).catch(err => {
-                errMessages.confirmPassword = err.message
-                setErrMessages(errMessages)
-            })
-            yupSchema.validate(input)
-                .catch(err => {
-                errMessages[err.path] = err.message
-                setErrMessages(errMessages)
-            })
+            const verifMessage = verification[inputKey](text, input.password);
+            if(verifMessage === true){
+                errMessages[inputKey] = true;
+            }else{
+                errMessages[inputKey] = verifMessage
+            }
+            setErrMessages({...errMessages});
         }
     }
 
@@ -66,13 +99,29 @@ export function SignUp({confirmPassword, onSubmit}) {
             <TextInputValue
                 style={styles.textInput}
                 blur={true}
+                placeholder={'Email'}
                 endEditing={true}
-                onSetText={textChange('username')}
-                placeholder={'Username'}
+                onSetText={textChange('email')}
                 autoCorrect={false}
                 autoCapitalize={'none'}
             />
-            {errMessages.username && <Text>{errMessages.username}</Text>}
+            {(errMessages.email !== null || errMessages.email) && <Text>{errMessages.email}</Text>}
+
+            <If can={confirmPassword}>
+                <>
+                    <TextInputValue
+                        style={styles.textInput}
+                        blur={true}
+                        endEditing={true}
+                        onSetText={textChange('username')}
+                        placeholder={'Username'}
+                        autoCorrect={false}
+                        autoCapitalize={'none'}
+                    />
+                    {(errMessages.username !== null || errMessages.username) && <Text>{errMessages.username}</Text>}
+                </>
+            </If>
+
             <TextInputValue
                 style={styles.textInput}
                 blur={true}
@@ -101,7 +150,16 @@ export function SignUp({confirmPassword, onSubmit}) {
                 </>
             </If>
 
-            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}}/>
+            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() =>{
+
+                if(confirmPassword){
+                    if(Object.values(input).some(i => Boolean(i) !== false))
+                        return onSubmit(input);
+                }else{
+                    if(input.username && input.password)
+                        return onSubmit(input);
+                }
+            }}/>
 
         </View>
     );
