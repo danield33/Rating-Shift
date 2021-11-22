@@ -3,6 +3,7 @@ import {Image, TextInput, View, StyleSheet, Text} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
+import {TextInputValue} from "../../components/TextInputValue";
 
 export function SignUp({confirmPassword, onSubmit}) {
 
@@ -23,13 +24,13 @@ export function SignUp({confirmPassword, onSubmit}) {
                 <Image source={{uri: pfp}} style={{height: 100, width: 100, borderRadius: 50}}/>
             </If>
 
-            <TextInput
+            <TextInputValue
                 style={styles.textInput}
                 placeholder={'Username'}
                 autoCorrect={false}
                 autoCapitalize={'none'}
             />
-            <TextInput
+            <TextInputValue
                 style={styles.textInput}
                 autoCorrect={false}
                 autoCapitalize={'none'}
@@ -37,7 +38,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                 secureTextEntry
             />
             <If can={confirmPassword}>
-                <TextInput
+                <TextInputValue
                     style={styles.textInput}
                     autoCorrect={false}
                     autoCapitalize={'none'}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {TextInput} from 'react-native';
 
-export function TextInputValue({...props, endEditing, submitEditing, blur, textChange, onTextChange, onSetText}) {
+export function TextInputValue({endEditing, submitEditing, blur, textChange, onTextChange, onSetText, ...props}) {
 
     let inputText = "";
 
