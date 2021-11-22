@@ -1,7 +1,7 @@
 import {ActivityIndicator, ScrollView, View} from 'react-native';
 import {Styles} from "../../global";
 import React, {useEffect, useState} from "react";
-import RShift from '../../firebase';
+import RShift from '../../database';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
 import {SliderContainer} from "./SliderContainer";

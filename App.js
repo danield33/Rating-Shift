@@ -2,14 +2,14 @@ import React from 'react';
 import {LogBox} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {Apps, SingleApp, RatingsPage, AppsList} from "./src/screens";
+import {Apps, SingleApp, RatingsPage, AppsList, Account} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
 import store from "./src/global/redux/store";
 import {Provider} from 'react-redux';
-import Account from "./src/screens/account";
-
+import firebase from "firebase/compat";
+import User from "./src/database/firebase/collections/User";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -55,7 +55,6 @@ function MainPage() {
 }
 
 export default function App() {
-
 
     return (
 
