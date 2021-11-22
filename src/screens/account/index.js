@@ -17,7 +17,7 @@ export default function Account() {
         <View style={Styles.background}>
 
             <CustomModal isOpen={Boolean(isSigningUp)} onClose={() => setSigningUp(0)}>
-                <SignUp/>
+                <SignUp confirmPassword={isSigningUp-1}/>
             </CustomModal>
 
             <If can={!isLoggedIn}>

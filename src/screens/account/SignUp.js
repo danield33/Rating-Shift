@@ -1,17 +1,24 @@
 import React, {useState} from 'react';
-import {Image, TextInput, View, StyleSheet} from 'react-native';
+import {Image, TextInput, View, StyleSheet, Text} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
 
-export function SignUp() {
+export function SignUp({confirmPassword, onSubmit}) {
 
     const [pfp, setPfp] = useState(null);
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
 
-            <If can={!pfp}>
+
+
+            <If can={!confirmPassword}>
+                <Text style={styles.titleText}>Log In</Text>
+                <Text style={styles.titleText}>Create Account</Text>
+            </If>
+
+            <If can={!pfp && confirmPassword}>
                 <Ionicons name={'person-circle-outline'} size={200} color={'white'}/>
                 <Image source={{uri: pfp}} style={{height: 100, width: 100, borderRadius: 50}}/>
             </If>
@@ -29,13 +36,15 @@ export function SignUp() {
                 placeholder={'Password'}
                 secureTextEntry
             />
-            <TextInput
-                style={styles.textInput}
-                autoCorrect={false}
-                autoCapitalize={'none'}
-                placeholder={'Confirm Password'}
-                secureTextEntry
-            />
+            <If can={confirmPassword}>
+                <TextInput
+                    style={styles.textInput}
+                    autoCorrect={false}
+                    autoCapitalize={'none'}
+                    placeholder={'Confirm Password'}
+                    secureTextEntry
+                />
+            </If>
 
 
         </View>
@@ -52,5 +61,11 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         width: '80%',
         fontSize: 20
+    },
+    titleText: {
+        fontSize: 30,
+        color: colors.aqua,
+        fontWeight: 'bold',
+        bottom: 75
     }
 })
