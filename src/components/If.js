@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {View} from 'react-native';
 
 export function If({can, children}) {
     const childArr = React.Children.toArray(children);
@@ -7,5 +6,4 @@ export function If({can, children}) {
         return childArr[0];
     else if(childArr.length > 1) return childArr[1];
     else return null;
-
-};
+}
