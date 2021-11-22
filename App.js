@@ -44,7 +44,7 @@ function MainPage() {
             <Tab.Screen name={'Apps'} component={Apps}
                         options={{
                             tabBarActiveTintColor: colors.aqua,
-                            tabBarIcon: ({color}) => iconRender('layers', color, 30)}}/>
+                            tabBarIcon: ({color}) => iconRender('apps-outline', color, 30)}}/>
             <Tab.Screen name={'Account'} component={Account}
                         options={{
                             tabBarActiveTintColor: colors.aqua,
