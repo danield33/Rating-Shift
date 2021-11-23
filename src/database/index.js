@@ -1,5 +1,6 @@
 import FTMatters from "./42Matters";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 class RShift {
 
@@ -32,15 +33,25 @@ class RShift {
         })
     }
 
+    async uploadProfilePicture(profilePicture, path){
+        const storage = getStorage();
+        const pfpRes = await fetch(profilePicture);
+        const picRef = ref(storage, path);
+        const blob = await pfpRes.blob();
+        uploadBytes(picRef, blob).then(r => console.log(r))
+    }
+
     createAccount({username, email, password, pfp}) {
         const auth = getAuth();
         return new Promise((resolve, reject) => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    this.uploadProfilePicture(pfp, user.uid+'/pfp.jpg')
                     resolve(user);
                 })
                 .catch((error) => {
+                    console.log(error)
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     reject([errorCode, errorMessage])

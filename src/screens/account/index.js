@@ -15,7 +15,7 @@ export default function Account() {
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
-        if (isSigningUp)
+        if (!isSigningUp)
             RShift.logUserIn(data)
                 .then(user => {
                     // console.log(user, 'logIn')

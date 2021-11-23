@@ -141,12 +141,14 @@ export function SignUp({confirmPassword, onSubmit}) {
 
             <If can={!pfp && confirmPassword}>
                 <Ionicons name={'person-circle-outline'} size={200} color={'white'} onPress={uploadPfp}/>
-                <>
-                    <TouchableOpacity onPress={uploadPfp} style={{marginBottom: 10}}>
-                        <Image source={{uri: pfp}} style={{height: 150, width: 150, borderRadius: 100}}/>
-                    </TouchableOpacity>
-                    <Button title={'Remove'} color={colors.aqua} onPress={() => setPfp(null)}/>
-                </>
+                <If can={confirmPassword}>
+                    <>
+                        <TouchableOpacity onPress={uploadPfp} style={{marginBottom: 10}}>
+                            <Image source={{uri: pfp}} style={{height: 150, width: 150, borderRadius: 100}}/>
+                        </TouchableOpacity>
+                        <Button title={'Remove'} color={colors.aqua} onPress={() => setPfp(null)}/>
+                    </>
+                </If>
             </If>
 
             <TextInputValue
