@@ -1,5 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+    Alert,
+    Button,
+    Image,
+    Linking,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    ScrollView,
+    KeyboardAvoidingView
+} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
@@ -117,8 +129,11 @@ export function SignUp({confirmPassword, onSubmit}) {
 
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+        <KeyboardAvoidingView style={{flex: 1, width: '100%'}}
+                              behavior={'position'}
+                              contentContainerStyle={{alignItems: 'center', justifyContent: 'center', flex: 1, width: '100%'}}>
 
+            <View style={{margin: 50}}/>
             <If can={!confirmPassword}>
                 <Text style={styles.titleText}>Log In</Text>
                 <Text style={styles.titleText}>Create Account</Text>
@@ -199,7 +214,9 @@ export function SignUp({confirmPassword, onSubmit}) {
                 }
             }}/>
 
-        </View>
+            <View style={{margin: 50}}/>
+
+        </KeyboardAvoidingView>
     );
 };
 
