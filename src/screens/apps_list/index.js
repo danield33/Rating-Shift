@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {Styles} from "../../global";
 import {useSelector} from "react-redux";
 import {AppInList} from "./AppInList";

@@ -11,7 +11,7 @@ export function TextInputValue({endEditing, submitEditing, blur, textChange, onT
     }
 
     const setText = (event) => {
-        if(event.nativeEvent.text !== undefined){
+        if (event.nativeEvent.text !== undefined) {
             inputText = event.nativeEvent.text;
             onSetText(inputText);
         }
@@ -24,4 +24,4 @@ export function TextInputValue({endEditing, submitEditing, blur, textChange, onT
                    onSubmitEditing={submitEditing && setText}
                    onBlur={blur && setText}/>
     );
-};
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, Text, View, TouchableWithoutFeedback} from 'react-native';
+import {Image, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {useDispatch} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import {setApps} from "../../global/redux/actions/AppListActions";
@@ -10,7 +10,7 @@ export function LargeCategoryImage({appList, width}) {
     const dispatch = useDispatch();
     const url = item?.artworkUrl512;
 
-    if(!url) return null;
+    if (!url) return null;
     const onPress = () => {
         dispatch(setApps(appList.item.results));
         navigation.navigate('AppsList')
@@ -37,4 +37,4 @@ export function LargeCategoryImage({appList, width}) {
 
 
     );
-};
+}

@@ -1,11 +1,9 @@
 import * as React from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
-import {colors, Styles} from '../../global/styles'
+import {ScrollView, View} from 'react-native';
+import {Styles} from '../../global/styles'
 import PropTypes from 'prop-types'
-import {useNavigation} from "@react-navigation/native";
 import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
 import {AppInfo} from "./basic_info_displays";
-import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {AppPreview} from "./AppPreview";
 import {AppDescription} from "./AppDescription";
 import {AppReviews} from "./Reviews";

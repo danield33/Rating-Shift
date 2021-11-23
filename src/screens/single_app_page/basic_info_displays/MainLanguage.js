@@ -23,4 +23,4 @@ export function MainLanguageDisp({mainLanguage, additionalLanguagesSize}) {
                 }}>+{additionalLanguagesSize} More</Text>
         </View>
     );
-};
+}

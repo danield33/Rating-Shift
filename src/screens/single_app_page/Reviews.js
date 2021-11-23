@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, ActivityIndicator, Text} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import RShift from '../../database';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {ReviewCard} from "../rating_reviews/ReviewCard";
@@ -18,8 +18,8 @@ export function AppReviews({appData, reviewObj}) {
 
     useEffect(() => {
         if (!reviewObj) {
-            RShift.ftMatters.reviews({id: appData.trackId , lang: 'en'}).then(reviews => {
-                if(reviews.statusCode === 402)
+            RShift.ftMatters.reviews({id: appData.trackId, lang: 'en'}).then(reviews => {
+                if (reviews.statusCode === 402)
                     return setReviews(402)
                 setReviews(reviews);
             });
@@ -27,7 +27,7 @@ export function AppReviews({appData, reviewObj}) {
     }, []);
 
 
-    if(!reviews) return (
+    if (!reviews) return (
         <View>
             <ActivityIndicator size={'large'} color={colors.red}
             />
@@ -45,19 +45,19 @@ export function AppReviews({appData, reviewObj}) {
 
             {
                 reviews === 402 ? (//TODO: setup rating shift reviews
-                    <Text style={{
-                        color: 'white',
-                        fontSize: 30,
-                        fontWeight: '600',
-                        textAlign: 'center'
-                    }}>iOS Reviews Not Available For This App</Text>
+                        <Text style={{
+                            color: 'white',
+                            fontSize: 30,
+                            fontWeight: '600',
+                            textAlign: 'center'
+                        }}>iOS Reviews Not Available For This App</Text>
                     ) :
                     (
-                    <LargeAppDisplay apps={reviews.reviews}
-                                     renderItem={renderReview}/>
-                )
+                        <LargeAppDisplay apps={reviews.reviews}
+                                         renderItem={renderReview}/>
+                    )
             }
 
         </View>
     );
-};
+}

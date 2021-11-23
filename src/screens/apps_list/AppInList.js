@@ -39,4 +39,4 @@ export function AppInList({app}) {
             <Line style={{width: '100%'}}/>
         </TouchableOpacity>
     );
-};
+}

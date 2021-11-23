@@ -1,4 +1,4 @@
-import {Lookup, Query, Reviews, Search, TopApps} from './example_responses';
+import {Query, Reviews, Search, TopApps} from './example_responses';
 import IOSGenres from './IOSGenres';
 
 module.exports = class FTMatters {

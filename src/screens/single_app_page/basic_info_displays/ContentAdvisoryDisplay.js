@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {Text, View} from 'react-native';
 import colors from "../../../global/styles/colors";
 
 export function ContentAdvisoryDisplay({age}) {
@@ -12,4 +12,4 @@ export function ContentAdvisoryDisplay({age}) {
 
         </View>
     );
-};
+}

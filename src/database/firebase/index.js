@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import {initializeApp} from "firebase/app"
+import {getFirestore} from "firebase/firestore"
 
 const firebaseConfig = initializeApp({//not gonna throw this into an env b/c school project
     apiKey: "AIzaSyAR6UO4rw-SHEsiuUmhV-6BGx5Dfff2ij4",

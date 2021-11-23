@@ -3,12 +3,11 @@ import {Button, Text, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setReviews} from "../../global/redux/actions/AppListActions";
-import {useSelector} from "react-redux";
 
 
-export function ReviewHeader({reviews, appData, hideButton=false}) {
+export function ReviewHeader({reviews, appData, hideButton = false}) {
     const navigation = useNavigation();
     const appDataStore = useSelector(state => state.currentlyViewing.item);
     appData = appData || appDataStore;
@@ -33,7 +32,7 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
                         fontSize: 40,
                         fontWeight: 'bold',
                         color: colors.aqua,
-                    }}>{(Math.round(appData?.averageUserRating*10)/10).toString()}</Text>
+                    }}>{(Math.round(appData?.averageUserRating * 10) / 10).toString()}</Text>
                     <Text style={{
                         fontSize: 15,
                         fontWeight: '600',
@@ -65,4 +64,4 @@ export function ReviewHeader({reviews, appData, hideButton=false}) {
             </View>
         </View>
     );
-};
+}

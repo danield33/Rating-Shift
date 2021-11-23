@@ -1,5 +1,5 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, Button, LayoutAnimation, Animated} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, Button, Text, View} from 'react-native';
 import {colors} from "../../global/styles";
 
 export function AppDescription({description}) {
@@ -24,7 +24,7 @@ export function AppDescription({description}) {
     const onTextLayout = (event) => {
         let {height} = event.nativeEvent.layout;
         height = Math.floor(height) + 40;
-        if(height > startingHeight){
+        if (height > startingHeight) {
             setFullHeight(height);
         }
     }
@@ -43,4 +43,4 @@ export function AppDescription({description}) {
 
         </View>
     );
-};
+}

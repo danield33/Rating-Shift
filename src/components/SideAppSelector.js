@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Image, Text, View, TouchableOpacity} from 'react-native';
+import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types'
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
@@ -27,7 +27,7 @@ export function SideAppSelector({app}) {
             <View style={{height: 2, width: '105%', backgroundColor: 'white'}}/>
         </TouchableOpacity>
     )
-};
+}
 
 SideAppSelector.propTypes = {
     app: PropTypes.object,

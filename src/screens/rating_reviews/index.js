@@ -7,7 +7,7 @@ import {ReviewCard} from "./ReviewCard";
 import {useSelector} from "react-redux";
 
 
-export default function RatingsPage({reviewData, allExpanded, showHeader=true}) {
+export default function RatingsPage({reviewData, allExpanded, showHeader = true}) {
     const reviewsSel = useSelector(state => state.currentReviews)
     const reviews = reviewData ?? reviewsSel;
 
@@ -20,12 +20,12 @@ export default function RatingsPage({reviewData, allExpanded, showHeader=true}) 
         <View style={Styles.background}>
 
             {showHeader ? (
-                <>
-                    <View style={{width: '100%'}}>
-                        <ReviewHeader reviews={reviews} hideButton={true}/>
-                    </View>
-                    <Line style={{marginBottom: 0}}/>
-                </>
+                    <>
+                        <View style={{width: '100%'}}>
+                            <ReviewHeader reviews={reviews} hideButton={true}/>
+                        </View>
+                        <Line style={{marginBottom: 0}}/>
+                    </>
                 )
                 : null
 

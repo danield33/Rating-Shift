@@ -6,13 +6,13 @@ import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
 import {RatingsPage} from "../index";
 
-export function ReviewCard({review, size, canExpand, defaultExpanded=false}) {
+export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
 
     const [isExpanded, setExpanded] = useState(defaultExpanded);
     const [isModalOpen, setModalOpen] = useState(false);
 
     const toggleExpanded = () => {
-        if(!canExpand) {
+        if (!canExpand) {
             setModalOpen(!isModalOpen);
             return;
         }
@@ -31,7 +31,7 @@ export function ReviewCard({review, size, canExpand, defaultExpanded=false}) {
 
             <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
                 <View style={{padding: 20, flex: 1, width: '100%'}}>
-                    <RatingsPage reviewData={{reviews: [review]}} allExpanded={true} showHeader={false} />
+                    <RatingsPage reviewData={{reviews: [review]}} allExpanded={true} showHeader={false}/>
                 </View>
             </CustomModal>
 
@@ -99,4 +99,4 @@ export function ReviewCard({review, size, canExpand, defaultExpanded=false}) {
         </>
 
     )
-};
+}

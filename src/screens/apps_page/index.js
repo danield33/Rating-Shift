@@ -66,7 +66,9 @@ export default function Apps() {
                         showsVerticalScrollIndicator={false}>
                 {
                     headerApps.length ?
-                        <LargeAppDisplay apps={headerApps} renderItem={(item, size) => <LargeCategoryImage appList={item} width={size}/>}/>
+                        <LargeAppDisplay apps={headerApps}
+                                         renderItem={(item, size) => <LargeCategoryImage appList={item}
+                                                                                         width={size}/>}/>
                         : <ActivityIndicator size={'large'} color={colors.red}/>
                 }
 

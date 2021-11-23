@@ -3,14 +3,13 @@ import {
     Alert,
     Button,
     Image,
+    KeyboardAvoidingView,
     Linking,
     Platform,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
-    ScrollView,
-    KeyboardAvoidingView
+    View
 } from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
@@ -131,7 +130,12 @@ export function SignUp({confirmPassword, onSubmit}) {
     return (
         <KeyboardAvoidingView style={{flex: 1, width: '100%'}}
                               behavior={'position'}
-                              contentContainerStyle={{alignItems: 'center', justifyContent: 'center', flex: 1, width: '100%'}}>
+                              contentContainerStyle={{
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flex: 1,
+                                  width: '100%'
+                              }}>
 
             <View style={{margin: 50}}/>
             <If can={!confirmPassword}>
@@ -160,7 +164,8 @@ export function SignUp({confirmPassword, onSubmit}) {
                 autoCorrect={false}
                 autoCapitalize={'none'}
             />
-            {(errMessages.email !== null || errMessages.email) && <Text style={styles.errorText}>{errMessages.email}</Text>}
+            {(errMessages.email !== null || errMessages.email) &&
+            <Text style={styles.errorText}>{errMessages.email}</Text>}
 
             <If can={confirmPassword}>
                 <>
@@ -173,7 +178,8 @@ export function SignUp({confirmPassword, onSubmit}) {
                         autoCorrect={false}
                         autoCapitalize={'none'}
                     />
-                    {(errMessages.username !== null || errMessages.username) && <Text style={styles.errorText}>{errMessages.username}</Text>}
+                    {(errMessages.username !== null || errMessages.username) &&
+                    <Text style={styles.errorText}>{errMessages.username}</Text>}
                 </>
             </If>
 
@@ -220,7 +226,7 @@ export function SignUp({confirmPassword, onSubmit}) {
 
         </KeyboardAvoidingView>
     );
-};
+}
 
 const styles = StyleSheet.create({
     textInput: {

@@ -1,5 +1,5 @@
 import {db} from '../index'
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {addDoc, collection, getDocs} from "firebase/firestore";
 
 module.exports = class User {
 

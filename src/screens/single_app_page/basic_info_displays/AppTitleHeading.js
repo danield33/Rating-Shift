@@ -26,4 +26,4 @@ export function AppTitleHeading({name, subtitle, imageURL}) {
             </View>
         </View>
     );
-};
+}
