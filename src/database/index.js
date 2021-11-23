@@ -51,7 +51,6 @@ class RShift {
                     resolve(user);
                 })
                 .catch((error) => {
-                    console.log(error)
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     reject([errorCode, errorMessage])
