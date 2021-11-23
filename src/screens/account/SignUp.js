@@ -143,7 +143,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                 autoCorrect={false}
                 autoCapitalize={'none'}
             />
-            {(errMessages.email !== null || errMessages.email) && <Text>{errMessages.email}</Text>}
+            {(errMessages.email !== null || errMessages.email) && <Text style={styles.errorText}>{errMessages.email}</Text>}
 
             <If can={confirmPassword}>
                 <>
@@ -156,7 +156,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                         autoCorrect={false}
                         autoCapitalize={'none'}
                     />
-                    {(errMessages.username !== null || errMessages.username) && <Text>{errMessages.username}</Text>}
+                    {(errMessages.username !== null || errMessages.username) && <Text style={styles.errorText}>{errMessages.username}</Text>}
                 </>
             </If>
 
@@ -170,7 +170,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                 placeholder={'Password'}
                 secureTextEntry
             />
-            {errMessages.password && <Text>{errMessages.password}</Text>}
+            {errMessages.password && <Text style={styles.errorText}>{errMessages.password}</Text>}
 
             <If can={confirmPassword}>
                 <>
@@ -184,7 +184,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                         placeholder={'Confirm Password'}
                         secureTextEntry
                     />
-                    {errMessages.confirmPass && <Text>{errMessages.confirmPass}</Text>}
+                    {errMessages.confirmPass && <Text style={styles.errorText}>{errMessages.confirmPass}</Text>}
                 </>
             </If>
 
@@ -219,5 +219,9 @@ const styles = StyleSheet.create({
         color: colors.aqua,
         fontWeight: 'bold',
         bottom: 75
+    },
+    errorText: {
+        color: colors.aqua,
+        fontWeight: '500'
     }
 })
