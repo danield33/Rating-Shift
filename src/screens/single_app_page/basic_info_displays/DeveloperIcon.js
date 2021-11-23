@@ -17,4 +17,4 @@ export function DeveloperInfo({name}) {
             >{name}</Text>
         </View>
     );
-};
+}

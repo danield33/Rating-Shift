@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {If} from "../../components/If";
@@ -22,7 +22,7 @@ export default function Account() {
                 })
                 .catch(err => {
                     const errCode = errorCodes[err[0]]
-                    if(errCode)
+                    if (errCode)
                         Alert.alert(errCode);
                     else Alert.alert(err[0].split(':')[1])
                 })

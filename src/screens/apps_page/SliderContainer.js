@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import {SideAppSelectorList} from "../../components/SideAppSelectorList";
 import {useNavigation} from "@react-navigation/native";

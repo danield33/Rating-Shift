@@ -20,4 +20,4 @@ export function CustomModal({children, onClose, isOpen, iconColor}) {
             </TouchableWithoutFeedback>
         </Modal>
     );
-};
+}

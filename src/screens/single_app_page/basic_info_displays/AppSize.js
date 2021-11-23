@@ -27,4 +27,4 @@ export function AppSizeDisplay({appSizeBytes}) {
                 style={{color: colors.aqua, fontSize: 15, fontWeight: '700'}}>{formatBytes(appSizeBytes, 1)}</Text>
         </View>
     );
-};
+}
