@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {If} from "../../components/If";
@@ -7,22 +7,20 @@ import {FlatButton} from "../../components/FlatButton";
 import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import RShift, {errorCodes} from '../../database'
+import {getAuth} from "firebase/auth";
 
-const isLoggedIn = false;
 
 export default function Account() {
 
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
-        console.log(isSigningUp, data)
         if (isSigningUp)
             RShift.logUserIn(data)
                 .then(user => {
-                    console.log(user, 'logIn')
+                    // console.log(user, 'logIn')
                 })
                 .catch(err => {
-                    console.log(err);
                     const errCode = errorCodes[err[0]]
                     if(errCode)
                         Alert.alert(errCode);
@@ -30,7 +28,7 @@ export default function Account() {
                 })
         else
             RShift.createAccount(data).then(user => {
-                console.log(user, 'us')
+                // console.log(user, 'us')
             })
                 .catch((err) => {
                     const errorCode = errorCodes[err[0]];
@@ -47,7 +45,7 @@ export default function Account() {
                 <SignUp confirmPassword={isSigningUp - 1} onSubmit={createAccount}/>
             </CustomModal>
 
-            <If can={!isLoggedIn}>
+            <If can={!getAuth().currentUser}>
                 <View style={{alignItems: 'center', flex: 1, width: '100%', justifyContent: 'space-evenly'}}>
 
                     <Text style={{
@@ -60,6 +58,10 @@ export default function Account() {
                                 onPress={() => setSigningUp(1)}/>
                     <FlatButton color={colors.dark_blue} text={"Create Account"} style={{width: '100%'}}
                                 onPress={() => setSigningUp(2)}/>
+                </View>
+
+                <View>
+                    <FlatButton text={'sign out'} onPress={() => RShift.signOut()}/>
                 </View>
 
             </If>

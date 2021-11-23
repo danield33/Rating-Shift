@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Image, TextInput, View, StyleSheet, Text} from 'react-native';
+import {Image, Button, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
 import {TextInputValue} from "../../components/TextInputValue";
 import * as yup from 'yup';
 import {FlatButton} from "../../components/FlatButton";
+import * as ImagePicker from 'expo-image-picker';
 
 const input = {
     username: '',
@@ -51,6 +52,8 @@ export function SignUp({confirmPassword, onSubmit}) {
         confirmPass: null
     })
 
+    const [pfp, setPfp] = useState(null);
+
 
     let confirmPassSchema;
 
@@ -80,8 +83,20 @@ export function SignUp({confirmPassword, onSubmit}) {
         }
     }
 
+    const uploadPfp = async () => {
+        const image = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4,3],
+            quality: 0.5,
+        });
 
-    const [pfp, setPfp] = useState(null);
+        if(!image.cancelled){
+            setPfp(image.uri);
+        }
+
+    }
+
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
@@ -92,8 +107,13 @@ export function SignUp({confirmPassword, onSubmit}) {
             </If>
 
             <If can={!pfp && confirmPassword}>
-                <Ionicons name={'person-circle-outline'} size={200} color={'white'}/>
-                <Image source={{uri: pfp}} style={{height: 100, width: 100, borderRadius: 50}}/>
+                <Ionicons name={'person-circle-outline'} size={200} color={'white'} onPress={uploadPfp}/>
+                <>
+                    <TouchableOpacity onPress={uploadPfp} style={{marginBottom: 10}}>
+                        <Image source={{uri: pfp}} style={{height: 150, width: 150, borderRadius: 100}}/>
+                    </TouchableOpacity>
+                    <Button title={'Remove'} color={colors.aqua} onPress={() => setPfp(null)}/>
+                </>
             </If>
 
             <TextInputValue
