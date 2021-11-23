@@ -152,11 +152,12 @@ export function SignUp({confirmPassword, onSubmit}) {
 
             <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() =>{
 
-                if(confirmPassword){
+                console.log(input, confirmPassword, '12')
+                if(Boolean(confirmPassword)){
                     if(Object.values(input).some(i => Boolean(i) !== false))
                         return onSubmit(input);
                 }else{
-                    if(input.username && input.password)
+                    if(input.email && input.password)
                         return onSubmit(input);
                 }
             }}/>

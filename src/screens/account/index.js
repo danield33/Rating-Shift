@@ -15,15 +15,29 @@ export default function Account() {
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
-        RShift.createAccount(data).then(user => {
-            console.log(user, 'us')
-        })
-            .catch((err) => {
-                const errorCode = errorCodes[err[0]];
-                if (errorCode)
-                    Alert.alert(errorCode);
-                else Alert.alert(err[0]);
+        console.log(isSigningUp, data)
+        if (isSigningUp)
+            RShift.logUserIn(data)
+                .then(user => {
+                    console.log(user, 'logIn')
+                })
+                .catch(err => {
+                    console.log(err);
+                    const errCode = errorCodes[err[0]]
+                    if(errCode)
+                        Alert.alert(errCode);
+                    else Alert.alert(err[0].split(':')[1])
+                })
+        else
+            RShift.createAccount(data).then(user => {
+                console.log(user, 'us')
             })
+                .catch((err) => {
+                    const errorCode = errorCodes[err[0]];
+                    if (errorCode)
+                        Alert.alert(errorCode);
+                    else Alert.alert(err[0].split(':')[1]);
+                })
     }
 
     return (
