@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Image, Button, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Button, Image, Linking, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
@@ -7,6 +7,7 @@ import {TextInputValue} from "../../components/TextInputValue";
 import * as yup from 'yup';
 import {FlatButton} from "../../components/FlatButton";
 import * as ImagePicker from 'expo-image-picker';
+import {checkForCameraRollPermission} from "../../global/util/Permissions";
 
 const input = {
     username: '',
@@ -18,25 +19,25 @@ const verification = {
     username: (text) => {
         text = text.trim();
         const b = text.length >= 3 && text.length <= 15;
-        if(b)
+        if (b)
             return b;
         return "Input a name between 3 and 15 characters"
     },
     email: (text) => {
         const b = emailRegex.test(text.trim());
-        if(b)
+        if (b)
             return b;
         return "Input a valid email"
     },
     password: (text) => {
         const b = text.length >= 6;
-        if(b)
+        if (b)
             return b;
         return "Input a password greater than 6 characters"
     },
     confirmPass: (text, text2) => {
         const b = text === text2;
-        if(b)
+        if (b)
             return b;
         return "Passwords do not match"
     }
@@ -58,14 +59,14 @@ export function SignUp({confirmPassword, onSubmit}) {
     let confirmPassSchema;
 
     useEffect(() => {
-        if(confirmPassword)
+        if (confirmPassword)
             confirmPassSchema = yup.string().required("Please confirm your password").min(6)
         return () => {
             input.username = '';
             input.password = '';
-            if(input.email)
+            if (input.email)
                 input.email = null
-            if(input.confirmPass)
+            if (input.confirmPass)
                 input.confirmPass = null;
         }
     }, [])
@@ -74,9 +75,9 @@ export function SignUp({confirmPassword, onSubmit}) {
         return (text) => {
             input[inputKey] = text;
             const verifMessage = verification[inputKey](text, input.password);
-            if(verifMessage === true){
+            if (verifMessage === true) {
                 errMessages[inputKey] = true;
-            }else{
+            } else {
                 errMessages[inputKey] = verifMessage
             }
             setErrMessages({...errMessages});
@@ -84,15 +85,32 @@ export function SignUp({confirmPassword, onSubmit}) {
     }
 
     const uploadPfp = async () => {
-        const image = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4,3],
-            quality: 0.5,
-        });
 
-        if(!image.cancelled){
-            setPfp(image.uri);
+        const perms = await checkForCameraRollPermission()
+
+        if (perms) {
+            const image = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 0.5,
+            });
+
+            if (!image.cancelled) {
+                setPfp(image.uri);
+            }
+        } else {
+            Alert.alert(
+                'Warning',
+                'Please grant camera roll permissions inside your system settings to upload a picture',
+                [
+                    {text: 'Cancel'},
+                    {
+                        text: 'Enable Notifications',
+                        onPress: () => Platform.OS === 'ios' ? Linking.openURL('app-settings:') : Linking.openSettings()
+                    }
+                ]
+            )
         }
 
     }
@@ -170,15 +188,14 @@ export function SignUp({confirmPassword, onSubmit}) {
                 </>
             </If>
 
-            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() =>{
+            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() => {
 
-                console.log(input, confirmPassword, '12')
-                if(Boolean(confirmPassword)){
-                    if(Object.values(input).some(i => Boolean(i) !== false))
-                        return onSubmit(input);
-                }else{
-                    if(input.email && input.password)
-                        return onSubmit(input);
+                if (Boolean(confirmPassword)) {
+                    if (Object.values(input).some(i => Boolean(i) !== false))
+                        return onSubmit({...input, pfp});
+                } else {
+                    if (input.email && input.password)
+                        return onSubmit({...input, pfp});
                 }
             }}/>
 

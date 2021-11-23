@@ -32,7 +32,7 @@ class RShift {
         })
     }
 
-    createAccount({username, email, password}) {
+    createAccount({username, email, password, pfp}) {
         const auth = getAuth();
         return new Promise((resolve, reject) => {
             createUserWithEmailAndPassword(auth, email, password)
