@@ -126,6 +126,19 @@ export function SignUp({confirmPassword, onSubmit}) {
 
     }
 
+    const submitAnswers = () => {
+
+        Keyboard.dismiss();
+        setTimeout(() => {
+            if (Boolean(confirmPassword)) {
+                if (Object.values(input).some(i => Boolean(i) !== false))
+                    return onSubmit({...input, pfp});
+            } else {
+                if (input.email && input.password)
+                    return onSubmit({...input, pfp});
+            }
+        }, 100)
+    }
 
     return (
         <KeyboardAvoidingView style={{flex: 1, width: '100%'}}
@@ -211,19 +224,7 @@ export function SignUp({confirmPassword, onSubmit}) {
                 </>
             </If>
 
-            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() => {
-
-                Keyboard.dismiss();
-                setTimeout(() => {
-                    if (Boolean(confirmPassword)) {
-                        if (Object.values(input).some(i => Boolean(i) !== false))
-                            return onSubmit({...input, pfp});
-                    } else {
-                        if (input.email && input.password)
-                            return onSubmit({...input, pfp});
-                    }
-                }, 100)
-            }}/>
+            <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={submitAnswers}/>
 
             <View style={{margin: 50}}/>
 
