@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
     Alert,
     Button,
-    Image,
+    Image, Keyboard,
     KeyboardAvoidingView,
     Linking,
     Platform,
@@ -213,13 +213,16 @@ export function SignUp({confirmPassword, onSubmit}) {
 
             <FlatButton text={'Submit'} color={colors.red} style={{width: '100%', top: 30}} onPress={() => {
 
-                if (Boolean(confirmPassword)) {
-                    if (Object.values(input).some(i => Boolean(i) !== false))
-                        return onSubmit({...input, pfp});
-                } else {
-                    if (input.email && input.password)
-                        return onSubmit({...input, pfp});
-                }
+                Keyboard.dismiss();
+                setTimeout(() => {
+                    if (Boolean(confirmPassword)) {
+                        if (Object.values(input).some(i => Boolean(i) !== false))
+                            return onSubmit({...input, pfp});
+                    } else {
+                        if (input.email && input.password)
+                            return onSubmit({...input, pfp});
+                    }
+                }, 100)
             }}/>
 
             <View style={{margin: 50}}/>

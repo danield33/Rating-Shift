@@ -1,6 +1,7 @@
 import FTMatters from "./42Matters";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
+import {getStorage, ref, uploadBytes, } from "firebase/storage";
+import {db} from './firebase/index'
 
 class RShift {
 
@@ -33,12 +34,15 @@ class RShift {
         })
     }
 
-    async uploadProfilePicture(profilePicture, path) {
+    uploadProfilePicture(profilePicture, path) {
         const storage = getStorage();
-        const pfpRes = await fetch(profilePicture);
         const picRef = ref(storage, path);
-        const blob = await pfpRes.blob();
-        uploadBytes(picRef, blob).then(r => console.log(r))
+        fetch(profilePicture).then(async res => {
+            (await res).blob().then(blob => {
+                uploadBytes(picRef, blob)
+            })
+        })
+
     }
 
     createAccount({username, email, password, pfp}) {

@@ -8,6 +8,7 @@ import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import RShift, {errorCodes} from '../../database'
 import {getAuth} from "firebase/auth";
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 
 
 export default function Account() {
@@ -15,6 +16,8 @@ export default function Account() {
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
+        console.log(data)
+        // return;
         if (!isSigningUp)
             RShift.logUserIn(data)
                 .then(user => {
@@ -29,12 +32,14 @@ export default function Account() {
         else
             RShift.createAccount(data).then(user => {
                 // console.log(user, 'us')
+
             })
                 .catch((err) => {
+                    console.log(err, 'err')
                     const errorCode = errorCodes[err[0]];
                     if (errorCode)
                         Alert.alert(errorCode);
-                    else Alert.alert(err[0].split(':')[1]);
+                    else Alert.alert(err[1].split(':')[1]);
                 })
     }
 
