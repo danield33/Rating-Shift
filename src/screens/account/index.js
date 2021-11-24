@@ -8,10 +8,13 @@ import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import RShift, {errorCodes, Users} from '../../database'
 import {getAuth} from "firebase/auth";
+import {useDispatch} from "react-redux";
+import {changeAuthentication} from "../../global/redux/actions/AppListActions";
 
 
 export default function Account() {
 
+    const dispatch = useDispatch();
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
@@ -19,7 +22,8 @@ export default function Account() {
         if (!isSigningUp)
             Users.logUserIn(data)
                 .then(user => {
-
+                    setSigningUp(0);
+                    dispatch(changeAuthentication(user))
                 })
                 .catch(err => {
                     const errCode = errorCodes[err[0]]
@@ -30,8 +34,8 @@ export default function Account() {
         else
             Users.createAccount(data).then(user => {
 
-                console.log(user)
-                setSigningUp(0)
+                setSigningUp(0);
+                dispatch(changeAuthentication(user))
 
             })
                 .catch((err) => {
