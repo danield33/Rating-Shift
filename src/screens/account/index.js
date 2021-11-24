@@ -8,7 +8,6 @@ import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import RShift, {errorCodes, Users} from '../../database'
 import {getAuth} from "firebase/auth";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
 
 
 export default function Account() {
@@ -66,6 +65,9 @@ export default function Account() {
                 </View>
 
                 <View>
+
+
+
                     <FlatButton text={'sign out'} onPress={() => Users.signOut()}/>
                 </View>
 

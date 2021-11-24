@@ -19,3 +19,8 @@ export const setReviews = reviews => ({
     type: actionTypes.SET_REVIEWS,
     payload: reviews
 })
+
+export const changeAuthentication = user => ({
+    type: actionTypes.CHANGE_AUTHENTICATION,
+    payload: user
+})

@@ -1,6 +1,9 @@
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import AppListReducer from "./reducers/AppListReducer";
-
-const store = createStore(AppListReducer);
+import AccountReducers from "./reducers/AccountReducers";
+const store = createStore(combineReducers({
+    AppListReducer,
+    AccountReducers
+}));
 
 export default store;
