@@ -12,7 +12,7 @@ import {useSelector} from "react-redux";
 
 
 export default function SingleApp({app}) {
-    const viewingApp = useSelector(state => state.currentlyViewing.item);
+    const viewingApp = useSelector(state => state.appList.currentlyViewing.item);
     const appData = app ?? viewingApp;
     const image = appData.artworkUrl512;
 

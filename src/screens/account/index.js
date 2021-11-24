@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {If} from "../../components/If";
@@ -7,24 +7,27 @@ import {FlatButton} from "../../components/FlatButton";
 import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import RShift, {errorCodes, Users} from '../../database'
-import {getAuth} from "firebase/auth";
 import {useDispatch} from "react-redux";
-import {changeAuthentication} from "../../global/redux/actions/AppListActions";
 import {AccountScreen} from "./AccountScreen";
+import {useSelector} from "react-redux";
 
 
 export default function Account() {
 
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.account.currentUser);
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
+
+    useEffect(() => {
+        console.log(currentUser, 'currUser')
+    })
 
     const createAccount = (data) => {
 
-        if (!isSigningUp)
+        if (!(isSigningUp-1))
             Users.logUserIn(data)
-                .then(user => {
-                    setSigningUp(0);
-                    dispatch(changeAuthentication(user))
+                .then(() => {
+                    setSigningUp(0);// state changed handled in App.js
                 })
                 .catch(err => {
                     const errCode = errorCodes[err[0]]
@@ -33,11 +36,8 @@ export default function Account() {
                     else Alert.alert(err[0].split(':')[1])
                 })
         else
-            Users.createAccount(data).then(user => {
-
+            Users.createAccount(data).then(() => {
                 setSigningUp(0);
-                dispatch(changeAuthentication(user))
-
             })
                 .catch((err) => {
                     const errorCode = errorCodes[err[0]];
@@ -54,7 +54,7 @@ export default function Account() {
                 <SignUp confirmPassword={isSigningUp - 1} onSubmit={createAccount}/>
             </CustomModal>
 
-            <If can={!getAuth().currentUser}>
+            <If can={!currentUser}>
                 <View style={{alignItems: 'center', flex: 1, width: '100%', justifyContent: 'space-evenly'}}>
 
                     <Text style={{

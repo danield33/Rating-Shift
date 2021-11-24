@@ -12,7 +12,7 @@ const renderApp = (appItem) => {
 export default function AppsList() {
 
     const apps = useSelector(state => {
-        return state.currentApps
+        return state.appList.currentApps
     });
 
     return (

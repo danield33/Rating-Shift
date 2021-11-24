@@ -5,8 +5,9 @@ import {Users} from "../../database";
 import {useSelector} from "react-redux";
 
 export function AccountScreen() {
-    const selector = useSelector(state => {
-        console.log(state);
+    useSelector(state => {
+        // console.log(state);
+        return;
         return state.account.currentUser;
     });
 

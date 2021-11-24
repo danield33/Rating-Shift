@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {LogBox} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {Apps, SingleApp, RatingsPage, AppsList, Account} from "./src/screens";
+import {Account, Apps, AppsList, RatingsPage, SingleApp} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
 import store from "./src/global/redux/store";
 import {Provider} from 'react-redux';
 import User from "./src/database/firebase/collections/user/User";
+import {getAuth} from "firebase/auth";
+import {changeAuthentication} from "./src/global/redux/actions/AppListActions";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -43,17 +46,33 @@ function MainPage() {
             <Tab.Screen name={'Apps'} component={Apps}
                         options={{
                             tabBarActiveTintColor: colors.aqua,
-                            tabBarIcon: ({color}) => iconRender('apps-outline', color, 30)}}/>
+                            tabBarIcon: ({color}) => iconRender('apps-outline', color, 30)
+                        }}/>
             <Tab.Screen name={'Account'} component={Account}
                         options={{
                             tabBarActiveTintColor: colors.aqua,
-                            tabBarIcon: ({color}) => iconRender('person-circle-outline', color, 30)}}
+                            tabBarIcon: ({color}) => iconRender('person-circle-outline', color, 30)
+                        }}
             />
         </Tab.Navigator>
     )
 }
 
 export default function App() {
+
+    useEffect(() => {
+        const unsub = getAuth().onAuthStateChanged(async snap => {
+            if (snap?.uid) {
+                const user = await User.getUser(snap.uid);
+                store.dispatch(changeAuthentication(user))
+            } else store.dispatch(changeAuthentication(null))
+        });
+
+        return () => {
+            unsub();
+        }
+
+    }, [])
 
     return (
 
@@ -101,5 +120,5 @@ export default function App() {
 }
 
 function iconRender(name, color, size = 25) {
-        return <Ionicons name={name} color={color} size={size}/>
+    return <Ionicons name={name} color={color} size={size}/>
 }

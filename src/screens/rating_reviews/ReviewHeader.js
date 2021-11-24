@@ -9,7 +9,7 @@ import {setReviews} from "../../global/redux/actions/AppListActions";
 
 export function ReviewHeader({reviews, appData, hideButton = false}) {
     const navigation = useNavigation();
-    const appDataStore = useSelector(state => state.currentlyViewing.item);
+    const appDataStore = useSelector(state => state.appList.currentlyViewing.item);
     appData = appData || appDataStore;
     const dispatch = useDispatch();
     const [rating, setRating] = useState(0);

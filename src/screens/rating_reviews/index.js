@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 
 
 export default function RatingsPage({reviewData, allExpanded, showHeader = true}) {
-    const reviewsSel = useSelector(state => state.currentReviews)
+    const reviewsSel = useSelector(state => state.appList.currentReviews)
     const reviews = reviewData ?? reviewsSel;
 
     const renderItem = (item) => {
