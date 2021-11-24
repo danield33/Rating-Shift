@@ -8,8 +8,7 @@ import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
 import store from "./src/global/redux/store";
 import {Provider} from 'react-redux';
-import firebase from "firebase/compat";
-import User from "./src/database/firebase/collections/User";
+import User from "./src/database/firebase/collections/user/User";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 

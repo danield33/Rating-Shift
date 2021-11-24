@@ -6,7 +6,7 @@ import colors from "../../global/styles/colors";
 import {FlatButton} from "../../components/FlatButton";
 import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
-import RShift, {errorCodes} from '../../database'
+import RShift, {errorCodes, Users} from '../../database'
 import {getAuth} from "firebase/auth";
 import {getStorage, ref, uploadBytes} from "firebase/storage";
 
@@ -16,12 +16,11 @@ export default function Account() {
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
     const createAccount = (data) => {
-        console.log(data)
-        // return;
+
         if (!isSigningUp)
-            RShift.logUserIn(data)
+            Users.logUserIn(data)
                 .then(user => {
-                    // console.log(user, 'logIn')
+
                 })
                 .catch(err => {
                     const errCode = errorCodes[err[0]]
@@ -30,12 +29,13 @@ export default function Account() {
                     else Alert.alert(err[0].split(':')[1])
                 })
         else
-            RShift.createAccount(data).then(user => {
-                // console.log(user, 'us')
+            Users.createAccount(data).then(user => {
+
+                console.log(user)
+                setSigningUp(0)
 
             })
                 .catch((err) => {
-                    console.log(err, 'err')
                     const errorCode = errorCodes[err[0]];
                     if (errorCode)
                         Alert.alert(errorCode);
@@ -66,7 +66,7 @@ export default function Account() {
                 </View>
 
                 <View>
-                    <FlatButton text={'sign out'} onPress={() => RShift.signOut()}/>
+                    <FlatButton text={'sign out'} onPress={() => Users.signOut()}/>
                 </View>
 
             </If>

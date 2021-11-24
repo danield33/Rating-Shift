@@ -1,67 +1,9 @@
 import FTMatters from "./42Matters";
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {getStorage, ref, uploadBytes, } from "firebase/storage";
-import {db} from './firebase/index'
+import User from './firebase/collections/user/User'
 
 class RShift {
 
     ftMatters = new FTMatters();
-
-    signOut() {
-        const auth = getAuth();
-        return new Promise((resolve, reject) => {
-            signOut(auth).then(() => {
-                resolve(true)
-            }).catch(err => {
-                reject(err)
-            })
-        })
-    }
-
-    logUserIn({email, password}) {
-        const auth = getAuth();
-        return new Promise((resolve, reject) => {
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    resolve(user);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    reject([errorCode, errorMessage]);
-                });
-        })
-    }
-
-    uploadProfilePicture(profilePicture, path) {
-        const storage = getStorage();
-        const picRef = ref(storage, path);
-        fetch(profilePicture).then(async res => {
-            (await res).blob().then(blob => {
-                uploadBytes(picRef, blob)
-            })
-        })
-
-    }
-
-    createAccount({username, email, password, pfp}) {
-        const auth = getAuth();
-        return new Promise((resolve, reject) => {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    if (pfp)
-                        this.uploadProfilePicture(pfp, user.uid + '/pfp.jpg')
-                    resolve(user);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    reject([errorCode, errorMessage])
-                });
-        })
-    }
 
 }
 
@@ -72,3 +14,5 @@ export const errorCodes = {
     "auth/wrong-password": "Invalid email or password",
     "auth/user-not-found": "Invalid email or password"
 }
+
+export {User as Users}
