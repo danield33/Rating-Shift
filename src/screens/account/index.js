@@ -10,6 +10,7 @@ import RShift, {errorCodes, Users} from '../../database'
 import {getAuth} from "firebase/auth";
 import {useDispatch} from "react-redux";
 import {changeAuthentication} from "../../global/redux/actions/AppListActions";
+import {AccountScreen} from "./AccountScreen";
 
 
 export default function Account() {
@@ -69,10 +70,7 @@ export default function Account() {
                 </View>
 
                 <View>
-
-
-
-                    <FlatButton text={'sign out'} onPress={() => Users.signOut()}/>
+                    <AccountScreen/>
                 </View>
 
             </If>
