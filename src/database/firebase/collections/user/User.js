@@ -1,7 +1,7 @@
 import {db} from '../../index'
-import {addDoc, collection, doc, setDoc, getDoc} from "firebase/firestore";
+import {doc, getDoc, setDoc} from "firebase/firestore";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {getStorage, ref, uploadBytes} from "firebase/storage";
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 
 module.exports = class User {
 
@@ -9,7 +9,7 @@ module.exports = class User {
 
     #pfp;
 
-    constructor({username, id, profilePictureURI}){
+    constructor({username, id, profilePictureURI}) {
 
         this.username = username;
         this.id = id;
@@ -18,18 +18,18 @@ module.exports = class User {
 
     }
 
-    async save() {
-        await setDoc(doc(db, 'users', this.id), JSON.parse(JSON.stringify(this)));
+    get pfp() {
+        return this.#pfp
     }
 
-    static async getUser(id){
+    static async getUser(id) {
 
         const user = User.users.get(id);
-        if(user) return user;
+        if (user) return user;
 
         const docRef = doc(db, 'users', id);
         const docSnap = await getDoc(docRef);
-        if(docSnap.exists()){
+        if (docSnap.exists()) {
             const user = new User(docSnap.data());
             User.users.set(user.id, user);
             return user;
@@ -71,8 +71,7 @@ module.exports = class User {
     static uploadProfilePicture(profilePicture, path) {
         const storage = getStorage();
         const picRef = ref(storage, path);
-        fetch(profilePicture).then(async res => {
-            console.log()//TODO remove this
+        fetch(profilePicture).then(async res => {// doesn't work on simulator
             (await res).blob().then(blob => {
                 uploadBytes(picRef, blob)
             })
@@ -99,6 +98,22 @@ module.exports = class User {
                     reject([errorCode, errorMessage])
                 });
         })
+    }
+
+    async getProfilePicture() {
+        const storage = getStorage();
+        try {
+            const url = await getDownloadURL(ref(storage, this.id + '/pfp.jpg'))
+            this.#pfp = url;
+            return url;
+        } catch {
+            return null;
+        }
+
+    }
+
+    async save() {
+        await setDoc(doc(db, 'users', this.id), JSON.parse(JSON.stringify(this)));
     }
 
 }
