@@ -18,10 +18,6 @@ export default function Account() {
     const currentUser = useSelector(state => state.account.currentUser);
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 
-    useEffect(() => {
-        console.log(currentUser, 'currUser')
-    })
-
     const createAccount = (data) => {
 
         if (!(isSigningUp-1))
@@ -69,7 +65,7 @@ export default function Account() {
                                 onPress={() => setSigningUp(2)}/>
                 </View>
 
-                <View>
+                <View style={{flex: 1, width: '100%'}}>
                     <AccountScreen/>
                 </View>
 

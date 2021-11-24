@@ -1,20 +1,21 @@
 import * as React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {FlatButton} from "../../components/FlatButton";
 import {Users} from "../../database";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import colors from "../../global/styles/colors";
+import {Line} from "../../components/Line";
+import {Ionicons} from "@expo/vector-icons";
 
 export function AccountScreen() {
     const user = useSelector(state => state.account.currentUser);
     const [pfp, setPfp] = useState(user.pfp);
 
     useEffect(() => {
-        console.log(pfp)
         if(!pfp){
             user.getProfilePicture().then(url => {
                 setPfp(url);
-                console.log(url)
             })
         }
     }, [])
@@ -22,8 +23,28 @@ export function AccountScreen() {
     return (
         <View>
 
-            <Image source={{uri: pfp}} style={{width: 150, height: 150}}/>
-            <Text>{user.username}</Text>
+            <Line/>
+            <TouchableOpacity style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+            }}>
+                <Image source={{uri: pfp}} style={{width: 75, height: 75, borderRadius: 35, marginRight: 10}}/>
+                <View>
+                    <Text style={{fontSize: 35, color: colors.aqua, fontWeight: '500'}}>{user.username}</Text>
+                    <Text style={{color: colors.dark_blue, fontWeight: '700'}}>Account Settings</Text>
+                </View>
+            </TouchableOpacity>
+            <Line/>
+
+            <TouchableOpacity style={{
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}>
+                <Ionicons name={'thumbs-up'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.dark_blue}/>
+                <Text style={{fontSize: 35, color: colors.aqua}}>Liked Apps</Text>
+            </TouchableOpacity>
+
+            <Line/>
 
             <FlatButton text={'sign out'} onPress={() => Users.signOut()}/>
         </View>
