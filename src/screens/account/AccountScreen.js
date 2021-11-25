@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import {FlatButton} from "../../components/FlatButton";
 import {Users} from "../../database";
 import {useSelector} from "react-redux";
@@ -20,6 +20,18 @@ export function AccountScreen() {
             })
         }
     }, [])
+
+    const confirmSignOut = () => {
+        Alert.alert("Are you sure you want to sign out?", '', [
+            {
+                text: 'Yes',
+                onPress: Users.signOut
+            },
+            {
+                text: 'No'
+            }
+        ])
+    }
 
     return (
         <View>
@@ -50,7 +62,7 @@ export function AccountScreen() {
 
             <Line/>
 
-            <FlatButton text={'sign out'} onPress={Users.signOut}/>
+            <FlatButton text={'sign out'} onPress={confirmSignOut}/>
         </View>
     );
 };
