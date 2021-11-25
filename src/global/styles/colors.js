@@ -1,8 +1,7 @@
 export default {
-    red: '#F20574',
-    pink: '#dc1ad1',
-    aqua: '#07DBF2',
-    blue: '#7165BF',
-    dark_blue: '#4359bd',
-    light_blue: '#8fa1f1'
+    red: '#C7124F',
+    pink: '#F21BB9',
+    aqua: '#91F2F2',
+    blue: '#110D8C',
+    dark_blue: '#072273'
 }

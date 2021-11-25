@@ -1,27 +1,39 @@
 import * as React from 'react';
-import {Dimensions} from 'react-native';
+import {View, Image, Dimensions, Text} from 'react-native';
 import {HorizontalFlatList} from "./HorizontalFlatList";
 
-const {width} = Dimensions.get('window');
-const previewCount = 1;
-const itemWidth = width / (previewCount + .5);
-const startScroll = (itemWidth * 3 / 4);
+const renderApp = (item) => {
 
-export function LargeAppDisplay({apps, renderItem}) {
+    const url = item.item.artworkUrl512;
 
-    const snapToOffset = apps?.map((_, i) => {
-        return ((i * itemWidth) + startScroll)
-    })
+    return(
+        <View style={{width: Dimensions.get('window').width-40, alignSelf: 'center'}}>
+            <Image source={{uri: url}}
+                   style={{
+                       width: Dimensions.get('window').width,
+                       height: 250,
+                       resizeMode: 'cover',
+                       borderRadius: 20
+                   }}/>
+        </View>
+    )
+
+}
+
+export function LargeAppDisplay({apps, title}) {
 
     return (
-        <HorizontalFlatList items={apps}
-                            decelerationRate={0}
-                            horizontal={true}
-                            snapToOffsets={snapToOffset}
-                            snapToAlignment={'center'}
-                            key={apps?.length}
-                            numColums={undefined}
-                            renderItem={(item) => renderItem(item, itemWidth)}
-        />
+        <View>
+
+            <Text style={{
+                color: 'white',
+                fontSize: 25,
+            }}>{title}</Text>
+            <HorizontalFlatList items={apps}
+                                key={apps.length}
+                                numColums={apps.length}
+                                renderItem={renderApp}
+            />
+        </View>
     );
-}
+};
