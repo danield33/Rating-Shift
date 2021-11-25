@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {LogBox} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {Account, Apps, AppsList, RatingsPage, SingleApp} from "./src/screens";
+import {Account, Apps, AppsList, RatingsPage, SingleApp, SearchPage} from "./src/screens";
 import {Ionicons} from '@expo/vector-icons';
 import colors from "./src/global/styles/colors";
 import {createStackNavigator} from '@react-navigation/stack';
@@ -20,6 +20,7 @@ LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollV
 function MainPage() {
     return (
         <Tab.Navigator
+            initialRouteName={"Apps"}
             screenOptions={{
                 headerStyle: {
                     backgroundColor: colors.dark_blue,
@@ -43,6 +44,11 @@ function MainPage() {
                     activeTintColor: 'red'
                 }
             }}>
+            <Tab.Screen name={'Search'} component={SearchPage}
+                        options={{
+                            tabBarActiveTintColor: colors.aqua,
+                            tabBarIcon: ({color}) => iconRender('search-outline', color, 30)
+                        }}/>
             <Tab.Screen name={'Apps'} component={Apps}
                         options={{
                             tabBarActiveTintColor: colors.aqua,
