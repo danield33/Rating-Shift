@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import {Ionicons} from "@expo/vector-icons";
+import {If} from "../../components/If";
 
 export function AccountScreen() {
     const user = useSelector(state => state.account.currentUser);
@@ -28,10 +29,13 @@ export function AccountScreen() {
                 flexDirection: 'row',
                 alignItems: 'center',
             }}>
-                <Image source={{uri: pfp}} style={{width: 75, height: 75, borderRadius: 35, marginRight: 10}}/>
+                <If can={pfp}>
+                    <Image source={{uri: pfp}} style={{width: 75, height: 75, borderRadius: 35, marginRight: 10}}/>
+                    <Ionicons name={'person-circle-outline'} size={75} color={'white'}/>
+                </If>
                 <View>
                     <Text style={{fontSize: 35, color: colors.aqua, fontWeight: '500'}}>{user.username}</Text>
-                    <Text style={{color: colors.dark_blue, fontWeight: '700'}}>Account Settings</Text>
+                    <Text style={{color: colors.light_blue, fontWeight: '700'}}>Account Settings</Text>
                 </View>
             </TouchableOpacity>
             <Line/>
@@ -40,13 +44,13 @@ export function AccountScreen() {
                 flexDirection: 'row',
                 alignItems: 'center'
             }}>
-                <Ionicons name={'thumbs-up'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.dark_blue}/>
-                <Text style={{fontSize: 35, color: colors.aqua}}>Liked Apps</Text>
+                <Ionicons name={'flash'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
+                <Text style={{fontSize: 35, color: colors.aqua}}>Activity</Text>
             </TouchableOpacity>
 
             <Line/>
 
-            <FlatButton text={'sign out'} onPress={() => Users.signOut()}/>
+            <FlatButton text={'sign out'} onPress={Users.signOut}/>
         </View>
     );
 };
