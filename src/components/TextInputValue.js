@@ -1,9 +1,19 @@
 import * as React from 'react';
-import {TextInput} from 'react-native';
+import {forwardRef, useImperativeHandle, useRef} from 'react';
+import {TextInput, Keyboard} from 'react-native';
 
-export function TextInputValue({endEditing, submitEditing, blur, textChange, onTextChange, onSetText, ...props}) {
+const TextInputValue = forwardRef(({endEditing, submitEditing, blur, textChange, onTextChange, onSetText, ...props}, ref) => {
 
     let inputText = "";
+    let inpRef = useRef(null);
+
+    useImperativeHandle(ref, () => ({
+        _clear: () => {
+            Keyboard.dismiss()
+            inputText = "";
+            inpRef.current.clear();
+        }
+    }))
 
     const onChange = (text) => {
         inputText = text;
@@ -20,8 +30,11 @@ export function TextInputValue({endEditing, submitEditing, blur, textChange, onT
     return (
         <TextInput {...props}
                    onChangeText={textChange && onChange}
+                   ref={inpRef}
                    onEndEditing={endEditing && setText}
                    onSubmitEditing={submitEditing && setText}
                    onBlur={blur && setText}/>
     );
-}
+});
+
+export {TextInputValue}
