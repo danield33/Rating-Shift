@@ -10,24 +10,32 @@ import {SearchBar} from "./SearchBar";
 import {If} from "../../components/If";
 import {SearchedApp} from "./SearchedApp";
 
+let controller = null;
+
 export default function SearchPage() {
 
-    const [searchedItems, setSearchedItems] = useState([])
+    const [searchedItems, setSearchedItems] = useState([])//undefined = is searching
 
     const search = (text) => {
 
-        setSearchedItems(undefined)
+        if(controller) controller.abort();
+
+        controller = new AbortController();
+        const {signal} = controller;
+
+        setSearchedItems(undefined);
         fetch('http://localhost:3000/api?'+ new URLSearchParams({
             text: text,
             allImages: false
-        })).then(async res => {
+        }), {signal}).then(async res => {
                 const items = await res.json();
+                controller = null;
                 setSearchedItems(items);
             });
         fetch('http://localhost:3000/api?'+ new URLSearchParams({
             text: text,
             allImages: true
-        })).then(async res => {
+        }), {signal}).then(async res => {
             const items = await res.json();
             setSearchedItems(items);
         });

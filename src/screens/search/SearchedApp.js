@@ -12,8 +12,6 @@ export function SearchedApp({app}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    console.log(app.screenshotUrls?.[0])
-
     return (
         <TouchableOpacity
             style={{flex: 1, overflow: 'hidden'}}
