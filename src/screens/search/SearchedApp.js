@@ -57,15 +57,18 @@ export function SearchedApp({app}) {
                 </View>
             </View>
 
-            <If can={app.screenshotUrls !== undefined && Array.isArray(app.screenshotUrls)}>
+            <If can={app.screenshotUrls !== undefined && Array.isArray(app.screenshotUrls) && app.screenshotUrls.length > 0}>
                 <View style={{flexDirection: 'row', flex: 1, width: '100%'}}>
 
                     <Image style={{width: 75, height: 220, borderRadius: 10, flex: 1, margin: 5}}
-                           source={{uri: app.screenshotUrls?.[0]}}/>
+                           source={{uri: app.screenshotUrls?.[0]}}
+                    />
                     <Image style={{width: 100, height: 220, borderRadius: 10, flex: 1, margin: 5}}
-                           source={{uri: app.screenshotUrls?.[1]}}/>
+                           source={{uri: app.screenshotUrls?.[1]}}
+                    />
                     <Image style={{width: 100, height: 220, borderRadius: 10, flex: 1, margin: 5}}
-                           source={{uri: app.screenshotUrls?.[2]}}/>
+                           source={{uri: app.screenshotUrls?.[2]}}
+                    />
 
                 </View>
             </If>

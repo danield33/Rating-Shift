@@ -17,11 +17,20 @@ export default function SearchPage() {
     const search = (text) => {
 
         setSearchedItems(undefined)
-        fetch('http://localhost:3000/api?text=snapchat')
-            .then(async res => {
+        fetch('http://localhost:3000/api?'+ new URLSearchParams({
+            text: text,
+            allImages: false
+        })).then(async res => {
                 const items = await res.json();
                 setSearchedItems(items);
             });
+        fetch('http://localhost:3000/api?'+ new URLSearchParams({
+            text: text,
+            allImages: true
+        })).then(async res => {
+            const items = await res.json();
+            setSearchedItems(items);
+        });
     }
 
     const renderApp = (item) => {
