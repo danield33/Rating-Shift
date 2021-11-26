@@ -23,8 +23,10 @@ export default function SearchPage() {
         controller = new AbortController();
         const {signal} = controller;
 
+        const link = 'https://ratingshiftapi.herokuapp.com/api?'
+
         setSearchedItems(undefined);
-        fetch('http://localhost:3000/api?'+ new URLSearchParams({
+        fetch(link+ new URLSearchParams({
             text: text,
             allImages: false
         }), {signal}).then(async res => {
@@ -32,7 +34,7 @@ export default function SearchPage() {
                 controller = null;
                 setSearchedItems(items);
             });
-        fetch('http://localhost:3000/api?'+ new URLSearchParams({
+        fetch(link+ new URLSearchParams({
             text: text,
             allImages: true
         }), {signal}).then(async res => {
