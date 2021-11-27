@@ -14,6 +14,8 @@ import {useSelector} from "react-redux";
 export default function SingleApp({app}) {
     const viewingApp = useSelector(state => state.appList.currentlyViewing.item);
     const appData = app ?? viewingApp;
+    console.log(viewingApp)
+    return null;
     const image = appData.artworkUrl512;
 
     return (

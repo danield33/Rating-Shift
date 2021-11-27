@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import colors from "../../global/styles/colors";
@@ -20,7 +20,7 @@ export default function SearchPage() {
         controller = new AbortController();
         const {signal} = controller;
 
-        const link = 'https://ratingshiftapi.herokuapp.com/api?'
+        const link = __DEV__ ? 'http://localhost:3000/api?' : 'https://ratingshiftapi.herokuapp.com/api?'
 
         setSearchedItems(undefined);
         fetch(link + new URLSearchParams({
@@ -44,6 +44,15 @@ export default function SearchPage() {
         const app = item.item;
         return <SearchedApp app={app}/>
     }
+
+    useEffect(() => {
+        return () => {
+            if(controller){
+                controller.abort();
+                controller = null;
+            }
+        }
+    })
 
     return (
         <View style={{...Styles.background}}>
