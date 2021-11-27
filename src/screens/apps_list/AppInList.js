@@ -14,7 +14,7 @@ export function AppInList({app}) {
         <TouchableOpacity
             style={{flex: 1}}
             onPress={() => {
-                dispatch(viewApp(app));
+                dispatch(viewApp(app.trackId));
                 navigation.navigate('Single App');
             }}>
             <View style={{flexDirection: 'row'}}>

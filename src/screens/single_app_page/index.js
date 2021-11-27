@@ -9,12 +9,19 @@ import {AppDescription} from "./AppDescription";
 import {AppReviews} from "./Reviews";
 import {Line} from "../../components/Line";
 import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import RShift from '../../database'
 
 
-export default function SingleApp({app}) {
-    const viewingApp = useSelector(state => state.appList.currentlyViewing.item);
-    const appData = app ?? viewingApp;
-    console.log(viewingApp)
+export default function SingleApp({appID}) {
+    const viewingAppID = useSelector(state => state.appList.currentlyViewing.item);
+    const appData = appID ?? viewingAppID;
+    console.log(appData);
+
+    useEffect(() => {
+        RShift
+    })
+
     return null;
     const image = appData.artworkUrl512;
 

@@ -1,9 +1,10 @@
 import FTMatters from "./42Matters";
 import User from './firebase/collections/user/User'
-
+import Apps from './firebase/collections/apps'
 class RShift {
 
     ftMatters = new FTMatters();
+    apps = new Apps();
 
 }
 
