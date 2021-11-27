@@ -6,6 +6,7 @@ import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import StarRating from "react-native-star-rating";
 import {If} from "../../components/If";
+import {viewApp} from "../../global/redux/actions/AppListActions";
 
 export function SearchedApp({app}) {
     const dispatch = useDispatch();
@@ -15,8 +16,8 @@ export function SearchedApp({app}) {
         <TouchableOpacity
             style={{flex: 1, overflow: 'hidden'}}
             onPress={() => {
-                //dispatch(viewApp(app));
-                //navigation.navigate('Single App');
+                dispatch(viewApp(app));
+                navigation.navigate('Single App');
             }}>
             <View style={{flexDirection: 'row'}}>
                 <Image source={{uri: app.artworkUrl512}}

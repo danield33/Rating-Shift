@@ -54,7 +54,6 @@ export default function SearchPage() {
                     <ActivityIndicator size={'large'} color={colors.red}/>
                     <Text style={{color: colors.aqua, fontSize: 20}}>Loading</Text>
                 </View>
-
                 <FlatList data={searchedItems}
                           style={{width: '100%', top: 20}}
                           renderItem={renderApp}
@@ -63,7 +62,6 @@ export default function SearchPage() {
                           showsVerticalScrollIndicator={false}
                           alwaysBounceHorizontal={false}
                 />
-
             </If>
 
         </View>
