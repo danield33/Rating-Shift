@@ -6,6 +6,7 @@ import {DeveloperInfo} from "./DeveloperIcon";
 import {MainLanguageDisp} from "./MainLanguage";
 import {AppSizeDisplay} from "./AppSize";
 import {ContentAdvisoryDisplay} from "./ContentAdvisoryDisplay";
+import {If} from "../../../components/If";
 
 const semiVerticalLine = () => {
     return (
@@ -45,10 +46,14 @@ export function AppInfo({appData}) {
             <MainLanguageDisp mainLanguage={appData.lang} additionalLanguagesSize={appData.i18n_lang.length}/>
 
             {semiVerticalLine()}
+            <If can={Boolean(appData.fileSizeBytesNumeric)}>
+                <>
+                    <AppSizeDisplay appSizeBytes={appData.fileSizeBytesNumeric}/>
+                    {semiVerticalLine()}
+                </>
 
-            <AppSizeDisplay appSizeBytes={appData.fileSizeBytesNumeric}/>
+            </If>
 
-            {semiVerticalLine()}
 
             <ContentAdvisoryDisplay age={appData.contentAdvisoryRating}/>
 
