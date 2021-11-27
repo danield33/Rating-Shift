@@ -15,7 +15,9 @@ export default function SearchPage() {
 
     const search = (text) => {
 
-        if (controller) controller.abort();
+        console.log(controller)
+        if (controller)
+            controller.abort();
 
         controller = new AbortController();
         const {signal} = controller;
@@ -52,7 +54,7 @@ export default function SearchPage() {
                 controller = null;
             }
         }
-    })
+    }, [])
 
     return (
         <View style={{...Styles.background}}>

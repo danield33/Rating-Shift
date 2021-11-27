@@ -16,7 +16,7 @@ export function SearchedApp({app}) {
         <TouchableOpacity
             style={{flex: 1, overflow: 'hidden'}}
             onPress={() => {
-                dispatch(viewApp(app.trackId));
+                dispatch(viewApp({trackId: app.trackId, link: app.link}));
                 navigation.navigate('Single App');
             }}>
             <View style={{flexDirection: 'row'}}>
