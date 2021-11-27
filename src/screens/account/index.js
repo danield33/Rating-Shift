@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {If} from "../../components/If";
@@ -6,10 +6,9 @@ import colors from "../../global/styles/colors";
 import {FlatButton} from "../../components/FlatButton";
 import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
-import RShift, {errorCodes, Users} from '../../database'
-import {useDispatch} from "react-redux";
+import {errorCodes, Users} from '../../database'
+import {useDispatch, useSelector} from "react-redux";
 import {AccountScreen} from "./AccountScreen";
-import {useSelector} from "react-redux";
 
 
 export default function Account() {
@@ -20,7 +19,7 @@ export default function Account() {
 
     const createAccount = (data) => {
 
-        if (!(isSigningUp-1))
+        if (!(isSigningUp - 1))
             Users.logUserIn(data)
                 .then(() => {
                     setSigningUp(0);// state changed handled in App.js

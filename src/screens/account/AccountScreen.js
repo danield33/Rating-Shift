@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import {FlatButton} from "../../components/FlatButton";
 import {Users} from "../../database";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
 import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import {Ionicons} from "@expo/vector-icons";
@@ -14,7 +14,7 @@ export function AccountScreen() {
     const [pfp, setPfp] = useState(user.pfp);
 
     useEffect(() => {
-        if(!pfp){
+        if (!pfp) {
             user.getProfilePicture().then(url => {
                 setPfp(url);
             })
@@ -65,4 +65,4 @@ export function AccountScreen() {
             <FlatButton text={'sign out'} onPress={confirmSignOut}/>
         </View>
     );
-};
+}

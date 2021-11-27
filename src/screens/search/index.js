@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {View, Text, TextInput, TouchableOpacity, ActivityIndicator, FlatList} from 'react-native';
+import {useState} from 'react';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import colors from "../../global/styles/colors";
-import {TextInputValue} from "../../components/TextInputValue";
-import {useImperativeHandle, useRef, useEffect, useState} from "react";
-import EventSource from "react-native-sse";
-import {AppsList} from "../index";
 import {SearchBar} from "./SearchBar";
 import {If} from "../../components/If";
 import {SearchedApp} from "./SearchedApp";
@@ -18,7 +15,7 @@ export default function SearchPage() {
 
     const search = (text) => {
 
-        if(controller) controller.abort();
+        if (controller) controller.abort();
 
         controller = new AbortController();
         const {signal} = controller;
@@ -26,15 +23,15 @@ export default function SearchPage() {
         const link = 'https://ratingshiftapi.herokuapp.com/api?'
 
         setSearchedItems(undefined);
-        fetch(link+ new URLSearchParams({
+        fetch(link + new URLSearchParams({
             text: text,
             allImages: false
         }), {signal}).then(async res => {
-                const items = await res.json();
-                controller = null;
-                setSearchedItems(items);
-            });
-        fetch(link+ new URLSearchParams({
+            const items = await res.json();
+            controller = null;
+            setSearchedItems(items);
+        });
+        fetch(link + new URLSearchParams({
             text: text,
             allImages: true
         }), {signal}).then(async res => {

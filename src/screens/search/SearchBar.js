@@ -1,8 +1,8 @@
 import * as React from 'react';
+import {useRef} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import {TextInputValue} from "../../components/TextInputValue";
-import {useRef} from "react";
 
 export function SearchBar({onSearch}) {
     let inpRef = useRef(null);
@@ -45,4 +45,4 @@ export function SearchBar({onSearch}) {
             </View>
         </View>
     );
-};
+}
