@@ -1,8 +1,16 @@
 import * as React from 'react';
 import {forwardRef, useImperativeHandle, useRef} from 'react';
-import {TextInput, Keyboard} from 'react-native';
+import {Keyboard, TextInput} from 'react-native';
 
-const TextInputValue = forwardRef(({endEditing, submitEditing, blur, textChange, onTextChange, onSetText, ...props}, ref) => {
+const TextInputValue = forwardRef(({
+                                       endEditing,
+                                       submitEditing,
+                                       blur,
+                                       textChange,
+                                       onTextChange,
+                                       onSetText,
+                                       ...props
+                                   }, ref) => {
 
     let inputText = "";
     let inpRef = useRef(null);

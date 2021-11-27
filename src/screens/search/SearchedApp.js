@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
-import {viewApp} from "../../global/redux/actions/AppListActions";
 import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import StarRating from "react-native-star-rating";
@@ -74,4 +73,4 @@ export function SearchedApp({app}) {
             <Line/>
         </TouchableOpacity>
     );
-};
+}

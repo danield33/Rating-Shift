@@ -1,11 +1,11 @@
-module.exports = class Application{
+module.exports = class Application {
 
     constructor() {
     }
 
 
-    static createApp(appData){
-        
+    static createApp(appData) {
+
     }
 
 }

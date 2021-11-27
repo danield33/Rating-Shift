@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {
     Alert,
     Button,
-    Image, Keyboard,
+    Image,
+    Keyboard,
     KeyboardAvoidingView,
     Linking,
     Platform,
