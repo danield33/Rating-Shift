@@ -22,6 +22,7 @@ const semiVerticalLine = () => {
 }
 
 export function AppInfo({appData}) {
+
     return (
         <ScrollView horizontal={true}
                     showsHorizontalScrollIndicator={false}
