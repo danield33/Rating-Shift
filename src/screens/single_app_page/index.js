@@ -29,8 +29,6 @@ export default function SingleApp({appID}) {
     }, [])
 
 
-    console.log(app != null)
-
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
                     contentContainerStyle={{alignItems: 'center'}}>

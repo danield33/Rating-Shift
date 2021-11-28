@@ -1,9 +1,9 @@
-import FTMatters from "./42Matters";
+import API from "./api";
 import User from './firebase/collections/user/User'
 import Apps from './firebase/collections/apps'
 class RShift {
 
-    ftMatters = new FTMatters();
+    api = new API();
     apps = new Apps();
 
 }

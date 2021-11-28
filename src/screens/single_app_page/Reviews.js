@@ -18,7 +18,7 @@ export function AppReviews({appData, reviewObj}) {
 
     useEffect(() => {
         if (!reviewObj) {
-            RShift.ftMatters.reviews({id: appData.trackId, lang: 'en'}).then(reviews => {
+            RShift.api.reviews({id: appData.trackId, lang: 'en'}).then(reviews => {
                 if (reviews.statusCode === 402)
                     return setReviews(402)
                 setReviews(reviews);
@@ -29,8 +29,7 @@ export function AppReviews({appData, reviewObj}) {
 
     if (!reviews) return (
         <View>
-            <ActivityIndicator size={'large'} color={colors.red}
-            />
+            <ActivityIndicator size={'large'} color={colors.red}/>
         </View>
     );
 

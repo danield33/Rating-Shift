@@ -15,7 +15,6 @@ export default function SearchPage() {
 
     const search = (text) => {
 
-        console.log(controller)
         if (controller)
             controller.abort();
 

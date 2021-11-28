@@ -1,12 +1,13 @@
 import {Query, Reviews, Search, TopApps} from './example_responses';
 import IOSGenres from './IOSGenres';
 
-module.exports = class FTMatters {
+module.exports = class API {
 
     #type = 'ios/apps';
     baseURL = 'https://data.42matters.com/api/';
     #token = 'cc0966d239a6da778649d22b7cd4f8aa88b77f80';
     genres = IOSGenres;
+    #topLink = 'http://localhost:3000/api/top?';
 
     async getTopGenreApps(genreID) {
         return await this.query({limit: 21, lang: 'en'}, {
@@ -21,7 +22,9 @@ module.exports = class FTMatters {
     }
 
     async top(options) {
-        return TopApps//this.getData(`${this.baseURL}v3.0/${this.type}/top_appstore_charts.json?`, options)
+
+        return this.getData(this.#topLink, options);
+
     }
 
     async query(options, body) {//TODO create some kind of api cache
@@ -53,10 +56,8 @@ module.exports = class FTMatters {
     getData(url, options) {
 
         return new Promise(resolve => {
-            fetch(url + new URLSearchParams({
-                access_token: this.#token,
-                ...options
-            })).then(async res => resolve(await res.json()));
+            fetch(url + new URLSearchParams(options))
+                .then(async res => resolve(await res.json()));
         })
     }
 

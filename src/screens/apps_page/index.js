@@ -20,37 +20,32 @@ export default function Apps() {
     useEffect(() => {
 
         headerApps.length = 0;
-        RShift.ftMatters.top({limit: 21, list_name: 'topgrossing'}).then(apps => {
-            setPaidApps(apps.app_list);
-        });
-        RShift.ftMatters.top({limit: 21, list_name: 'topselling_free'}).then(apps => {
-            setFreeApps(apps.app_list);
+        RShift.api.top({type: 'free'}).then(apps => {
+            setFreeApps(apps);
         });
 
-        RShift.ftMatters.query({
-            lang: 'en',
-            limit: 21
-        }, {
-            query: {
-                query_params: {
-                    from: 0,
-                    num: 10,
-                    sort: 'score',
-                    released_after_dynamic: 'last_day'
-                }
+
+        RShift.api.top({type: 'paid'}).then(apps => {
+            setPaidApps(apps);
+        });
+
+        RShift.api.top({type: 'new'}).then(apps => {
+
+            const results = {
+                title: 'Newest Apps',
+                results: apps
             }
-        }).then(apps => {
-            apps.title = 'Newest Apps';
-            headerApps.push(apps);
-        });
-
+            headerApps.push(results);
+        })
 
         const getGenre = (genreID) => {
-            RShift.ftMatters.getTopGenreApps(genreID).then(apps => {
-                apps = JSON.parse(JSON.stringify(apps))//TODO: test remove this when using actual api
-                apps.title = RShift.ftMatters.genres[genreID];
-                headerApps.push(apps);
-                if (!RShift.ftMatters.genres[genreID + 2]) {
+            RShift.api.top({type: 'free', genre: RShift.api.genres[genreID]}).then(apps => {
+                const result = {
+                    title: RShift.api.genres[genreID],
+                    results: apps
+                }
+                headerApps.push(result);
+                if (!RShift.api.genres[genreID + 2]) {
                     forceUpdate();
                 } else setTimeout(() => getGenre(genreID + 2), 300);
             })

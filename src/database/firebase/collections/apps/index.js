@@ -15,10 +15,8 @@ module.exports = class Apps{
                 link: link
             })
             return new Promise((resolve => {
-                console.log(params.toString())
                 const link = `http://localhost:3000/api/get?${params}`;
 
-                console.log(link, 'linkasdfasdf')
                 fetch(link).then(async res => {
                     resolve(await res.json());
                 })
