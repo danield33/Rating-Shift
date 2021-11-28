@@ -1,6 +1,7 @@
 module.exports = class Application {
 
-    constructor() {
+    constructor(appData) {
+        Object.assign(this, {...appData})
     }
 
 

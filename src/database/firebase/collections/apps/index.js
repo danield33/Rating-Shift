@@ -1,3 +1,5 @@
+const App = require('../app/App');
+
 module.exports = class Apps{
 
     static apps = new Map();
@@ -8,7 +10,7 @@ module.exports = class Apps{
 
     async get(trackId, link){
         if(this.apps.has(trackId))
-            return this.apps.get(apps);
+            return Promise.resolve(this.apps.get(trackId));
         else{//TODO replace with heroku
             const params = new URLSearchParams({
                 trackId: trackId,
@@ -19,7 +21,10 @@ module.exports = class Apps{
                 const link = `${baseLink+params}`;
 
                 fetch(link).then(async res => {
-                    resolve(await res.json());
+                    const response = await res.json();
+                    const app = new App(response);
+                    this.apps.set(trackId, app);
+                    resolve(app);
                 })
             }))
 
