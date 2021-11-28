@@ -15,7 +15,8 @@ module.exports = class Apps{
                 link: link
             })
             return new Promise((resolve => {
-                const link = `http://localhost:3000/api/get?${params}`;
+                const baseLink = __DEV__ ? 'http://localhost:3000/api/get?' : 'https://ratingshiftapi.herokuapp.com/api/get?'
+                const link = `${baseLink+params}`;
 
                 fetch(link).then(async res => {
                     resolve(await res.json());
