@@ -47,7 +47,7 @@ export default function Apps() {
                 headerApps.push(result);
                 if (!RShift.api.genres[genreID + 2]) {
                     forceUpdate();
-                } else setTimeout(() => getGenre(genreID + 2), 300);
+                } else getGenre(genreID + 2);
             })
         }
         getGenre(6000);
