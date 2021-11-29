@@ -11,7 +11,7 @@ export function SliderContainer({apps, title}) {
     const navigation = useNavigation();
 
     const onPress = () => {
-        dispatch(setApps(apps));
+        dispatch(setApps(apps.map(i => i.trackId)));
         navigation.navigate('AppsList');
     }
 

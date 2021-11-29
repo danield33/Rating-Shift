@@ -1,18 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
-import {setReviews} from "../../global/redux/actions/AppListActions";
+import RShift from '../../database'
 
-
-export function ReviewHeader({reviews, appData, hideButton = false}) {
+export function ReviewHeader({hideButton = false}) {
     const navigation = useNavigation();
-    const appDataStore = useSelector(state => state.appList.currentlyViewing.item);
-    appData = appData || appDataStore;
-    const dispatch = useDispatch();
+    const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const [rating, setRating] = useState(0);
+    const [app, setApp] = useState(null);
+
+    useEffect(() => {
+        RShift.apps.get(trackId).then(app => {
+            setApp(app);
+        })
+    },[])
+
+    if(app === null) return null;
 
     return (
         <View>
@@ -20,7 +26,6 @@ export function ReviewHeader({reviews, appData, hideButton = false}) {
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
                     <Button title={'See More'} color={colors.red} onPress={() => {
-                        dispatch(setReviews(reviews));
                         navigation.navigate('RatingsReviews');
                     }}/>
                 }
@@ -32,7 +37,7 @@ export function ReviewHeader({reviews, appData, hideButton = false}) {
                         fontSize: 40,
                         fontWeight: 'bold',
                         color: colors.aqua,
-                    }}>{(Math.round(appData?.averageUserRating * 10) / 10).toString()}</Text>
+                    }}>{(Math.round(app.averageUserRating * 10) / 10).toString()}</Text>
                     <Text style={{
                         fontSize: 15,
                         fontWeight: '600',
@@ -44,7 +49,7 @@ export function ReviewHeader({reviews, appData, hideButton = false}) {
                     color: 'white',
                     fontSize: 15,
                     fontWeight: '600'
-                }}>{Number(appData?.userRatingCount).toLocaleString()} Ratings</Text>
+                }}>{Number(app.userRatingCount).toLocaleString()} Ratings</Text>
 
             </View>
 

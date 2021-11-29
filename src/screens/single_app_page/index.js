@@ -17,12 +17,12 @@ import colors from "../../global/styles/colors";
 
 export default function SingleApp({appID}) {
     const viewingAppID = useSelector(state => state.appList.currentlyViewing.item);
-    const appData = appID ?? viewingAppID;
+    const trackId = appID ?? viewingAppID;
     const [app, setApp] = useState(null);
 
     useEffect(() => {
 
-        RShift.apps.get(appData.trackId, appData.link).then(r => {
+        RShift.apps.get(trackId).then(r => {
             setApp(r);
         })
 

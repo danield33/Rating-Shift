@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 import {AppInList} from "./AppInList";
 
 const renderApp = (appItem) => {
-    const app = appItem.item;
-    return <AppInList app={app}/>
+    const trackId = appItem.item;
+    return <AppInList appID={trackId}/>
 }
 
 export default function AppsList() {

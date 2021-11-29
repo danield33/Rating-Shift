@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
-import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
-import {RatingsPage} from "../index";
+import {If} from "../../components/If";
 
-export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
+export function ReviewCard({review, size, canExpand, renderModal = true, defaultExpanded = false}) {
 
     const [isExpanded, setExpanded] = useState(defaultExpanded);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -31,11 +30,15 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
 
         <>
 
-            <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
-                <View style={{padding: 20, flex: 1, width: '100%'}}>
-                    <RatingsPage reviewData={[review]} allExpanded={true} showHeader={false}/>
-                </View>
-            </CustomModal>
+            <If can={renderModal}>
+                <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
+                    <View style={{padding: 20, flex: 1, width: '100%', alignItems: 'center'}}>
+                        <ReviewCard review={review} size={size} canExpand={true} defaultExpanded={true}
+                                    renderModal={false}/>
+                    </View>
+                </CustomModal>
+            </If>
+
 
             <View
                 style={{

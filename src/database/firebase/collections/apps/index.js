@@ -8,13 +8,12 @@ module.exports = class Apps{
 
     }
 
-    async get(trackId, link){
+    async get(trackId){
         if(this.apps.has(trackId))
             return Promise.resolve(this.apps.get(trackId));
         else{//TODO replace with heroku
             const params = new URLSearchParams({
                 trackId: trackId,
-                link: link
             })
             return new Promise((resolve => {
                 const baseLink = __DEV__ ? 'http://localhost:3000/api/get?' : 'https://ratingshiftapi.herokuapp.com/api/get?'

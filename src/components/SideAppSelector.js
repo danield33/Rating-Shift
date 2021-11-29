@@ -12,7 +12,7 @@ export function SideAppSelector({app}) {
     return (
         <TouchableOpacity style={{borderRadius: 10, width: Dimensions.get('window').width - 40, padding: 5}}
                           onPress={() => {
-                              dispatch(viewApp(app));
+                              dispatch(viewApp(app.trackId));
                               navigation.navigate('Single App');
                           }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
