@@ -12,7 +12,7 @@ export function LargeCategoryImage({appList, width}) {
 
     if (!url) return null;
     const onPress = () => {
-        dispatch(setApps(appList.item.results));
+        dispatch(setApps(appList.item.results.map(i => i.trackId)));
         navigation.navigate('AppsList')
     }
 

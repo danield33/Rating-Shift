@@ -27,27 +27,30 @@ export function AppInList({appID}) {
                 dispatch(viewApp(app.trackId));
                 navigation.navigate('Single App');
             }}>
-            <If can={app != null}>
-                <View style={{flexDirection: 'row'}}>
-                    <Image source={{uri: app.artworkUrl512}}
-                           style={{
-                               width: 75,
-                               height: 75,
-                               borderRadius: 10
-                           }}/>
-                    <View style={{marginLeft: 10}}>
+            {
+                app != null ?
+                    <View style={{flexDirection: 'row'}}>
+                        <Image source={{uri: app.artworkUrl512}}
+                               style={{
+                                   width: 75,
+                                   height: 75,
+                                   borderRadius: 10
+                               }}/>
+                        <View style={{marginLeft: 10}}>
 
-                        <Text style={{
-                            color: colors.aqua,
-                            fontSize: 15,
-                            fontWeight: '600'
-                        }}>{app.trackCensoredName}</Text>
+                            <Text style={{
+                                color: colors.aqua,
+                                fontSize: 15,
+                                fontWeight: '600'
+                            }}>{app.trackCensoredName}</Text>
 
-                        <Text style={{color: 'white'}}>{app.subtitle}</Text>
+                            <Text style={{color: 'white'}}>{app.subtitle}</Text>
+                        </View>
                     </View>
-                </View>
-                <ActivityIndicator color={colors.red} size={'large'}/>
-            </If>
+                    :  <ActivityIndicator color={colors.red} size={'large'}/>
+
+            }
+
 
             <Line style={{width: '100%'}}/>
         </TouchableOpacity>
