@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
-import RShift from '../../database';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {ReviewCard} from "../rating_reviews/ReviewCard";
 import colors from "../../global/styles/colors";
@@ -12,20 +11,9 @@ const renderReview = (reviewItem, size) => {
     return <ReviewCard review={review} size={size} canExpand={false}/>
 }
 
-export function AppReviews({appData, reviewObj}) {
+export function AppReviews({appData}) {
 
-    const [reviews, setReviews] = useState(reviewObj);
-
-    useEffect(() => {
-        if (!reviewObj) {
-            RShift.api.reviews({id: appData.trackId, lang: 'en'}).then(reviews => {
-                if (reviews.statusCode === 402)
-                    return setReviews(402)
-                setReviews(reviews);
-            });
-        }
-    }, []);
-
+    const reviews = appData.reviews;
 
     if (!reviews) return (
         <View>
@@ -38,9 +26,7 @@ export function AppReviews({appData, reviewObj}) {
 
             <ReviewHeader reviews={reviews} appData={appData} hideButton={reviews === 402}/>
 
-            <View>
-                <Line/>
-            </View>
+            <Line/>
 
             {
                 reviews === 402 ? (//TODO: setup rating shift reviews
@@ -52,7 +38,7 @@ export function AppReviews({appData, reviewObj}) {
                         }}>iOS Reviews Not Available For This App</Text>
                     ) :
                     (
-                        <LargeAppDisplay apps={reviews.reviews}
+                        <LargeAppDisplay apps={reviews}
                                          renderItem={renderReview}/>
                     )
             }

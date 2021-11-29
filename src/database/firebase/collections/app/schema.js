@@ -14,4 +14,5 @@ module.exports = {
     i18n_lang: Array,
     subtitle: String,
     artistName: String,
+    reviews: Array,
 }

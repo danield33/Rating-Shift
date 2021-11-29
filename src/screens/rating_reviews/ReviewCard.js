@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
 import StarRating from "react-native-star-rating";
@@ -10,6 +10,8 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
 
     const [isExpanded, setExpanded] = useState(defaultExpanded);
     const [isModalOpen, setModalOpen] = useState(false);
+
+    const reviewObj = review.attributes;
 
     const toggleExpanded = () => {
         if (!canExpand) {
@@ -31,7 +33,7 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
 
             <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
                 <View style={{padding: 20, flex: 1, width: '100%'}}>
-                    <RatingsPage reviewData={{reviews: [review]}} allExpanded={true} showHeader={false}/>
+                    <RatingsPage reviewData={[review]} allExpanded={true} showHeader={false}/>
                 </View>
             </CustomModal>
 
@@ -53,17 +55,17 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
                                 fontSize: 20,
                                 fontWeight: '600',
                             }}
-                            numberOfLines={2}
+                            numberOfLines={3}
                             adjustsFontSizeToFit={true}
                         >
-                            {review.title}</Text>
+                            {reviewObj.title}</Text>
 
                         <StarRating
                             disabled={true}
                             starSize={15}
                             fullStarColor={colors.red}
                             halfStar={colors.red}
-                            rating={review.rating}
+                            rating={reviewObj.rating}
                             maxStars={5}
                             halfStarEnabled={true}
                             containerStyle={{justifyContent: undefined}}
@@ -72,8 +74,8 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
                     </View>
 
                     <View style={{alignItems: 'flex-end', flex: 1}}>
-                        <Text style={{color: colors.aqua, fontWeight: '600'}}>{review.date}</Text>
-                        <Ionicons name={'logo-apple'} color={'white'} size={20}/>
+                        <Text style={{color: colors.aqua, fontWeight: '600'}}>{reviewObj.date.split('T')[0]}</Text>
+                        <Text style={{color: colors.aqua, fontWeight: '600'}}>{reviewObj.userName}</Text>
                     </View>
 
                 </View>
@@ -85,7 +87,7 @@ export function ReviewCard({review, size, canExpand, defaultExpanded = false}) {
                           color: 'white',
                           fontSize: 15,
                           fontWeight: '500'
-                      }}>{review.content}</Text>
+                      }}>{reviewObj.review}</Text>
 
                 <View style={{justifyContent: 'flex-end'}}>
                     <TouchableOpacity
