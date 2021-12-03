@@ -13,9 +13,13 @@ export function ReviewHeader({hideButton = false}) {
     const [app, setApp] = useState(null);
 
     useEffect(() => {
-        RShift.apps.get(trackId).then(app => {
+        const aborter = RShift.apps.get(trackId, app => {
             setApp(app);
         })
+        return () => {
+            aborter.abort()
+
+        }
     },[])
 
     if(app === null) return null;

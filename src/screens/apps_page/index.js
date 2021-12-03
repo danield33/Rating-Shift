@@ -56,13 +56,11 @@ export default function Apps() {
         }
         getGenre(6000);
 
-    }, []);
-
-    useEffect(() => {
         return () => {
             aborters.forEach(i => i?.abort())
         }
-    }, [])
+
+    }, []);
 
 
     return (

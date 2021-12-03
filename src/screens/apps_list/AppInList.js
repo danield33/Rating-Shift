@@ -14,16 +14,19 @@ export function AppInList({appID}) {
     const [app, setApp] = useState(null)
 
     useEffect(() => {
-        RShift.apps.get(appID).then(app => {
+        const aborter = RShift.apps.get(appID, app => {
             setApp(app)
-        })
+        });
+        return () => {
+                aborter.abort()
+        }
     }, [])
 
     return (
         <TouchableOpacity
             style={{flex: 1}}
             onPress={() => {
-                if(app.trackId){
+                if(app?.trackId){
                     dispatch(viewApp(app.trackId));
                     navigation.navigate('Single App');
                 }

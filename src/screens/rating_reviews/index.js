@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, View, ActivityIndicator} from 'react-native';
+import {ActivityIndicator, FlatList, View} from 'react-native';
 import {Styles} from "../../global";
 import {ReviewHeader} from "./ReviewHeader";
 import {Line} from "../../components/Line";
 import {ReviewCard} from "./ReviewCard";
 import {useSelector} from "react-redux";
 import RShift from '../../database'
-import {If} from "../../components/If";
 import colors from "../../global/styles/colors";
 
 export default function RatingsPage({allExpanded, showHeader = true}) {
@@ -14,9 +13,13 @@ export default function RatingsPage({allExpanded, showHeader = true}) {
     const [app, setApp] = useState(null);
 
     useEffect(() => {
-        RShift.apps.get(trackId).then(app => {
+        const aborter = RShift.apps.get(trackId, app => {
             setApp(app);
         })
+        return () => {
+            aborter.abort()
+
+        }
     }, [])
 
 

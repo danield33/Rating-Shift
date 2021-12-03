@@ -22,10 +22,13 @@ export default function SingleApp({appID}) {
 
     useEffect(() => {
 
-        RShift.apps.get(trackId).then(r => {
-            setApp(r);
+        const aborter = RShift.apps.get(trackId, app => {
+            setApp(app);
         })
+        return () => {
+            aborter.abort()
 
+        }
     }, [])
 
 
