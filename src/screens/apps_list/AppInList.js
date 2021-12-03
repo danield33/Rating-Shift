@@ -6,7 +6,6 @@ import {useNavigation} from "@react-navigation/native";
 import {Line} from "../../components/Line";
 import colors from "../../global/styles/colors";
 import {useEffect, useState} from "react";
-import {If} from "../../components/If";
 import RShift from '../../database';
 
 export function AppInList({appID}) {
@@ -24,8 +23,10 @@ export function AppInList({appID}) {
         <TouchableOpacity
             style={{flex: 1}}
             onPress={() => {
-                dispatch(viewApp(app.trackId));
-                navigation.navigate('Single App');
+                if(app.trackId){
+                    dispatch(viewApp(app.trackId));
+                    navigation.navigate('Single App');
+                }
             }}>
             {
                 app != null ?

@@ -16,8 +16,10 @@ export function SearchedApp({app}) {
         <TouchableOpacity
             style={{flex: 1, overflow: 'hidden'}}
             onPress={() => {
-                dispatch(viewApp(app.trackId));
-                navigation.navigate('Single App');
+                if(app.trackId){
+                    dispatch(viewApp(app.trackId));
+                    navigation.navigate('Single App');
+                }
             }}>
             <View style={{flexDirection: 'row'}}>
                 <Image source={{uri: app.artworkUrl512}}
