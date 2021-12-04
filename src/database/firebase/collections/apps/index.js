@@ -4,10 +4,6 @@ module.exports = class Apps{
 
     static apps = new Map();
 
-    constructor() {
-
-    }
-
     get(trackId, callback){
         if(this.apps.has(trackId)){
             callback(this.apps.get(trackId));
@@ -18,7 +14,7 @@ module.exports = class Apps{
             const params = new URLSearchParams({
                 trackId: trackId,
             })
-            const baseLink = __DEV__ ? 'http://localhost:3000/api/get?' : 'https://ratingshiftapi.herokuapp.com/api/get?'
+            const baseLink = 'http://localhost:3000/api/get?';
             const link = `${baseLink+params}`;
 
             fetch(link, {signal}).then(async res => {
