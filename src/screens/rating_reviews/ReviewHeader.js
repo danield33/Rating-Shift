@@ -1,21 +1,22 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {Alert, Button, Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
-import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
-import {useDispatch, useSelector} from "react-redux";
-import RShift, {Users} from '../../database'
+import {useSelector} from "react-redux";
+import RShift from '../../database'
 import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
 import {WriteReview} from "./WriteReview";
 import {CustomStarRating} from "../../components/CustomStarRating";
 import {If} from "../../components/If";
+import {useForceUpdate} from "../../hooks/useForceUpdate";
 
 export function ReviewHeader({hideButton = false}) {
+    const update = useForceUpdate();
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const user = useSelector(state => {
-        if(state.account?.currentUser)
+        if (state.account?.currentUser)
             return state.account.currentUser;
     });
     const [app, setApp] = useState(null);
@@ -30,9 +31,9 @@ export function ReviewHeader({hideButton = false}) {
             aborter.abort()
 
         }
-    },[])
+    }, [])
 
-    if(app === null) return null;
+    if (app === null) return null;
 
     const submitReview = (review) => {
 
