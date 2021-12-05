@@ -19,7 +19,7 @@ export function Reviews() {
 
     const renderApp = (item) => {
         const app = item.item;
-        return <AppInList appID={app}/>
+        return <AppInList appID={app} onPressOvewrite={() => console.log(1)}/>
     }
 
     useEffect(() => {

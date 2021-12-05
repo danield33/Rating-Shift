@@ -8,7 +8,7 @@ import {Line} from "../../components/Line";
 import colors from "../../global/styles/colors";
 import RShift from '../../database';
 
-export function AppInList({appID, children}) {
+export function AppInList({appID, onPressOvewrite, children}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [app, setApp] = useState(null)
@@ -27,6 +27,8 @@ export function AppInList({appID, children}) {
             style={{flex: 1}}
             onPress={() => {
                 if (app?.trackId) {
+                    if(onPressOvewrite)
+                        return onPressOvewrite();
                     dispatch(viewApp(app.trackId));
                     navigation.navigate('Single App');
                 }
