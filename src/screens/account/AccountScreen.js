@@ -8,8 +8,10 @@ import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import {Ionicons} from "@expo/vector-icons";
 import {If} from "../../components/If";
+import {useNavigation} from "@react-navigation/native";
 
 export function AccountScreen() {
+    const navigation = useNavigation();
     const user = useSelector(state => state.account.currentUser);
     const [pfp, setPfp] = useState(user.pfp);
 
@@ -55,7 +57,7 @@ export function AccountScreen() {
             <TouchableOpacity style={{
                 flexDirection: 'row',
                 alignItems: 'center'
-            }}>
+            }} onPress={() => navigation.navigate("Ratings")}>
                 <Ionicons name={'star-half'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
                 <Text style={{fontSize: 35, color: colors.aqua}}>Ratings</Text>
             </TouchableOpacity>
@@ -65,7 +67,7 @@ export function AccountScreen() {
             <TouchableOpacity style={{
                 flexDirection: 'row',
                 alignItems: 'center'
-            }}>
+            }} onPress={() => navigation.navigate("Reviews")}>
                 <Ionicons name={'create'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
                 <Text style={{fontSize: 35, color: colors.aqua}}>Reviews</Text>
             </TouchableOpacity>

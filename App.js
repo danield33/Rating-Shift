@@ -11,6 +11,9 @@ import {Provider} from 'react-redux';
 import User from "./src/database/firebase/collections/user/User";
 import {getAuth} from "firebase/auth";
 import {changeAuthentication} from "./src/global/redux/actions/AppListActions";
+import {Ratings} from "./src/screens/account/Ratings";
+import {Reviews} from "./src/screens/account/Reviews";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -118,6 +121,9 @@ export default function App() {
                                       headerTitle: ''
                                   }}
                     />
+                    <Stack.Screen name={'Ratings'} component={Ratings}/>
+                    <Stack.Screen name={'Reviews'} component={Reviews}/>
+
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
