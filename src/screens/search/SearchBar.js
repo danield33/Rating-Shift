@@ -4,11 +4,12 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import {TextInputValue} from "../../components/TextInputValue";
 
-export function SearchBar({onSearch}) {
+export function SearchBar({onSearch, onClear}) {
     let inpRef = useRef(null);
 
     const clearInput = () => {
         inpRef.current._clear();
+        onClear?.();
     }
 
     return (

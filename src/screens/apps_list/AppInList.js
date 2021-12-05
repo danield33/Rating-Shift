@@ -8,7 +8,7 @@ import {Line} from "../../components/Line";
 import colors from "../../global/styles/colors";
 import RShift from '../../database';
 
-export function AppInList({appID, onPressOvewrite, children}) {
+export function AppInList({appID, onPressOvewrite, hidden, children}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [app, setApp] = useState(null)
@@ -22,7 +22,11 @@ export function AppInList({appID, onPressOvewrite, children}) {
         }
     }, [])
 
+    if(app != null && hidden?.(app))
+        return null;
+
     return (
+
         <TouchableOpacity
             style={{flex: 1}}
             onPress={() => {

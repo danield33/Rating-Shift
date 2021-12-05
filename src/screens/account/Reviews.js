@@ -15,9 +15,10 @@ export function Reviews() {
     const [apps, setApps] = useState(Object.keys(user.activity.reviews))
     const [reviews, setReviews] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
+    const [searchFilter, setSearchFilter] = useState('');
 
     const onSearch = (text) => {
-
+        setSearchFilter(text.trim())
     }
 
     const renderApp = (item) => {
@@ -31,6 +32,8 @@ export function Reviews() {
             }
             setReviews(reviews);
             setModalOpen(true);
+        }} hidden={(app) => {
+            return !app.trackCensoredName.toLowerCase().startsWith(searchFilter.toLowerCase())
         }}/>
     }
 
@@ -58,7 +61,7 @@ export function Reviews() {
                     />
             </CustomModal>
 
-            <SearchBar onSearch={onSearch}/>
+            <SearchBar onSearch={onSearch} onClear={() => setSearchFilter('')}/>
             <Line/>
             <FlatList data={apps}
                       renderItem={renderApp}
