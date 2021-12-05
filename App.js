@@ -13,6 +13,7 @@ import {getAuth} from "firebase/auth";
 import {changeAuthentication} from "./src/global/redux/actions/AppListActions";
 import {Ratings} from "./src/screens/account/Ratings";
 import {Reviews} from "./src/screens/account/Reviews";
+import {AccountSettings} from "./src/screens/account/AccountSettings";
 
 
 const Tab = createBottomTabNavigator();
@@ -123,6 +124,7 @@ export default function App() {
                     />
                     <Stack.Screen name={'Ratings'} component={Ratings}/>
                     <Stack.Screen name={'Reviews'} component={Reviews}/>
+                    <Stack.Screen name={'Settings'} component={AccountSettings}/>
 
                 </Stack.Navigator>
             </NavigationContainer>

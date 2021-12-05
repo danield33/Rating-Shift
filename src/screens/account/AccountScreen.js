@@ -9,6 +9,7 @@ import {Line} from "../../components/Line";
 import {Ionicons} from "@expo/vector-icons";
 import {If} from "../../components/If";
 import {useNavigation} from "@react-navigation/native";
+import {ProfilePicture} from "../../components/ProfilePicture";
 
 export function AccountScreen() {
     const navigation = useNavigation();
@@ -42,11 +43,8 @@ export function AccountScreen() {
             <TouchableOpacity style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-            }}>
-                <If can={pfp}>
-                    <Image source={{uri: pfp}} style={{width: 75, height: 75, borderRadius: 35, marginRight: 10}}/>
-                    <Ionicons name={'person-circle-outline'} size={75} color={'white'}/>
-                </If>
+            }} onPress={() => navigation.navigate('Settings')}>
+                <ProfilePicture image={pfp}/>
                 <View>
                     <Text style={{fontSize: 35, color: colors.aqua, fontWeight: '500'}}>{user.username}</Text>
                     <Text style={{color: colors.light_blue, fontWeight: '700'}}>Account Settings</Text>
