@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {ScrollView, StyleSheet, Text, View, Alert} from 'react-native';
+import {useRef} from 'react';
+import {Alert, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
 import {TextInputValue} from "../../components/TextInputValue";
-import {useRef} from "react";
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -26,15 +26,15 @@ export function WriteReview({onSubmit}) {
 
         const rating = starRef.current._getRating();
 
-        if(!rating)
+        if (!rating)
             return Alert.alert("Missing Rating", "Please select a rating by tapping on a star")
 
         const title = titleRef.current._getText().trim();
-        if(!title)
+        if (!title)
             return Alert.alert("Missing Title", "Please add a title")
 
         const review = reviewRef.current._getText().trim();
-        if(!review)
+        if (!review)
             return Alert.alert("Missing Review", "Please write a review")
 
         onSubmit({rating, title, review});
@@ -98,4 +98,4 @@ export function WriteReview({onSubmit}) {
         </>
 
     );
-};
+}

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {ScrollView, View, ActivityIndicator} from 'react-native';
+import {useEffect, useState} from 'react';
+import {ActivityIndicator, ScrollView, View} from 'react-native';
 import {Styles} from '../../global/styles'
 import PropTypes from 'prop-types'
 import {AppTitleHeading} from "./basic_info_displays/AppTitleHeading";
@@ -9,9 +10,7 @@ import {AppDescription} from "./AppDescription";
 import {AppReviews} from "./Reviews";
 import {Line} from "../../components/Line";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
 import RShift from '../../database'
-import {If} from "../../components/If";
 import colors from "../../global/styles/colors";
 
 

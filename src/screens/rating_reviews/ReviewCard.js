@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
-import StarRating from "react-native-star-rating";
 import {CustomModal} from "../../components/CustomModal";
 import {If} from "../../components/If";
 import {CustomStarRating} from "../../components/CustomStarRating";

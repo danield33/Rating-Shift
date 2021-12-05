@@ -7,7 +7,7 @@ import {FlatButton} from "../../components/FlatButton";
 import {CustomModal} from "../../components/CustomModal";
 import {SignUp} from "./SignUp";
 import {errorCodes, Users} from '../../database'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AccountScreen} from "./AccountScreen";
 
 

@@ -3,9 +3,10 @@ const {collection, getDocs} = require("firebase/firestore");
 const {db} = require("../../../../index");
 const ReviewSchema = require('./schema');
 const {createUUID} = require("../../../../../../global/util");
-module.exports = class Reviews{
+module.exports = class Reviews {
 
     #app;
+
     constructor(reviewArr, app) {
         this.#app = app
         this.reviews = reviewArr.map((review) => {
@@ -14,7 +15,7 @@ module.exports = class Reviews{
         this.getSavedReviews();
     }
 
-    add(rating, review, title, user){
+    add(rating, review, title, user) {
 
         const reviewObj = Object.assign({}, ReviewSchema);
         const attribs = reviewObj.attributes;
@@ -32,7 +33,7 @@ module.exports = class Reviews{
 
     }
 
-    async getSavedReviews(){
+    async getSavedReviews() {
         const subColRef = collection(db, 'apps', this.#app.trackId, 'reviews');
         const snap = await getDocs(subColRef);
         snap.docs.forEach(review => {

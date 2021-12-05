@@ -4,7 +4,6 @@ import {useDispatch} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
-import StarRating from "react-native-star-rating";
 import {If} from "../../components/If";
 import {viewApp} from "../../global/redux/actions/AppListActions";
 import {CustomStarRating} from "../../components/CustomStarRating";
@@ -17,7 +16,7 @@ export function SearchedApp({app}) {
         <TouchableOpacity
             style={{flex: 1, overflow: 'hidden'}}
             onPress={() => {
-                if(app.trackId){
+                if (app.trackId) {
                     dispatch(viewApp(app.trackId));
                     navigation.navigate('Single App');
                 }

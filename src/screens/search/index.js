@@ -48,7 +48,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         return () => {
-            if(controller){
+            if (controller) {
                 controller.abort();
                 controller = null;
             }
