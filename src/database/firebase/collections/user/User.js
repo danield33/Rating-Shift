@@ -52,6 +52,11 @@ module.exports = class User {
         })
     }
 
+    setProfilePicture(fileURI){
+        this.#pfp = fileURI;
+        User.uploadProfilePicture(fileURI, this.id+'/pfp.jpg')
+    }
+
     get pfp() {
         return this.#pfp
     }

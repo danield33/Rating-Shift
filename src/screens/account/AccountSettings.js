@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Platform, Linking} from 'react-native';
 import {Styles} from "../../global";
 import {ProfilePicture} from "../../components/ProfilePicture";
 import {useSelector} from "react-redux";
@@ -8,10 +8,12 @@ import {EditIcon} from "../../components/EditIcon";
 import {FlatButton} from "../../components/FlatButton";
 import {InputText} from "../../components/InputText";
 import {useState} from "react";
+import {selectProfilePicture} from "../../global/util";
 
 export function AccountSettings() {
     const user = useSelector(state => state.account.currentUser);
     const [showDialog, setDialog] = useState(false);
+    const [pfp, setPfp] = useState(user.pfp);
 
     const changeUserName = () => {
         setDialog(true)
@@ -25,6 +27,12 @@ export function AccountSettings() {
         }else Alert.alert("Error", "Your username must be at least three characters")
     }
 
+    const changeProfilePic = async () => {
+        const picture = await selectProfilePicture();
+        setPfp(picture);
+        user.setProfilePicture(picture);
+    }
+
     return (
         <View style={[Styles.background]}>
 
@@ -35,7 +43,9 @@ export function AccountSettings() {
                        onSubmit={setName}
             />
 
-            <ProfilePicture size={200} showEdit={true}/>
+            <TouchableOpacity onPress={changeProfilePic} style={{marginBottom: 10}}>
+                <ProfilePicture size={200} showEdit={true} image={pfp}/>
+            </TouchableOpacity>
 
             <TouchableOpacity style={{flexDirection: 'row'}} onPress={changeUserName}>
                 <Text style={{

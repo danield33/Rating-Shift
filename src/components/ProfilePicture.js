@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Image, View} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import {If} from "./If";
-import colors from "../global/styles/colors";
 import {EditIcon} from "./EditIcon";
 
 export function ProfilePicture({image, size=75, showEdit}) {
