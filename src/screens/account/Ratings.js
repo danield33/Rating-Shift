@@ -1,22 +1,18 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {Button, FlatList, Text, View} from 'react-native';
 import {Styles} from "../../global";
 import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
-import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import AppsList from "../apps_list";
 import {AppInList} from "../apps_list/AppInList";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
-import {useFocusEffect} from "@react-navigation/native";
 
 export function Ratings() {
 
     const user = useSelector(state => state.account.currentUser);
     const [sortedApps, setSorted] = useState(Object.entries(user.activity.ratings));
     const [starCount, setStarCount] = useState(0);
-    const update = useForceUpdate();
-    const [isRefreshing, setRefreshing] = useState(false);
 
     const changeStarCount = (count) => {
         setStarCount(count);
@@ -24,7 +20,7 @@ export function Ratings() {
 
     const renderRating = (item) => {
         const rating = item.item;
-        if(rating[1] > starCount && starCount !== 0) return null;
+        if (rating[1] > starCount && starCount !== 0) return null;
 
         return <AppInList appID={rating[0]}>
             <CustomStarRating rating={rating[1]} isDisabled={true}
@@ -36,7 +32,7 @@ export function Ratings() {
 
     useEffect(() => {
         const highestToLow = Object.entries(user.activity.ratings)
-            .sort(([,a],[,b]) => b-a);
+            .sort(([, a], [, b]) => b - a);
         setSorted(highestToLow);
     }, []);
 
