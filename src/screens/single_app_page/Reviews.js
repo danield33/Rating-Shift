@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {ReviewCard} from "../rating_reviews/ReviewCard";

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {FlatButton} from "../../components/FlatButton";
 import {Users} from "../../database";
 import {useSelector} from "react-redux";
 import colors from "../../global/styles/colors";
 import {Line} from "../../components/Line";
 import {Ionicons} from "@expo/vector-icons";
-import {If} from "../../components/If";
 import {useNavigation} from "@react-navigation/native";
 import {ProfilePicture} from "../../components/ProfilePicture";
 
@@ -56,7 +55,8 @@ export function AccountScreen() {
                 flexDirection: 'row',
                 alignItems: 'center'
             }} onPress={() => navigation.navigate("Ratings")}>
-                <Ionicons name={'star-half'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
+                <Ionicons name={'star-half'} size={35} style={{marginRight: 10, marginLeft: 5}}
+                          color={colors.light_blue}/>
                 <Text style={{fontSize: 35, color: colors.aqua}}>Ratings</Text>
             </TouchableOpacity>
 

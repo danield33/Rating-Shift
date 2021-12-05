@@ -9,7 +9,8 @@ Number.prototype.toSymbolic = function () {
         number /= 1000
         number = Math.round(number);
         return number.toString() + "K"
-    } return number.toString();
+    }
+    return number.toString();
 
 }
 
