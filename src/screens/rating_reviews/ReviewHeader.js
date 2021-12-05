@@ -12,7 +12,6 @@ import {If} from "../../components/If";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
 
 export function ReviewHeader({hideButton = false}) {
-    const update = useForceUpdate();
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const user = useSelector(state => {
