@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import AppsList from "../apps_list";
 import {AppInList} from "../apps_list/AppInList";
 import {useForceUpdate} from "../../hooks/useForceUpdate";
+import {useFocusEffect} from "@react-navigation/native";
 
 export function Ratings() {
 
@@ -34,11 +35,9 @@ export function Ratings() {
     }
 
     useEffect(() => {
-
         const highestToLow = Object.entries(user.activity.ratings)
             .sort(([,a],[,b]) => b-a);
         setSorted(highestToLow);
-
     }, []);
 
     return (
@@ -64,7 +63,6 @@ export function Ratings() {
 
             <FlatList data={sortedApps}
                       style={{width: '100%'}}
-                      refreshing={isRefreshing}
                       keyExtractor={i => i[0]}
                       renderItem={renderRating}/>
 
