@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 import {ReviewCard} from "../rating_reviews/ReviewCard";
 import colors from "../../global/styles/colors";
 import {ReviewHeader} from "../rating_reviews/ReviewHeader";
 import {Line} from "../../components/Line";
+import {useForceUpdate} from "../../hooks/useForceUpdate";
 
 const renderReview = (reviewItem, size) => {
     const review = reviewItem.item;
@@ -12,6 +13,8 @@ const renderReview = (reviewItem, size) => {
 }
 
 export function AppReviews({appData}) {
+
+    const update = useForceUpdate()
 
     const reviews = appData.reviews.reviews;
 
@@ -21,10 +24,14 @@ export function AppReviews({appData}) {
         </View>
     );
 
+    const newReview = () => {
+        update();
+    }
+
     return (
         <View style={{width: '100%'}}>
 
-            <ReviewHeader reviews={reviews} appData={appData} hideButton={reviews === 402}/>
+            <ReviewHeader reviews={reviews} appData={appData} onNewReview={newReview}/>
 
             <Line/>
 

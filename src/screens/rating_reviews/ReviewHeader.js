@@ -9,9 +9,8 @@ import {CustomModal} from "../../components/CustomModal";
 import {WriteReview} from "./WriteReview";
 import {CustomStarRating} from "../../components/CustomStarRating";
 import {If} from "../../components/If";
-import {useForceUpdate} from "../../hooks/useForceUpdate";
 
-export function ReviewHeader({hideButton = false}) {
+export function ReviewHeader({hideButton = false, onNewReview}) {
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const user = useSelector(state => {
@@ -32,12 +31,20 @@ export function ReviewHeader({hideButton = false}) {
         }
     }, [])
 
+    // useEffect(() => {
+    //
+    //
+    //
+    // });
+
     if (app === null) return null;
 
     const submitReview = (review) => {
 
-        app.reviews.add(review.rating, review.review, review.title, user);
+        const reviewObj = app.reviews.add(review.rating, review.review, review.title, user);
+        app.addRating(review.rating, user);
         setWriting(false);
+        onNewReview(reviewObj)
         Alert.alert("Thank you!", "Your review was submitted!");
 
     }

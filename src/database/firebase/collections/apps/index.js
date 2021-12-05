@@ -20,6 +20,7 @@ module.exports = class Apps {
             fetch(link, {signal}).then(async res => {
                 const response = await res.json();
                 const app = new App(response);
+                await app.waitForData();
                 this.apps.set(trackId, app);
                 callback(app);
             }).catch(() => {

@@ -6,6 +6,7 @@ const {createUUID} = require("../../../../../../global/util");
 module.exports = class Reviews {
 
     #app;
+    #ratingShiftReviews = [];
 
     constructor(reviewArr, app) {
         this.#app = app
@@ -17,7 +18,7 @@ module.exports = class Reviews {
 
     add(rating, review, title, user) {
 
-        const reviewObj = Object.assign({}, ReviewSchema);
+        const reviewObj = JSON.parse(JSON.stringify(ReviewSchema))
         const attribs = reviewObj.attributes;
         attribs.date = new Date().toISOString();
         attribs.rating = rating;
@@ -37,7 +38,9 @@ module.exports = class Reviews {
         const subColRef = collection(db, 'apps', this.#app.trackId, 'reviews');
         const snap = await getDocs(subColRef);
         snap.docs.forEach(review => {
-            this.reviews.unshift(new Review({id: review.id, ...review.data()}))
+            const review1 = new Review({id: review.id, ...review.data()});
+            this.#ratingShiftReviews.push(review1);
+            this.reviews.unshift(review1)
         });
 
     }

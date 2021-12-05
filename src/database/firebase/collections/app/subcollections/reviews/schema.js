@@ -3,10 +3,10 @@ module.exports = {
         date: "",
         isEdited: false,
         rating: 0,
-        review: undefined,
-        userName: undefined,
-        title: undefined
+        review: null,
+        userName: null,
+        title: null
     },
-    id: undefined,
-    type: undefined,
+    id: null,
+    type: null,
 }
