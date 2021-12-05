@@ -23,8 +23,7 @@ module.exports = class Apps {
                 await app.waitForData();
                 this.apps.set(trackId, app);
                 callback(app);
-            }).catch(() => {
-            })
+            })//.catch(() => {})
 
             return aborter;
         }
