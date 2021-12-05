@@ -11,12 +11,14 @@ import {useState} from "react";
 import {selectProfilePicture} from "../../global/util";
 import {useDispatch} from "react-redux";
 import {changeAuthentication} from "../../global/redux/actions/AppListActions";
+import {useNavigation} from "@react-navigation/native";
 
 export function AccountSettings() {
     const user = useSelector(state => state.account.currentUser);
     const [showDialog, setDialog] = useState(false);
-    const [pfp, setPfp] = useState(user.pfp);
+    const [pfp, setPfp] = useState(user?.pfp);
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const changeUserName = () => {
         setDialog(true)
@@ -48,6 +50,23 @@ export function AccountSettings() {
         user.deleteProfilePicture();
     }
 
+    const deleteAccount = () => {
+        navigation.navigate("Main Page")
+        user.delete();
+    }
+
+    const promptDelete = () => {
+        Alert.alert("Are you sure?", "Are you sure you want to delete this account? This action is not undoable", [
+            {
+                text: "Yes",
+                onPress: deleteAccount
+            },
+            {
+                text: "No"
+            }
+        ])
+    }
+
     return (
         <View style={[Styles.background]}>
 
@@ -73,13 +92,15 @@ export function AccountSettings() {
                 <Text style={{
                     fontSize: 30,
                     color: colors.aqua
-                }}>{user.username}</Text>
+                }}>{user?.username}</Text>
                 <EditIcon
                     size={20}
                     style={{position: 'absolute', top: undefined, right: -40}}/>
             </TouchableOpacity>
 
-            <FlatButton text={'Delete Account'} style={{bottom: 25, position: 'absolute', width: '100%'}}/>
+            <FlatButton text={'Delete Account'}
+                        onPress={promptDelete}
+                        style={{bottom: 25, position: 'absolute', width: '100%'}}/>
         </View>
     );
 };

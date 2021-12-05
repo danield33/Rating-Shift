@@ -1,8 +1,9 @@
 import {db} from '../../index'
-import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {doc, getDoc, setDoc, updateDoc, deleteDoc} from "firebase/firestore";
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, deleteUser} from "firebase/auth";
 import {getDownloadURL, getStorage, ref, uploadBytes, deleteObject} from "firebase/storage";
 import DefaultUser from './schema'
+import {Users} from "../../../index";
 
 module.exports = class User {
 
@@ -19,8 +20,13 @@ module.exports = class User {
         this.#pfp = profilePictureURI;
         this.#ref = doc(db, 'users', this.id);
 
-
     }
+
+    async delete(){
+        await deleteUser(getAuth().currentUser)
+        await deleteDoc(doc(db, "users", this.id));
+    }
+
     async addRating(trackId, ratingCount) {
         const {ratings} = this.activity;
         ratings[trackId] = ratingCount;
