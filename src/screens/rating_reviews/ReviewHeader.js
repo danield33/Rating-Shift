@@ -13,7 +13,6 @@ import {CustomStarRating} from "../../components/CustomStarRating";
 export function ReviewHeader({hideButton = false}) {
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
-    const [rating, setRating] = useState(0);
     const [app, setApp] = useState(null);
     const [writeReview, setWriting] = useState(false);
 
@@ -69,7 +68,7 @@ export function ReviewHeader({hideButton = false}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <CustomStarRating setRating={setRating} rating={rating} isDisabled={false}/>
+                <CustomStarRating isDisabled={false}/>
             </View>
 
             <TouchableOpacity style={{

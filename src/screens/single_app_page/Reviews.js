@@ -29,7 +29,7 @@ export function AppReviews({appData}) {
             <Line/>
 
             {
-                reviews === 402 ? (//TODO: setup rating shift reviews
+                reviews === 402 ? (
                         <Text style={{
                             color: 'white',
                             fontSize: 30,

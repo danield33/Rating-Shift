@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TextInput, View, Alert} from 'react-native';
 import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
+import {TextInputValue} from "../../components/TextInputValue";
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -16,6 +17,25 @@ const styles = StyleSheet.create({
 })
 
 export function WriteReview({onSubmit}) {
+
+    const submit = () => {
+
+
+
+    }
+
+    const alertSubmit = () => {
+        Alert.alert("Are you sure?", "Are you sure you want to submit this review?", [
+            {
+                text: 'Yes',
+                onPress: submit
+            },
+            {
+                text: 'Cancel'
+            }
+        ])
+    }
+
     return (
 
         <>
@@ -25,7 +45,7 @@ export function WriteReview({onSubmit}) {
                 top: 40,
                 padding: 15,
                 zIndex: 3
-            }}/>
+            }} onPress={alertSubmit}/>
             <ScrollView style={{paddingTop: 20, top: 20, width: '100%', flex: 1}}
                         contentContainerStyle={{flex: 1}}>
 
@@ -35,18 +55,20 @@ export function WriteReview({onSubmit}) {
                     <Text style={{color: colors.aqua, fontWeight: '500'}}>Tap to Rate</Text>
                 </View>
 
-                <TextInput
+                <TextInputValue
                     placeholder={'Title'}
                     selectionColor={colors.red}
                     style={styles.inputStyle}
                     placeholderTextColor={colors.aqua}
+                    blur={true}
                 />
-                <TextInput
+                <TextInputValue
                     placeholder={'Review'}
                     selectionColor={colors.red}
                     style={{flex: .5, ...styles.inputStyle, borderBottomWidth: 2}}
                     placeholderTextColor={colors.aqua}
                     multiline
+                    blur={true}
                 />
 
 
