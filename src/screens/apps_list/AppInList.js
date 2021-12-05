@@ -28,7 +28,7 @@ export function AppInList({appID, onPressOvewrite, children}) {
             onPress={() => {
                 if (app?.trackId) {
                     if(onPressOvewrite)
-                        return onPressOvewrite();
+                        return onPressOvewrite(app);
                     dispatch(viewApp(app.trackId));
                     navigation.navigate('Single App');
                 }
