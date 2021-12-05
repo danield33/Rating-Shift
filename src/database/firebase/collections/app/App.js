@@ -1,8 +1,8 @@
 import {db} from "../../index";
+import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import {averageUserRating} from "./schema";
 
 const Reviews = require("./subcollections/reviews/Reviews");
-import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
-import {averageUserRating} from "./schema";
 
 module.exports = class Application {
 
@@ -29,37 +29,37 @@ module.exports = class Application {
         this.#ref = doc(db, 'apps', this.trackId);
     }
 
-    async waitForData(){
+    async waitForData() {
         const snap = await getDoc(this.#ref);
-        if(snap.exists()){
+        if (snap.exists()) {
             Object.assign(this, snap.data())
         }
     }
 
-    async replaceSingleRating(oldRatingCount, newRatingCount){
-        this.averageUserRating = (this.averageUserRating * this.userRatingCount - oldRatingCount + newRatingCount)/this.userRatingCount;
+    async replaceSingleRating(oldRatingCount, newRatingCount) {
+        this.averageUserRating = (this.averageUserRating * this.userRatingCount - oldRatingCount + newRatingCount) / this.userRatingCount;
         this.updateRatings();
     }
 
-    async addRating(ratingCount){
-        if(ratingCount){//checks for 0
+    async addRating(ratingCount) {
+        if (ratingCount) {//checks for 0
             this.userRatingCount++;
-            this.averageUserRating = (this.averageUserRating * this.userRatingCount + ratingCount)/this.userRatingCount;
+            this.averageUserRating = (this.averageUserRating * this.userRatingCount + ratingCount) / this.userRatingCount;
             this.updateRatings();
         }
     }
 
-    async updateRatings(){
+    async updateRatings() {
         const docSnap = await getDoc(this.#ref);
 
-        if(!docSnap.exists()) await this.createDoc();
+        if (!docSnap.exists()) await this.createDoc();
         await updateDoc(this.#ref, {
             userRatingCount: this.userRatingCount,
             averageUserRating: this.averageUserRating
         });
     }
 
-    async createDoc(){
+    async createDoc() {
         await setDoc(this.#ref, {
             averageUserRating: this.averageUserRating,
             userRatingCount: this.userRatingCount

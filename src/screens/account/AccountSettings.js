@@ -1,15 +1,14 @@
 import * as React from 'react';
-import {View, Text, TouchableOpacity, Alert, Button} from 'react-native';
+import {useState} from 'react';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {Styles} from "../../global";
 import {ProfilePicture} from "../../components/ProfilePicture";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import colors from "../../global/styles/colors";
 import {EditIcon} from "../../components/EditIcon";
 import {FlatButton} from "../../components/FlatButton";
 import {InputText} from "../../components/InputText";
-import {useState} from "react";
 import {selectProfilePicture} from "../../global/util";
-import {useDispatch} from "react-redux";
 import {changeAuthentication} from "../../global/redux/actions/AppListActions";
 import {useNavigation} from "@react-navigation/native";
 
@@ -26,18 +25,18 @@ export function AccountSettings() {
 
     const setName = (name) => {
         const username = name.trim();
-        if(username.length >= 3){
+        if (username.length >= 3) {
             user.setUsername(name).then(() => {
                 dispatch(changeAuthentication({}))
                 dispatch(changeAuthentication(user));
             });
             setDialog(false);
-        }else Alert.alert("Error", "Your username must be at least three characters")
+        } else Alert.alert("Error", "Your username must be at least three characters")
     }
 
     const changeProfilePic = async () => {
         const picture = await selectProfilePicture();
-        if(!picture) return;
+        if (!picture) return;
         setPfp(picture);
         user.setProfilePicture(picture).then(() => {
             dispatch(changeAuthentication({}))
@@ -45,7 +44,7 @@ export function AccountSettings() {
         })
     }
 
-    const removeProfilePicture = () =>  {
+    const removeProfilePicture = () => {
         setPfp(null);
         user.deleteProfilePicture();
     }
@@ -103,4 +102,4 @@ export function AccountSettings() {
                         style={{bottom: 25, position: 'absolute', width: '100%'}}/>
         </View>
     );
-};
+}

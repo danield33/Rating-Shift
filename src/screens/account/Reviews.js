@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {FlatList, View, Pressable} from 'react-native';
+import {useState} from 'react';
+import {FlatList, Pressable, View} from 'react-native';
 import {Styles} from "../../global";
 import {SearchBar} from "../search/SearchBar";
 import {Line} from "../../components/Line";
-import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {CustomModal} from "../../components/CustomModal";
 import {AppInList} from "../apps_list/AppInList";
@@ -26,7 +26,7 @@ export function Reviews() {
         return <AppInList appID={appID} onPressOvewrite={(app) => {
             const appReviews = user.activity.reviews[appID];
             for (const appReview of app.reviews.reviews) {
-                if(appReviews.includes(appReview.id)){
+                if (appReviews.includes(appReview.id)) {
                     reviews.push(appReview);
                 }
             }
@@ -54,11 +54,11 @@ export function Reviews() {
                 setModalOpen(false)
             }}>
                 <View style={{marginTop: 80}}/>
-                    <FlatList data={reviews}
-                              style={{width: '100%'}}
-                              renderItem={renderCard}
-                              keyExtractor={(i) => i.id}
-                    />
+                <FlatList data={reviews}
+                          style={{width: '100%'}}
+                          renderItem={renderCard}
+                          keyExtractor={(i) => i.id}
+                />
             </CustomModal>
 
             <SearchBar onSearch={onSearch} onClear={() => setSearchFilter('')}/>
@@ -70,4 +70,4 @@ export function Reviews() {
             />
         </View>
     );
-};
+}

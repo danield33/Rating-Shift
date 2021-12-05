@@ -3,11 +3,11 @@ import {View} from 'react-native';
 import colors from "../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
 
-export function EditIcon({style, size=25}) {
+export function EditIcon({style, size = 25}) {
     return (
         <View style={{
             backgroundColor: colors.light_blue,
-            position:'absolute',
+            position: 'absolute',
             right: 20,
             top: 30,
             borderRadius: 25,
@@ -21,4 +21,4 @@ export function EditIcon({style, size=25}) {
             />
         </View>
     );
-};
+}

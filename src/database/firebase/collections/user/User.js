@@ -1,9 +1,8 @@
 import {db} from '../../index'
-import {doc, getDoc, setDoc, updateDoc, deleteDoc} from "firebase/firestore";
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, deleteUser} from "firebase/auth";
-import {getDownloadURL, getStorage, ref, uploadBytes, deleteObject} from "firebase/storage";
+import {deleteDoc, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import {createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {deleteObject, getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import DefaultUser from './schema'
-import {Users} from "../../../index";
 
 module.exports = class User {
 
@@ -22,7 +21,7 @@ module.exports = class User {
 
     }
 
-    async delete(){
+    async delete() {
         await deleteUser(getAuth().currentUser)
         await deleteDoc(doc(db, "users", this.id));
     }
@@ -57,8 +56,8 @@ module.exports = class User {
         })
     }
 
-    async deleteProfilePicture(){
-        const picRef = ref(getStorage(), this.id+'/pfp.jpg');
+    async deleteProfilePicture() {
+        const picRef = ref(getStorage(), this.id + '/pfp.jpg');
         await deleteObject(picRef)
 
     }
@@ -169,7 +168,6 @@ module.exports = class User {
                 });
         })
     }
-
 
 
 }

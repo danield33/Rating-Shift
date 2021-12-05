@@ -1,7 +1,7 @@
 module.exports = {
     username: String,
     age: Number,
-    activity:{
+    activity: {
         ratings: {
             //trackId: ratingCount
         },

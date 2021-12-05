@@ -1,18 +1,17 @@
-
 import React from 'react';
 import Dialog from "react-native-dialog";
 
 export function InputText({
-                                      visible,
-                                      onBackDropPress,
-                                      title,
-                                      description,
-                                      placeholder,
-                                      onTextChange,
-                                      onSubmit,
-                                      onCancel,
-                                      style,
-                                  }) {
+                              visible,
+                              onBackDropPress,
+                              title,
+                              description,
+                              placeholder,
+                              onTextChange,
+                              onSubmit,
+                              onCancel,
+                              style,
+                          }) {
     let text = "";
     const onChangeText = (txt) => {
         text = txt;

@@ -22,7 +22,7 @@ export function AppInList({appID, onPressOvewrite, hidden, children}) {
         }
     }, [])
 
-    if(app != null && hidden?.(app))
+    if (app != null && hidden?.(app))
         return null;
 
     return (
@@ -31,7 +31,7 @@ export function AppInList({appID, onPressOvewrite, hidden, children}) {
             style={{flex: 1}}
             onPress={() => {
                 if (app?.trackId) {
-                    if(onPressOvewrite)
+                    if (onPressOvewrite)
                         return onPressOvewrite(app);
                     dispatch(viewApp(app.trackId));
                     navigation.navigate('Single App');

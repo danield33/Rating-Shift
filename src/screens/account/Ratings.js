@@ -6,7 +6,6 @@ import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
 import {useSelector} from "react-redux";
 import {AppInList} from "../apps_list/AppInList";
-import {useForceUpdate} from "../../hooks/useForceUpdate";
 
 export function Ratings() {
 
@@ -64,4 +63,4 @@ export function Ratings() {
 
         </View>
     );
-};
+}

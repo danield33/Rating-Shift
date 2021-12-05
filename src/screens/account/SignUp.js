@@ -1,25 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Alert,
-    Button,
-    Image,
-    Keyboard,
-    KeyboardAvoidingView,
-    Linking,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {Button, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
 import {TextInputValue} from "../../components/TextInputValue";
 import * as yup from 'yup';
 import {FlatButton} from "../../components/FlatButton";
-import * as ImagePicker from 'expo-image-picker';
-import {checkForCameraRollPermission} from "../../global/util/Permissions";
 import {selectProfilePicture} from "../../global/util";
 
 const input = {

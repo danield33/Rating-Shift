@@ -33,11 +33,11 @@ export function ReviewHeader({hideButton = false, onNewReview}) {
     useEffect(() => {
 
         return () => {
-            if(user && app){
+            if (user && app) {
                 const rating = user.activity.ratings[app.trackId];
                 const newRating = starRef.current._getRating();
-                if(newRating !== rating && newRating !== 0){
-                    if(rating) app.replaceSingleRating(rating, newRating);
+                if (newRating !== rating && newRating !== 0) {
+                    if (rating) app.replaceSingleRating(rating, newRating);
                     user.addRating(app.trackId, newRating);
                 }
             }
