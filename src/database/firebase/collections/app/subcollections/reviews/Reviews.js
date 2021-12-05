@@ -35,7 +35,7 @@ module.exports = class Reviews{
         const subColRef = collection(db, 'apps', this.#app.trackId, 'reviews');
         const snap = await getDocs(subColRef);
         const reviews = snap.docs.map(review => {
-            return ({id: review.id, ...review.data()})
+            return (new Review({id: review.id, ...review.data()}))
         });
 
         this.reviews = reviews.concat(this.reviews);
