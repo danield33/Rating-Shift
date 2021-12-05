@@ -26,23 +26,31 @@ export function ReviewHeader({hideButton = false, onNewReview}) {
             setApp(app);
         })
         return () => {
-            aborter.abort()
-
+            aborter.abort();
         }
     }, [])
 
-    // useEffect(() => {
-    //
-    //
-    //
-    // });
+    useEffect(() => {
+
+        return () => {
+            if(user && app){
+                const rating = user.activity.ratings[app.trackId];
+                const newRating = starRef.current._getRating();
+                if(newRating !== rating && newRating !== 0){
+                    if(rating) app.replaceSingleRating(rating, newRating);
+                    user.addRating(app.trackId, newRating);
+                }
+            }
+        }
+
+    });
 
     if (app === null) return null;
 
     const submitReview = (review) => {
 
         const reviewObj = app.reviews.add(review.rating, review.review, review.title, user);
-        app.addRating(review.rating, user);
+        app.addRating(review.rating);
         setWriting(false);
         onNewReview(reviewObj)
         Alert.alert("Thank you!", "Your review was submitted!");
@@ -89,7 +97,9 @@ export function ReviewHeader({hideButton = false, onNewReview}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <CustomStarRating isDisabled={user === undefined} ref={starRef}/>
+                <CustomStarRating isDisabled={user === undefined}
+                                  ref={starRef}
+                                  rating={user?.activity.ratings[app.trackId] ?? 0}/>
             </View>
 
             <If can={user !== undefined}>
