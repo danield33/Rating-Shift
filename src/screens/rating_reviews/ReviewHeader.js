@@ -16,7 +16,7 @@ export function ReviewHeader({hideButton = false}) {
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const user = useSelector(state => {
         if(state.account?.currentUser)
-            return Users.get(state.account.currentUser.uid);
+            return state.account.currentUser;
     });
     const [app, setApp] = useState(null);
     const [writeReview, setWriting] = useState(false);
@@ -36,9 +36,7 @@ export function ReviewHeader({hideButton = false}) {
 
     const submitReview = (review) => {
 
-        console.log(user)
-        return;
-        app.reviews.add(review.rating, review.review, user);
+        app.reviews.add(review.rating, review.review, review.title, user);
         setWriting(false);
         Alert.alert("Thank you!", "Your review was submitted!");
 

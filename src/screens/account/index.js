@@ -13,7 +13,6 @@ import {AccountScreen} from "./AccountScreen";
 
 export default function Account() {
 
-    const dispatch = useDispatch();
     const currentUser = useSelector(state => state.account.currentUser);
     const [isSigningUp, setSigningUp] = useState(0);//0 = nothing 1 = log in 2 = create account
 

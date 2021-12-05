@@ -25,16 +25,16 @@ module.exports = class User {
     static async get(id) {
 
         const user = User.users.get(id);
-        if (user) return user;
+        if (user) return Promise.resolve(user);
 
         const docRef = doc(db, 'users', id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             const user = new User(docSnap.data());
             User.users.set(user.id, user);
-            return user;
+            return Promise.resolve(user);
         }
-        return null;
+        return Promise.resolve(null);
     }
 
     static signOut() {
@@ -54,7 +54,7 @@ module.exports = class User {
             signInWithEmailAndPassword(auth, email, password)
                 .then(async (userCredential) => {
                     const user = userCredential.user;
-                    const data = await User.getUser(user.uid);
+                    const data = await User.get(user.uid);
                     const user1 = new User(data);
                     User.users.set(user1.id, user1);
                     resolve(user1);
