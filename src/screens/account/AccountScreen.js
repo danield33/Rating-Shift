@@ -56,11 +56,22 @@ export function AccountScreen() {
                 flexDirection: 'row',
                 alignItems: 'center'
             }}>
-                <Ionicons name={'flash'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
-                <Text style={{fontSize: 35, color: colors.aqua}}>Activity</Text>
+                <Ionicons name={'star-half'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
+                <Text style={{fontSize: 35, color: colors.aqua}}>Ratings</Text>
             </TouchableOpacity>
 
             <Line/>
+
+            <TouchableOpacity style={{
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}>
+                <Ionicons name={'create'} size={35} style={{marginRight: 10, marginLeft: 5}} color={colors.light_blue}/>
+                <Text style={{fontSize: 35, color: colors.aqua}}>Reviews</Text>
+            </TouchableOpacity>
+
+            <Line/>
+
 
             <FlatButton text={'sign out'} onPress={confirmSignOut}/>
         </View>

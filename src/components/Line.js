@@ -2,6 +2,12 @@ import * as React from 'react';
 import {View} from 'react-native';
 import {colors} from "../global/styles";
 
+/**
+ * Line instead of border width because of touchable opacity opacity changes
+ * @param style
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function Line({style}) {
     return (
         <View
