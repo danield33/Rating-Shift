@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
+import {Ionicons} from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -16,26 +17,41 @@ const styles = StyleSheet.create({
 
 export function WriteReview({onSubmit}) {
     return (
-        <View style={{flex: 1, paddingTop: 20, top: 20, width: '100%'}}>
 
-            <View style={{alignItems: 'center'}}>
-                <CustomStarRating isDisabled={false} containerStyle={{justifyContent: undefined}} starStyle={{marginLeft: 10}}/>
-                <Text style={{color: colors.aqua, fontWeight: '500'}}>Tap to Rate</Text>
-            </View>
+        <>
+            <Ionicons name={'checkmark-circle'} size={25} color={colors.red} style={{
+                position: 'absolute',
+                right: 20,
+                top: 40,
+                padding: 15,
+                zIndex: 3
+            }}/>
+            <ScrollView style={{paddingTop: 20, top: 20, width: '100%', flex: 1}}
+                        contentContainerStyle={{flex: 1}}>
 
-            <TextInput
-                placeholder={'Title'}
-                selectionColor={colors.red}
-                style={styles.inputStyle}
-                placeholderTextColor={colors.aqua}
-            />
-            <TextInput
-                placeholder={'Review'}
-                selectionColor={colors.red}
-                style={styles.inputStyle}
-                placeholderTextColor={colors.aqua}
-            />
+                <View style={{alignItems: 'center'}}>
+                    <CustomStarRating isDisabled={false} containerStyle={{justifyContent: undefined}}
+                                      starStyle={{marginLeft: 10}}/>
+                    <Text style={{color: colors.aqua, fontWeight: '500'}}>Tap to Rate</Text>
+                </View>
 
-        </View>
+                <TextInput
+                    placeholder={'Title'}
+                    selectionColor={colors.red}
+                    style={styles.inputStyle}
+                    placeholderTextColor={colors.aqua}
+                />
+                <TextInput
+                    placeholder={'Review'}
+                    selectionColor={colors.red}
+                    style={{flex: .5, ...styles.inputStyle, borderBottomWidth: 2}}
+                    placeholderTextColor={colors.aqua}
+                    multiline
+                />
+
+
+            </ScrollView>
+        </>
+
     );
 };
