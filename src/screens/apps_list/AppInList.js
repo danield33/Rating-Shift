@@ -8,7 +8,7 @@ import {Line} from "../../components/Line";
 import colors from "../../global/styles/colors";
 import RShift from '../../database';
 
-export function AppInList({appID}) {
+export function AppInList({appID, children}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [app, setApp] = useState(null)
@@ -49,6 +49,7 @@ export function AppInList({appID}) {
                             }}>{app.trackCensoredName}</Text>
 
                             <Text style={{color: 'white'}}>{app.subtitle}</Text>
+                            {children}
                         </View>
                     </View>
                     : <ActivityIndicator color={colors.red} size={'large'}/>
