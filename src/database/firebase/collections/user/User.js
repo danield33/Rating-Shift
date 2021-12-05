@@ -1,20 +1,47 @@
 import {db} from '../../index'
-import {doc, getDoc, setDoc} from "firebase/firestore";
+import {doc, getDoc, setDoc, updateDoc, arrayUnion} from "firebase/firestore";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import DefaultUser from './schema'
 
 module.exports = class User {
 
     static users = new Map();
 
     #pfp;
+    #ref;
 
-    constructor({username, id, profilePictureURI}) {
+    constructor({username, id, profilePictureURI, activity={}}) {
 
         this.username = username;
         this.id = id;
+        this.activity = activity;
         this.#pfp = profilePictureURI;
+        this.#ref = doc(db, 'users', this.id);
 
+
+    }
+
+    async addRating(trackId, ratingCount){
+        const {ratings} = this.activity;
+        ratings[trackId] = ratingCount;
+        await updateDoc(this.#ref, {
+            activity: this.activity
+        });
+    }
+
+    async addReview(trackId, review){
+
+        let reviews = this.activity.reviews[trackId] || [];
+        reviews.unshift(review.id);
+
+        this.activity.reviews[trackId] = reviews;
+
+        await updateDoc(this.#ref, {
+            activity: this.activity
+        })
+
+        this.addRating(trackId, review.attributes.rating);
 
     }
 
@@ -86,8 +113,13 @@ module.exports = class User {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     if (pfp)
-                        User.uploadProfilePicture(pfp, user.uid + '/pfp.jpg')
-                    const user1 = new User({id: user.uid, username, profilePictureURI: pfp});
+                        User.uploadProfilePicture(pfp, user.uid + '/pfp.jpg');
+
+                    const defaultUser = JSON.parse(JSON.stringify(DefaultUser));
+                    defaultUser.username = username;
+                    defaultUser.id = user.uid;
+                    defaultUser.profilePictureURI = pfp;
+                    const user1 = new User(defaultUser);
                     User.users.set(user1.id, user1);
                     user1.save();
                     resolve(user1);
@@ -113,7 +145,7 @@ module.exports = class User {
     }
 
     async save() {
-        await setDoc(doc(db, 'users', this.id), JSON.parse(JSON.stringify(this)));
+        await setDoc(this.#ref, JSON.parse(JSON.stringify(this)));
     }
 
 }

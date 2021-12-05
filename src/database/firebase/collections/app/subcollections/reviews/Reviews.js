@@ -30,6 +30,7 @@ module.exports = class Reviews {
         const newReview = new Review(reviewObj, this.#app);
         this.reviews.unshift(newReview);
         newReview.save();
+        user.addReview(this.#app.trackId, newReview)
         return newReview;
 
     }
