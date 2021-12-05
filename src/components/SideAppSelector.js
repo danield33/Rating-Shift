@@ -19,7 +19,14 @@ export function SideAppSelector({app}) {
                 <Image source={{uri: app.artworkUrl512}} style={{width: 50, height: 50, borderRadius: 10}}/>
                 <Text adjustsFontSizeToFit={true}
                       numberOfLines={1}
-                      style={{fontSize: 30, color: 'white', flexDirection: 'row', flexWrap: 'wrap', flex: 1}}>
+                      style={{
+                          fontSize: 30,
+                          color: 'white',
+                          flexDirection: 'row',
+                          flexWrap: 'wrap',
+                          flex: 1,
+                          marginLeft: 5
+                      }}>
                     {app.trackCensoredName}
                 </Text>
             </View>
