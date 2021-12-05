@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, TouchableOpacity, Alert, Platform, Linking} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Button} from 'react-native';
 import {Styles} from "../../global";
 import {ProfilePicture} from "../../components/ProfilePicture";
 import {useSelector} from "react-redux";
@@ -9,11 +9,14 @@ import {FlatButton} from "../../components/FlatButton";
 import {InputText} from "../../components/InputText";
 import {useState} from "react";
 import {selectProfilePicture} from "../../global/util";
+import {useDispatch} from "react-redux";
+import {changeAuthentication} from "../../global/redux/actions/AppListActions";
 
 export function AccountSettings() {
     const user = useSelector(state => state.account.currentUser);
     const [showDialog, setDialog] = useState(false);
     const [pfp, setPfp] = useState(user.pfp);
+    const dispatch = useDispatch();
 
     const changeUserName = () => {
         setDialog(true)
@@ -22,15 +25,27 @@ export function AccountSettings() {
     const setName = (name) => {
         const username = name.trim();
         if(username.length >= 3){
-            user.setUsername(name);
+            user.setUsername(name).then(() => {
+                dispatch(changeAuthentication({}))
+                dispatch(changeAuthentication(user));
+            });
             setDialog(false);
         }else Alert.alert("Error", "Your username must be at least three characters")
     }
 
     const changeProfilePic = async () => {
         const picture = await selectProfilePicture();
+        if(!picture) return;
         setPfp(picture);
-        user.setProfilePicture(picture);
+        user.setProfilePicture(picture).then(() => {
+            dispatch(changeAuthentication({}))
+            dispatch(changeAuthentication(user));
+        })
+    }
+
+    const removeProfilePicture = () =>  {
+        setPfp(null);
+        user.deleteProfilePicture();
     }
 
     return (
@@ -43,9 +58,16 @@ export function AccountSettings() {
                        onSubmit={setName}
             />
 
-            <TouchableOpacity onPress={changeProfilePic} style={{marginBottom: 10}}>
+            <TouchableOpacity onPress={changeProfilePic}>
                 <ProfilePicture size={200} showEdit={true} image={pfp}/>
             </TouchableOpacity>
+            {
+                pfp ?
+                    <TouchableOpacity style={{marginBottom: 15, marginTop: 15}} onPress={removeProfilePicture}>
+                        <Text style={{fontSize: 15, color: colors.red, fontWeight: '600'}}>Remove</Text>
+                    </TouchableOpacity>
+                    : null
+            }
 
             <TouchableOpacity style={{flexDirection: 'row'}} onPress={changeUserName}>
                 <Text style={{

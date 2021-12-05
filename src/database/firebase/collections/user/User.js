@@ -1,7 +1,7 @@
 import {db} from '../../index'
 import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {getDownloadURL, getStorage, ref, uploadBytes, deleteObject} from "firebase/storage";
 import DefaultUser from './schema'
 
 module.exports = class User {
@@ -11,7 +11,7 @@ module.exports = class User {
     #pfp;
     #ref;
 
-    constructor({username, id, profilePictureURI, activity={}}) {
+    constructor({username, id, profilePictureURI, activity = {}}) {
 
         this.username = username;
         this.id = id;
@@ -21,8 +21,7 @@ module.exports = class User {
 
 
     }
-
-    async addRating(trackId, ratingCount){
+    async addRating(trackId, ratingCount) {
         const {ratings} = this.activity;
         ratings[trackId] = ratingCount;
         await updateDoc(this.#ref, {
@@ -30,7 +29,7 @@ module.exports = class User {
         });
     }
 
-    async addReview(trackId, review){
+    async addReview(trackId, review) {
 
         const reviews = this.activity.reviews[trackId] || [];
         reviews.unshift(review.id);
@@ -45,16 +44,38 @@ module.exports = class User {
 
     }
 
-    async setUsername(name){
+    async setUsername(name) {
         this.username = name;
         await updateDoc(this.#ref, {
             username: name
         })
     }
 
-    setProfilePicture(fileURI){
+    async deleteProfilePicture(){
+        const picRef = ref(getStorage(), this.id+'/pfp.jpg');
+        await deleteObject(picRef)
+
+    }
+
+    async setProfilePicture(fileURI) {
         this.#pfp = fileURI;
-        User.uploadProfilePicture(fileURI, this.id+'/pfp.jpg')
+        await User.uploadProfilePicture(fileURI, this.id + '/pfp.jpg')
+    }
+
+    async getProfilePicture() {
+        const storage = getStorage();
+        try {
+            const url = await getDownloadURL(ref(storage, this.id + '/pfp.jpg'))
+            this.#pfp = url;
+            return url;
+        } catch {
+            return null;
+        }
+
+    }
+
+    async save() {
+        await setDoc(this.#ref, JSON.parse(JSON.stringify(this)));
     }
 
     get pfp() {
@@ -107,13 +128,12 @@ module.exports = class User {
         })
     }
 
-    static uploadProfilePicture(profilePicture, path) {
+    static async uploadProfilePicture(profilePicture, path) {
         const storage = getStorage();
         const picRef = ref(storage, path);
-        fetch(profilePicture).then(async res => {// doesn't work on simulator
-            (await res).blob().then(blob => {
-                uploadBytes(picRef, blob)
-            })
+        const res = await fetch(profilePicture);
+        (await res).blob().then(blob => {
+            uploadBytes(picRef, blob)
         })
 
     }
@@ -144,20 +164,6 @@ module.exports = class User {
         })
     }
 
-    async getProfilePicture() {
-        const storage = getStorage();
-        try {
-            const url = await getDownloadURL(ref(storage, this.id + '/pfp.jpg'))
-            this.#pfp = url;
-            return url;
-        } catch {
-            return null;
-        }
 
-    }
-
-    async save() {
-        await setDoc(this.#ref, JSON.parse(JSON.stringify(this)));
-    }
 
 }
