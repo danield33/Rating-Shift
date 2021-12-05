@@ -8,6 +8,7 @@ import RShift from '../../database'
 import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
 import {WriteReview} from "./WriteReview";
+import {CustomStarRating} from "../../components/CustomStarRating";
 
 export function ReviewHeader({hideButton = false}) {
     const navigation = useNavigation();
@@ -68,17 +69,7 @@ export function ReviewHeader({hideButton = false}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <StarRating
-                    disabled={false}
-                    maxStars={5}
-                    starSize={30}
-                    emptyStarColor={colors.red}
-                    fullStarColor={colors.red}
-                    halfStarEnabled={true}
-                    halfStarColor={colors.red}
-                    rating={rating}
-                    selectedStar={setRating}
-                />
+                <CustomStarRating setRating={setRating} rating={rating} isDisabled={false}/>
             </View>
 
             <TouchableOpacity style={{

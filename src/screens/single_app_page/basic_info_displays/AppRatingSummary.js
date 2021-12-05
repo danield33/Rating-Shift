@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Text, View} from 'react-native';
 import {colors} from "../../../global/styles";
 import StarRating from "react-native-star-rating";
+import {CustomStarRating} from "../../../components/CustomStarRating";
 
 export function AppRatingSummary({userRatingCount, averageUserRating}) {
 
@@ -21,15 +22,7 @@ export function AppRatingSummary({userRatingCount, averageUserRating}) {
                 margin: 5
             }}>{Math.round(averageUserRating * 10) / 10}</Text>
 
-            <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={averageUserRating}
-                fullStarColor={colors.aqua}
-                halfStarColor={colors.aqua}
-                starSize={20}
-
-            />
+            <CustomStarRating isDisabled={true} rating={averageUserRating}/>
         </View>
     );
 }

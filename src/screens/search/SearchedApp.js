@@ -7,6 +7,7 @@ import {Line} from "../../components/Line";
 import StarRating from "react-native-star-rating";
 import {If} from "../../components/If";
 import {viewApp} from "../../global/redux/actions/AppListActions";
+import {CustomStarRating} from "../../components/CustomStarRating";
 
 export function SearchedApp({app}) {
     const dispatch = useDispatch();
@@ -41,17 +42,11 @@ export function SearchedApp({app}) {
 
                     <Text style={{color: 'white'}}>{app.subtitle}</Text>
 
-
-                    <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        rating={app.averageUserRating}
-                        fullStarColor={colors.aqua}
-                        halfStarColor={colors.aqua}
-                        emptyStarColor={colors.light_blue}
-                        starSize={20}
-                        containerStyle={{justifyContent: undefined}}
-                        starStyle={{marginLeft: 5}}
+                    <CustomStarRating rating={app.averageUserRating}
+                                      isDisabled={true}
+                                      containerStyle={{justifyContent: undefined}}
+                                      starStyle={{marginLeft: 5}}
+                                      starSize={20}
                     />
 
                 </View>
