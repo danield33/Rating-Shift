@@ -6,7 +6,7 @@ export function Ratings() {
     return (
         <View style={Styles.background}>
 
-            
+
 
         </View>
     );
