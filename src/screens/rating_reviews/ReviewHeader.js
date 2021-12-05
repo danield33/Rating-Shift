@@ -15,6 +15,7 @@ export function ReviewHeader({hideButton = false}) {
     useEffect(() => {
         const aborter = RShift.apps.get(trackId, app => {
             setApp(app);
+            // app.reviews.add();
         })
         return () => {
             aborter.abort()

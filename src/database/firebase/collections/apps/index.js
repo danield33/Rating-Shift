@@ -19,7 +19,9 @@ module.exports = class Apps{
 
             fetch(link, {signal}).then(async res => {
                 const response = await res.json();
+                // console.log(response, 'res')
                 const app = new App(response);
+                console.log(app)
                 this.apps.set(trackId, app);
                 callback(app);
             }).catch(() => {})
