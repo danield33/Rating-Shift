@@ -35,6 +35,7 @@ export function SearchBar({onSearch}) {
                     endEditing={true}
                     onSetText={onSearch}
                     autoCorrect={false}
+                    selectionColor={colors.red}
                     autoCapitalize={'none'}
                     placeholderTextColor={colors.light_blue}
                     placeholder={'Search Apps'}

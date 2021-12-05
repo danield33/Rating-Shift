@@ -11,8 +11,8 @@ export function CustomModal({children, onClose, isOpen, iconColor}) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={Styles.background}>
                     <Ionicons name={"close"}
-                              style={{position: 'absolute', left: 20, top: 40, padding: 10, zIndex: 3}}
-                              size={24}
+                              style={{position: 'absolute', left: 20, top: 40, padding: 15, zIndex: 3}}
+                              size={25}
                               color={iconColor || colors.red}
                               onPress={onClose}/>
                     {children}
