@@ -22,7 +22,7 @@ module.exports = class User {
         return this.#pfp
     }
 
-    static async getUser(id) {
+    static async get(id) {
 
         const user = User.users.get(id);
         if (user) return user;

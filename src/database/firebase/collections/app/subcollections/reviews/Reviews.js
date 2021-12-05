@@ -11,20 +11,19 @@ module.exports = class Reviews{
         this.reviews = reviewArr.map((review) => {
             return new Review(review, app);
         });
-        this.getSavedReviews();
+        // this.getSavedReviews();
     }
 
     add(rating, review, user){
 
-        const reviewObj = {...ReviewSchema};
+        const reviewObj = Object.assign({}, ReviewSchema);
         const attribs = reviewObj.attributes;
-        attribs.data = new attribs.date().toISOString();
-        attribs.isEdited = attribs.isEdited(false);
-        attribs.rating = attribs.rating(rating);
-        attribs.review = attribs.review(review);
+        attribs.data = new Date().toISOString();
+        attribs.rating = rating;
+        attribs.review = review;
         reviewObj.id = createUUID('xxxxxxx');
         reviewObj.type = "RatingShift-User-Review";
-        const newReview = new Review(reviewObj);
+        const newReview = new Review(reviewObj, this.#app);
         this.reviews.unshift(newReview);
         newReview.save();
         return newReview;

@@ -1,18 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Text, View, TouchableOpacity} from 'react-native';
+import {Button, Text, View, TouchableOpacity, Alert} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
-import RShift from '../../database'
+import RShift, {Users} from '../../database'
 import {Ionicons} from "@expo/vector-icons";
 import {CustomModal} from "../../components/CustomModal";
 import {WriteReview} from "./WriteReview";
 import {CustomStarRating} from "../../components/CustomStarRating";
+import {If} from "../../components/If";
 
 export function ReviewHeader({hideButton = false}) {
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
+    const user = useSelector(state => {
+        if(state.account?.currentUser)
+            return Users.get(state.account.currentUser.uid);
+    });
     const [app, setApp] = useState(null);
     const [writeReview, setWriting] = useState(false);
     let starRef = useRef(null);
@@ -29,11 +34,21 @@ export function ReviewHeader({hideButton = false}) {
 
     if(app === null) return null;
 
+    const submitReview = (review) => {
+
+        console.log(user)
+        return;
+        app.reviews.add(review.rating, review.review, user);
+        setWriting(false);
+        Alert.alert("Thank you!", "Your review was submitted!");
+
+    }
+
     return (
         <View>
 
             <CustomModal isOpen={writeReview} onClose={() => setWriting(false)}>
-                <WriteReview/>
+                <WriteReview onSubmit={submitReview}/>
             </CustomModal>
 
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -69,17 +84,22 @@ export function ReviewHeader({hideButton = false}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <CustomStarRating isDisabled={false} ref={starRef}/>
+                <CustomStarRating isDisabled={user === undefined} ref={starRef}/>
             </View>
 
-            <TouchableOpacity style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }} onPress={() => setWriting(true)}>
-                <Ionicons name={'clipboard'} color={colors.aqua} size={25}/>
-                <Text style={{fontSize: 20, padding: 5, color: colors.aqua, fontWeight: '600'}}>Write a Review</Text>
-            </TouchableOpacity>
+            <If can={user !== undefined}>
+                <TouchableOpacity style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }} onPress={() => setWriting(true)}>
+                    <Ionicons name={'clipboard'} color={colors.aqua} size={25}/>
+                    <Text style={reviewTextStyle}>Write a Review</Text>
+                </TouchableOpacity>
+                <Text style={{...reviewTextStyle, alignSelf: 'center'}}>Sign in to leave a review</Text>
+            </If>
         </View>
     );
 }
+
+const reviewTextStyle = {fontSize: 20, padding: 5, color: colors.aqua, fontWeight: '600'}

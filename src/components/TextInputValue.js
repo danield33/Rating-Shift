@@ -20,18 +20,21 @@ const TextInputValue = forwardRef(({
             Keyboard.dismiss()
             inputText = "";
             inpRef.current.clear();
+        },
+        _getText: () => {
+            return inputText
         }
     }))
 
     const onChange = (text) => {
         inputText = text;
-        onTextChange(inputText);
+        onTextChange?.(inputText);
     }
 
     const setText = (event) => {
         if (event.nativeEvent.text !== undefined) {
             inputText = event.nativeEvent.text;
-            onSetText(inputText);
+            onSetText?.(inputText);
         }
     }
 

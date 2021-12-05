@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView, StyleSheet, Text, TextInput, View, Alert} from 'react-native';
+import {ScrollView, StyleSheet, Text, View, Alert} from 'react-native';
 import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
@@ -18,11 +18,26 @@ const styles = StyleSheet.create({
 })
 
 export function WriteReview({onSubmit}) {
-    let starRef = useRef(null);
+    const starRef = useRef(null);
+    const titleRef = useRef(null);
+    const reviewRef = useRef(null);
 
     const submit = () => {
 
-        console.log(starRef.current._getRating())
+        const rating = starRef.current._getRating();
+
+        if(!rating)
+            return Alert.alert("Missing Rating", "Please select a rating by tapping on a star")
+
+        const title = titleRef.current._getText().trim();
+        if(!title)
+            return Alert.alert("Missing Title", "Please add a title")
+
+        const review = reviewRef.current._getText().trim();
+        if(!review)
+            return Alert.alert("Missing Review", "Please write a review")
+
+        onSubmit({rating, title, review});
 
     }
 
@@ -65,7 +80,9 @@ export function WriteReview({onSubmit}) {
                     style={styles.inputStyle}
                     placeholderTextColor={colors.aqua}
                     blur={true}
+                    ref={titleRef}
                 />
+
                 <TextInputValue
                     placeholder={'Review'}
                     selectionColor={colors.red}
@@ -73,6 +90,7 @@ export function WriteReview({onSubmit}) {
                     placeholderTextColor={colors.aqua}
                     multiline
                     blur={true}
+                    ref={reviewRef}
                 />
 
 

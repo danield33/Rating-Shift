@@ -1,10 +1,10 @@
 module.exports = {
     attributes: {
-        date: Date,
-        isEdited: Boolean,
-        rating: Number,
-        review: String,
+        date: "",
+        isEdited: false,
+        rating: 0,
+        review: undefined,
     },
-    id: String,
-    type: String,
+    id: undefined,
+    type: undefined,
 }

@@ -69,7 +69,7 @@ export default function App() {
     useEffect(() => {
         const unsub = getAuth().onAuthStateChanged(async snap => {
             if (snap?.uid) {
-                const user = await User.getUser(snap.uid);
+                const user = await User.get(snap.uid);
                 store.dispatch(changeAuthentication(user))
             } else store.dispatch(changeAuthentication(null))
         });
