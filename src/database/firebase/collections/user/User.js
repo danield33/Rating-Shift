@@ -1,5 +1,5 @@
 import {db} from '../../index'
-import {doc, getDoc, setDoc, updateDoc, arrayUnion} from "firebase/firestore";
+import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import DefaultUser from './schema'
@@ -32,7 +32,7 @@ module.exports = class User {
 
     async addReview(trackId, review){
 
-        let reviews = this.activity.reviews[trackId] || [];
+        const reviews = this.activity.reviews[trackId] || [];
         reviews.unshift(review.id);
 
         this.activity.reviews[trackId] = reviews;
@@ -43,6 +43,13 @@ module.exports = class User {
 
         this.addRating(trackId, review.attributes.rating);
 
+    }
+
+    async setUsername(name){
+        this.username = name;
+        await updateDoc(this.#ref, {
+            username: name
+        })
     }
 
     get pfp() {
