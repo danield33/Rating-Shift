@@ -13,7 +13,7 @@ const renderReview = (reviewItem, size) => {
 
 export function AppReviews({appData}) {
 
-    const reviews = appData.reviews;
+    const reviews = appData.reviews.reviews;
 
     if (!reviews) return (
         <View>

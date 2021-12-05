@@ -31,7 +31,6 @@ export default function SingleApp({appID}) {
         }
     }, [])
 
-
     return (
         <ScrollView style={[Styles.background, {alignItems: undefined}]}
                     contentContainerStyle={{alignItems: 'center'}}>

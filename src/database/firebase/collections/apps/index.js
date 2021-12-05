@@ -21,7 +21,6 @@ module.exports = class Apps{
                 const response = await res.json();
                 // console.log(response, 'res')
                 const app = new App(response);
-                console.log(app)
                 this.apps.set(trackId, app);
                 callback(app);
             }).catch(() => {})

@@ -43,7 +43,7 @@ export default function RatingsPage({allExpanded, showHeader = true}) {
 
                 }
 
-                <FlatList data={app.reviews}
+                <FlatList data={app.reviews.reviews}
                           style={{width: '100%', flex: 1}}
                           keyExtractor={(item, index) => index.toString()}
                           showsVerticalScrollIndicator={false}

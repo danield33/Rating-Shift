@@ -4,8 +4,7 @@ module.exports = class Reviews{
     #app;
     constructor(reviewArr, app) {
         this.#app = app
-        this.reviews = reviewArr.map((review, inx) => {
-            console.log(inx)
+        this.reviews = reviewArr.map((review) => {
             return new Review(review);
         });
     }
