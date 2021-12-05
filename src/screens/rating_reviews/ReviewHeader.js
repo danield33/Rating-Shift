@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Text, View, TouchableOpacity} from 'react-native';
 import colors from "../../global/styles/colors";
 import StarRating from "react-native-star-rating";
@@ -15,6 +15,7 @@ export function ReviewHeader({hideButton = false}) {
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
     const [app, setApp] = useState(null);
     const [writeReview, setWriting] = useState(false);
+    let starRef = useRef(null);
 
     useEffect(() => {
         const aborter = RShift.apps.get(trackId, app => {
@@ -68,7 +69,7 @@ export function ReviewHeader({hideButton = false}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <CustomStarRating isDisabled={false}/>
+                <CustomStarRating isDisabled={false} ref={starRef}/>
             </View>
 
             <TouchableOpacity style={{

@@ -4,6 +4,7 @@ import {CustomStarRating} from "../../components/CustomStarRating";
 import colors from "../../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
 import {TextInputValue} from "../../components/TextInputValue";
+import {useRef} from "react";
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -17,10 +18,11 @@ const styles = StyleSheet.create({
 })
 
 export function WriteReview({onSubmit}) {
+    let starRef = useRef(null);
 
     const submit = () => {
 
-
+        console.log(starRef.current._getRating())
 
     }
 
@@ -51,7 +53,9 @@ export function WriteReview({onSubmit}) {
 
                 <View style={{alignItems: 'center'}}>
                     <CustomStarRating isDisabled={false} containerStyle={{justifyContent: undefined}}
-                                      starStyle={{marginLeft: 10}}/>
+                                      starStyle={{marginLeft: 10}}
+                                      ref={starRef}
+                    />
                     <Text style={{color: colors.aqua, fontWeight: '500'}}>Tap to Rate</Text>
                 </View>
 

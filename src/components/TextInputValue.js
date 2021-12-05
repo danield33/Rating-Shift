@@ -13,7 +13,7 @@ const TextInputValue = forwardRef(({
                                    }, ref) => {
 
     let inputText = "";
-    let inpRef = useRef(null);
+    const inpRef = useRef(null);
 
     useImperativeHandle(ref, () => ({
         _clear: () => {

@@ -1,11 +1,24 @@
 import * as React from 'react';
+import {forwardRef, useImperativeHandle, useState} from 'react';
 import colors from "../global/styles/colors";
 import StarRating from "react-native-star-rating";
-import {useState} from "react";
 
-export function CustomStarRating({isDisabled=true, rating=0, setRating, starSize=30, containerStyle, starStyle}) {
+const CustomStarRating = forwardRef(({
+                                         isDisabled = true,
+                                         rating = 0,
+                                         setRating,
+                                         starSize = 30,
+                                         containerStyle,
+                                         starStyle
+                                     }, ref) => {
 
     const [ratingInp, setStarRating] = useState(rating);
+
+    useImperativeHandle(ref, () => ({
+        _getRating: () => {
+            return ratingInp;
+        }
+    }));
 
     const selectStar = (rating) => {
         setStarRating(rating);
@@ -28,4 +41,6 @@ export function CustomStarRating({isDisabled=true, rating=0, setRating, starSize
 
         />
     );
-};
+});
+
+export {CustomStarRating}

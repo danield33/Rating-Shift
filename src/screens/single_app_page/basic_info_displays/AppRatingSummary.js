@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Text, View} from 'react-native';
 import {colors} from "../../../global/styles";
-import StarRating from "react-native-star-rating";
 import {CustomStarRating} from "../../../components/CustomStarRating";
 
 export function AppRatingSummary({userRatingCount, averageUserRating}) {
