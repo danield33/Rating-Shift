@@ -21,6 +21,7 @@ export default function Apps() {
 
         headerApps.length = 0;
         RShift.api.top({type: 'free'}).then(apps => {
+            console.log(apps)
             setFreeApps(apps);
         });
 

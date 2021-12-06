@@ -7,7 +7,7 @@ module.exports = class API {
     baseURL = 'https://data.42matters.com/api/';
     #token = 'cc0966d239a6da778649d22b7cd4f8aa88b77f80';
     genres = IOSGenres;
-    #topLink = __DEV__ ? 'http://localhost:3000/api/top?' : 'https://ratingshiftapi.herokuapp.com/api/top?';
+    #topLink = !__DEV__ ? 'http://localhost:3000/api/top?' : 'https://ratingshiftapi.herokuapp.com/api/top?';
 
     async getTopGenreApps(genreID) {
         return await this.query({limit: 21, lang: 'en'}, {
@@ -57,7 +57,10 @@ module.exports = class API {
 
         return new Promise(resolve => {
             fetch(url + new URLSearchParams(options))
-                .then(async res => resolve(await res.json()));
+                .then(async res => {
+                    console.log(await res.text(), 1)
+                    resolve(await res.json())
+                });
         })
     }
 

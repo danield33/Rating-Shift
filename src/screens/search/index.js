@@ -21,7 +21,7 @@ export default function SearchPage() {
         controller = new AbortController();
         const {signal} = controller;
 
-        const link = __DEV__ ? 'http://localhost:3000/api/search?' : 'https://ratingshiftapi.herokuapp.com/api/search?'
+        const link = !__DEV__ ? 'http://localhost:3000/api/search?' : 'https://ratingshiftapi.herokuapp.com/api/search?'
 
         setSearchedItems(undefined);
         fetch(link + new URLSearchParams({
