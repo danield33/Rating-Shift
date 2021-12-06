@@ -15,22 +15,24 @@ export default function Apps() {
     const [paidApps, setPaidApps] = useState([]);
     const [headerApps, setHeaderApps] = useState([]);
     const forceUpdate = useForceUpdate();
-
+    const aborters = [];
 
     useEffect(() => {
 
         headerApps.length = 0;
-        RShift.api.top({type: 'free'}).then(apps => {
-            console.log(apps)
+
+        aborters.length = 0;//for refreshing purposes <^
+        const topFreeAborter = RShift.api.top({type: 'free'}, apps => {
             setFreeApps(apps);
         });
+        aborters.push(topFreeAborter)
 
-
-        RShift.api.top({type: 'paid'}).then(apps => {
+        const paidAborter = RShift.api.top({type: 'paid'}, apps => {
             setPaidApps(apps);
         });
+        aborters.push(paidAborter)
 
-        RShift.api.top({type: 'new'}).then(apps => {
+        const newAborter = RShift.api.top({type: 'new'}, apps => {
 
             const results = {
                 title: 'Newest Apps',
@@ -38,20 +40,26 @@ export default function Apps() {
             }
             headerApps.push(results);
         })
+        aborters.push(newAborter)
 
         const getGenre = (genreID) => {
-            RShift.api.top({type: 'free', genre: RShift.api.genres[genreID]}).then(apps => {
+            const genreTopAborter = RShift.api.top({type: 'free', genre: RShift.api.genres[genreID]}, apps => {
                 const result = {
                     title: RShift.api.genres[genreID],
                     results: apps
                 }
                 headerApps.push(result);
-                if (!RShift.api.genres[genreID + 2]) {
+                if (!RShift.api.genres[genreID + 1]) {
                     forceUpdate();
-                } else getGenre(genreID + 2);
+                } else getGenre(genreID + 1);
             })
+            aborters.push(genreTopAborter);
         }
         getGenre(6000);
+
+        return () => {
+            aborters.forEach(i => i?.abort())
+        }
 
     }, []);
 

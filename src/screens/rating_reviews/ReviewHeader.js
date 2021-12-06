@@ -1,27 +1,69 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Alert, Button, Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
-import StarRating from "react-native-star-rating";
 import {useNavigation} from "@react-navigation/native";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import RShift from '../../database'
+import {Ionicons} from "@expo/vector-icons";
+import {CustomModal} from "../../components/CustomModal";
+import {WriteReview} from "./WriteReview";
+import {CustomStarRating} from "../../components/CustomStarRating";
+import {If} from "../../components/If";
 
-export function ReviewHeader({hideButton = false}) {
+export function ReviewHeader({hideButton = false, onNewReview}) {
     const navigation = useNavigation();
     const trackId = useSelector(state => state.appList.currentlyViewing.item);
-    const [rating, setRating] = useState(0);
+    const user = useSelector(state => {
+        if (state.account?.currentUser)
+            return state.account.currentUser;
+    });
     const [app, setApp] = useState(null);
+    const [writeReview, setWriting] = useState(false);
+    let starRef = useRef(null);
 
     useEffect(() => {
-        RShift.apps.get(trackId).then(app => {
+        const aborter = RShift.apps.get(trackId, app => {
             setApp(app);
         })
-    },[])
+        return () => {
+            aborter.abort();
+        }
+    }, [])
 
-    if(app === null) return null;
+    useEffect(() => {
+
+        return () => {
+            if (user && app) {
+                const rating = user.activity.ratings[app.trackId];
+                const newRating = starRef.current._getRating();
+                if (newRating !== rating && newRating !== 0) {
+                    if (rating) app.replaceSingleRating(rating, newRating);
+                    user.addRating(app.trackId, newRating);
+                }
+            }
+        }
+
+    });
+
+    if (app === null) return null;
+
+    const submitReview = (review) => {
+
+        const reviewObj = app.reviews.add(review.rating, review.review, review.title, user);
+        app.addRating(review.rating);
+        setWriting(false);
+        onNewReview(reviewObj)
+        Alert.alert("Thank you!", "Your review was submitted!");
+
+    }
 
     return (
         <View>
+
+            <CustomModal isOpen={writeReview} onClose={() => setWriting(false)}>
+                <WriteReview onSubmit={submitReview}/>
+            </CustomModal>
+
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Text style={{fontSize: 25, color: 'white', fontWeight: '600'}}>Reviews</Text>
                 {hideButton ? null :
@@ -55,18 +97,24 @@ export function ReviewHeader({hideButton = false}) {
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                 <Text style={{fontSize: 20, color: colors.pink, fontWeight: '600'}}>Add Rating:</Text>
-                <StarRating
-                    disabled={false}
-                    maxStars={5}
-                    starSize={30}
-                    emptyStarColor={colors.red}
-                    fullStarColor={colors.red}
-                    halfStarEnabled={true}
-                    halfStarColor={colors.red}
-                    rating={rating}
-                    selectedStar={setRating}
-                />
+                <CustomStarRating isDisabled={user === undefined}
+                                  ref={starRef}
+                                  rating={user?.activity.ratings[app.trackId] ?? 0}/>
             </View>
+
+            <If can={user !== undefined}>
+                <TouchableOpacity style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }} onPress={() => setWriting(true)}>
+                    <Ionicons name={'clipboard'} color={colors.aqua} size={25}/>
+                    <Text style={reviewTextStyle}>Write a Review</Text>
+                </TouchableOpacity>
+                <Text style={{...reviewTextStyle, alignSelf: 'center'}}>Sign in to leave a review</Text>
+            </If>
         </View>
     );
 }
+
+const reviewTextStyle = {fontSize: 20, padding: 5, color: colors.aqua, fontWeight: '600'}

@@ -21,7 +21,7 @@ export function SliderContainer({apps, title}) {
                 <Text style={{
                     color: 'white',
                     fontSize: 25,
-                    padding: 3
+                    padding: 3,
                 }}>{title}</Text>
                 <TouchableOpacity onPress={onPress}>
                     <Text style={{fontSize: 20, fontWeight: '700', color: colors.pink}}>See All</Text>

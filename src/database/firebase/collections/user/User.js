@@ -1,40 +1,105 @@
 import {db} from '../../index'
-import {doc, getDoc, setDoc} from "firebase/firestore";
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {deleteDoc, doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
+import {createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import {deleteObject, getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import DefaultUser from './schema'
 
 module.exports = class User {
 
     static users = new Map();
 
     #pfp;
+    #ref;
 
-    constructor({username, id, profilePictureURI}) {
+    constructor({username, id, profilePictureURI, activity = {}}) {
 
         this.username = username;
         this.id = id;
+        this.activity = activity;
         this.#pfp = profilePictureURI;
+        this.#ref = doc(db, 'users', this.id);
 
+    }
 
+    async delete() {
+        await deleteUser(getAuth().currentUser)
+        await deleteDoc(doc(db, "users", this.id));
+    }
+
+    async addRating(trackId, ratingCount) {
+        const {ratings} = this.activity;
+        ratings[trackId] = ratingCount;
+        await updateDoc(this.#ref, {
+            activity: this.activity
+        });
+    }
+
+    async addReview(trackId, review) {
+
+        const reviews = this.activity.reviews[trackId] || [];
+        reviews.unshift(review.id);
+
+        this.activity.reviews[trackId] = reviews;
+
+        await updateDoc(this.#ref, {
+            activity: this.activity
+        })
+
+        this.addRating(trackId, review.attributes.rating);
+
+    }
+
+    async setUsername(name) {
+        this.username = name;
+        await updateDoc(this.#ref, {
+            username: name
+        })
+    }
+
+    async deleteProfilePicture() {
+        const picRef = ref(getStorage(), this.id + '/pfp.jpg');
+        await deleteObject(picRef)
+
+    }
+
+    async setProfilePicture(fileURI) {
+        this.#pfp = fileURI;
+        await User.uploadProfilePicture(fileURI, this.id + '/pfp.jpg')
+    }
+
+    async getProfilePicture() {
+        const storage = getStorage();
+        try {
+            const url = await getDownloadURL(ref(storage, this.id + '/pfp.jpg'))
+            this.#pfp = url;
+            return url;
+        } catch {
+            return null;
+        }
+
+    }
+
+    async save() {
+        await setDoc(this.#ref, JSON.parse(JSON.stringify(this)));
     }
 
     get pfp() {
         return this.#pfp
     }
 
-    static async getUser(id) {
+    static async get(id) {
 
         const user = User.users.get(id);
-        if (user) return user;
+        if (user) return Promise.resolve(user);
 
         const docRef = doc(db, 'users', id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             const user = new User(docSnap.data());
             User.users.set(user.id, user);
-            return user;
+            return Promise.resolve(user);
         }
-        return null;
+        return Promise.resolve(null);
     }
 
     static signOut() {
@@ -54,7 +119,7 @@ module.exports = class User {
             signInWithEmailAndPassword(auth, email, password)
                 .then(async (userCredential) => {
                     const user = userCredential.user;
-                    const data = await User.getUser(user.uid);
+                    const data = await User.get(user.uid);
                     const user1 = new User(data);
                     User.users.set(user1.id, user1);
                     resolve(user1);
@@ -68,13 +133,12 @@ module.exports = class User {
         })
     }
 
-    static uploadProfilePicture(profilePicture, path) {
+    static async uploadProfilePicture(profilePicture, path) {
         const storage = getStorage();
         const picRef = ref(storage, path);
-        fetch(profilePicture).then(async res => {// doesn't work on simulator
-            (await res).blob().then(blob => {
-                uploadBytes(picRef, blob)
-            })
+        const res = await fetch(profilePicture);
+        (await res).blob().then(blob => {
+            uploadBytes(picRef, blob)
         })
 
     }
@@ -86,8 +150,13 @@ module.exports = class User {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     if (pfp)
-                        User.uploadProfilePicture(pfp, user.uid + '/pfp.jpg')
-                    const user1 = new User({id: user.uid, username, profilePictureURI: pfp});
+                        User.uploadProfilePicture(pfp, user.uid + '/pfp.jpg');
+
+                    const defaultUser = JSON.parse(JSON.stringify(DefaultUser));
+                    defaultUser.username = username;
+                    defaultUser.id = user.uid;
+                    defaultUser.profilePictureURI = pfp;
+                    const user1 = new User(defaultUser);
                     User.users.set(user1.id, user1);
                     user1.save();
                     resolve(user1);
@@ -100,20 +169,5 @@ module.exports = class User {
         })
     }
 
-    async getProfilePicture() {
-        const storage = getStorage();
-        try {
-            const url = await getDownloadURL(ref(storage, this.id + '/pfp.jpg'))
-            this.#pfp = url;
-            return url;
-        } catch {
-            return null;
-        }
-
-    }
-
-    async save() {
-        await setDoc(doc(db, 'users', this.id), JSON.parse(JSON.stringify(this)));
-    }
 
 }

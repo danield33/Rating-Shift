@@ -10,6 +10,7 @@ Number.prototype.toSymbolic = function () {
         number = Math.round(number);
         return number.toString() + "K"
     }
+    return number.toString();
 
 }
 

@@ -20,8 +20,7 @@ export default function SearchPage() {
 
         controller = new AbortController();
         const {signal} = controller;
-
-        const link = !__DEV__ ? 'http://localhost:3000/api/search?' : 'https://ratingshiftapi.herokuapp.com/api/search?'
+        const link = 'http://localhost:3000/api/search?';
 
         setSearchedItems(undefined);
         fetch(link + new URLSearchParams({
@@ -29,7 +28,6 @@ export default function SearchPage() {
             allImages: false
         }), {signal}).then(async res => {
             const items = await res.json();
-            controller = null;
             setSearchedItems(items);
         });
         fetch(link + new URLSearchParams({
@@ -37,6 +35,7 @@ export default function SearchPage() {
             allImages: true
         }), {signal}).then(async res => {
             const items = await res.json();
+            controller = null;
             setSearchedItems(items);
         });
     }
@@ -48,7 +47,7 @@ export default function SearchPage() {
 
     useEffect(() => {
         return () => {
-            if(controller){
+            if (controller) {
                 controller.abort();
                 controller = null;
             }

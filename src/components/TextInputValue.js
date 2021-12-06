@@ -13,25 +13,28 @@ const TextInputValue = forwardRef(({
                                    }, ref) => {
 
     let inputText = "";
-    let inpRef = useRef(null);
+    const inpRef = useRef(null);
 
     useImperativeHandle(ref, () => ({
         _clear: () => {
             Keyboard.dismiss()
             inputText = "";
             inpRef.current.clear();
+        },
+        _getText: () => {
+            return inputText
         }
     }))
 
     const onChange = (text) => {
         inputText = text;
-        onTextChange(inputText);
+        onTextChange?.(inputText);
     }
 
     const setText = (event) => {
         if (event.nativeEvent.text !== undefined) {
             inputText = event.nativeEvent.text;
-            onSetText(inputText);
+            onSetText?.(inputText);
         }
     }
 

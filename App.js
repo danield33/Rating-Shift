@@ -11,6 +11,10 @@ import {Provider} from 'react-redux';
 import User from "./src/database/firebase/collections/user/User";
 import {getAuth} from "firebase/auth";
 import {changeAuthentication} from "./src/global/redux/actions/AppListActions";
+import {Ratings} from "./src/screens/account/Ratings";
+import {Reviews} from "./src/screens/account/Reviews";
+import {AccountSettings} from "./src/screens/account/AccountSettings";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -69,7 +73,7 @@ export default function App() {
     useEffect(() => {
         const unsub = getAuth().onAuthStateChanged(async snap => {
             if (snap?.uid) {
-                const user = await User.getUser(snap.uid);
+                const user = await User.get(snap.uid);
                 store.dispatch(changeAuthentication(user))
             } else store.dispatch(changeAuthentication(null))
         });
@@ -118,6 +122,10 @@ export default function App() {
                                       headerTitle: ''
                                   }}
                     />
+                    <Stack.Screen name={'Ratings'} component={Ratings}/>
+                    <Stack.Screen name={'Reviews'} component={Reviews}/>
+                    <Stack.Screen name={'Settings'} component={AccountSettings}/>
+
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

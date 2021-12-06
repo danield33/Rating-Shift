@@ -1,25 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Alert,
-    Button,
-    Image,
-    Keyboard,
-    KeyboardAvoidingView,
-    Linking,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {Button, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import colors from "../../global/styles/colors";
 import {If} from "../../components/If";
 import {TextInputValue} from "../../components/TextInputValue";
 import * as yup from 'yup';
 import {FlatButton} from "../../components/FlatButton";
-import * as ImagePicker from 'expo-image-picker';
-import {checkForCameraRollPermission} from "../../global/util/Permissions";
+import {selectProfilePicture} from "../../global/util";
 
 const input = {
     username: '',
@@ -98,32 +85,8 @@ export function SignUp({confirmPassword, onSubmit}) {
 
     const uploadPfp = async () => {
 
-        const perms = await checkForCameraRollPermission()
-
-        if (perms) {
-            const image = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 0.5,
-            });
-
-            if (!image.cancelled) {
-                setPfp(image.uri);
-            }
-        } else {
-            Alert.alert(
-                'Warning',
-                'Please grant camera roll permissions inside your system settings to upload a picture',
-                [
-                    {text: 'Cancel'},
-                    {
-                        text: 'Enable Notifications',
-                        onPress: () => Platform.OS === 'ios' ? Linking.openURL('app-settings:') : Linking.openSettings()
-                    }
-                ]
-            )
-        }
+        const picture = await selectProfilePicture();
+        setPfp(picture);
 
     }
 

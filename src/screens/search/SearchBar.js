@@ -4,11 +4,12 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../global/styles/colors";
 import {TextInputValue} from "../../components/TextInputValue";
 
-export function SearchBar({onSearch}) {
+export function SearchBar({onSearch, onClear}) {
     let inpRef = useRef(null);
 
     const clearInput = () => {
         inpRef.current._clear();
+        onClear?.();
     }
 
     return (
@@ -35,6 +36,7 @@ export function SearchBar({onSearch}) {
                     endEditing={true}
                     onSetText={onSearch}
                     autoCorrect={false}
+                    selectionColor={colors.red}
                     autoCapitalize={'none'}
                     placeholderTextColor={colors.light_blue}
                     placeholder={'Search Apps'}

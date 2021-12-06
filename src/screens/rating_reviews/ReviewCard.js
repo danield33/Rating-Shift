@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from "../../global/styles";
-import StarRating from "react-native-star-rating";
 import {CustomModal} from "../../components/CustomModal";
 import {If} from "../../components/If";
+import {CustomStarRating} from "../../components/CustomStarRating";
 
 export function ReviewCard({review, size, canExpand, renderModal = true, defaultExpanded = false}) {
 
@@ -63,17 +63,12 @@ export function ReviewCard({review, size, canExpand, renderModal = true, default
                         >
                             {reviewObj.title}</Text>
 
-                        <StarRating
-                            disabled={true}
-                            starSize={15}
-                            fullStarColor={colors.red}
-                            halfStar={colors.red}
-                            rating={reviewObj.rating}
-                            maxStars={5}
-                            halfStarEnabled={true}
-                            containerStyle={{justifyContent: undefined}}
-                            starStyle={{marginLeft: 5}}
-                        />
+                        <CustomStarRating rating={reviewObj.rating}
+                                          isDisabled={true}
+                                          containerStyle={{justifyContent: undefined}}
+                                          starStyle={{marginLeft: 5}}
+                                          starSize={15}/>
+
                     </View>
 
                     <View style={{alignItems: 'flex-end', flex: 1}}>

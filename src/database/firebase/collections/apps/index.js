@@ -1,37 +1,36 @@
 const App = require('../app/App');
 
-module.exports = class Apps{
+module.exports = class Apps {
 
     static apps = new Map();
 
-    constructor() {
-
-    }
-
-    async get(trackId){
-        if(this.apps.has(trackId))
-            return Promise.resolve(this.apps.get(trackId));
-        else{//TODO replace with heroku
+    get(trackId, callback) {
+        if (this.apps.has(trackId)) {
+            callback(this.apps.get(trackId));
+            return new AbortController();
+        } else {//TODO replace with heroku
+            const aborter = new AbortController();
+            const {signal} = aborter;
             const params = new URLSearchParams({
                 trackId: trackId,
             })
-            return new Promise((resolve => {
-                const baseLink = !__DEV__ ? 'http://localhost:3000/api/get?' : 'https://ratingshiftapi.herokuapp.com/api/get?'
-                const link = `${baseLink+params}`;
+            const baseLink = 'http://localhost:3000/api/get?';
+            const link = `${baseLink + params}`;
 
-                fetch(link).then(async res => {
-                    const response = await res.json();
-                    const app = new App(response);
-                    this.apps.set(trackId, app);
-                    resolve(app);
-                })
-            }))
+            fetch(link, {signal}).then(async res => {
+                const response = await res.json();
+                const app = new App(response);
+                await app.waitForData();
+                this.apps.set(trackId, app);
+                callback(app);
+            })//.catch(() => {})
 
+            return aborter;
         }
 
     }
 
-    get apps(){
+    get apps() {
         return Apps.apps;
     }
 
