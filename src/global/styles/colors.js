@@ -6,3 +6,4 @@ export default {
     dark_blue: '#4359bd',
     light_blue: '#8fa1f1'
 }
+//1125 2436

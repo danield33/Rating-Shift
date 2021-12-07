@@ -69,11 +69,15 @@ module.exports = class API {
     }
 
     getData(url, options, signal, callback) {
+        return new Promise(resolve => {
+            fetch(url + new URLSearchParams(options))
+                .then(async res => resolve(await res.json()));
+        })
+    }
 
-        fetch(url + new URLSearchParams(options), {signal})
-            .then(async res => {
-                callback(await res.json())
-            });
+
+    get type() {
+        return this.#type;
 
     }
 

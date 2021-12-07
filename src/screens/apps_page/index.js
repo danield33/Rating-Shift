@@ -20,6 +20,7 @@ export default function Apps() {
     useEffect(() => {
 
         headerApps.length = 0;
+
         aborters.length = 0;//for refreshing purposes <^
         const topFreeAborter = RShift.api.top({type: 'free'}, apps => {
             setFreeApps(apps);
