@@ -14,7 +14,7 @@ module.exports = class Apps {
             const params = new URLSearchParams({
                 trackId: trackId,
             })
-            const baseLink = 'http://localhost:3000/api/get?';
+            const baseLink = 'http://ratingshift.ddns.net:3000/api/get?';
             const link = `${baseLink + params}`;
 
             fetch(link, {signal}).then(async res => {
