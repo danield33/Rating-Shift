@@ -52,7 +52,7 @@ export function ReviewHeader({hideButton = false, onNewReview}) {
         const reviewObj = app.reviews.add(review.rating, review.review, review.title, user);
         app.addRating(review.rating);
         setWriting(false);
-        onNewReview(reviewObj)
+        onNewReview?.(reviewObj)
         Alert.alert("Thank you!", "Your review was submitted!");
 
     }
