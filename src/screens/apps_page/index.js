@@ -25,6 +25,7 @@ export default function Apps() {
         const topFreeAborter = RShift.api.top({type: 'free'}, apps => {
             setFreeApps(apps);
         });
+
         aborters.push(topFreeAborter)
 
         const paidAborter = RShift.api.top({type: 'paid'}, apps => {
