@@ -1,0 +1,18 @@
+module.exports = {
+    trackId: Number,
+    artworkUrl512: String,
+    averageUserRating: Number,
+    userRatingCount: Number,
+    formattedPrice: String,
+    price: Number,
+    description: String,
+    fileSizeBytesNumeric: Number,
+    screenshotUrls: Array,
+    trackCensoredName: String,
+    primaryGenreId: Number,
+    lang: String,
+    i18n_lang: Array,
+    subtitle: String,
+    artistName: String,
+    reviews: Array,
+}
