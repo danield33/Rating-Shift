@@ -1,4 +1,5 @@
-const App = require('../app/App');
+// const {RShift} = require('../../../index')
+import RShift from '../../../index';
 
 module.exports = class Apps {
 
@@ -9,23 +10,12 @@ module.exports = class Apps {
             callback(this.apps.get(trackId));
             return new AbortController();
         } else {//TODO replace with heroku
-            const aborter = new AbortController();
-            const {signal} = aborter;
-            const params = new URLSearchParams({
-                trackId: trackId,
-            })
-            const baseLink = 'http://ratingshift.ddns.net:3000/api/get?';
-            const link = `${baseLink + params}`;
 
-            fetch(link, {signal}).then(async res => {
-                const response = await res.json();
-                const app = new App(response);
-                await app.waitForData();
+            return RShift.api.get(trackId, (app) => {
                 this.apps.set(trackId, app);
                 callback(app);
-            })//.catch(() => {})
+            });
 
-            return aborter;
         }
 
     }
