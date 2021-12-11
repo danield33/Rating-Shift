@@ -9,8 +9,7 @@ module.exports = class Apps {
         if (this.apps.has(trackId)) {
             callback(this.apps.get(trackId));
             return new AbortController();
-        } else {//TODO replace with heroku
-
+        } else {
             return RShift.api.get(trackId, (app) => {
                 this.apps.set(trackId, app);
                 callback(app);

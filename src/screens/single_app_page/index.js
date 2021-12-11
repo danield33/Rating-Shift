@@ -25,8 +25,7 @@ export default function SingleApp({appID}) {
             setApp(app);
         })
         return () => {
-            aborter.abort()
-
+            aborter.abort();
         }
     }, [])
 
