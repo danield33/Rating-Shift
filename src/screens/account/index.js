@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Text, View} from 'react-native';
+import {Alert, Text, View, Image} from 'react-native';
 import {Styles} from "../../global";
 import {If} from "../../components/If";
 import colors from "../../global/styles/colors";
@@ -9,6 +9,7 @@ import {SignUp} from "./SignUp";
 import {errorCodes, Users} from '../../database'
 import {useSelector} from "react-redux";
 import {AccountScreen} from "./AccountScreen";
+import Logo from '../../../assets/logo.png'
 
 
 export default function Account() {
@@ -55,7 +56,9 @@ export default function Account() {
                         color: colors.aqua,
                         fontSize: 30,
                         fontWeight: '500'
-                    }}>Select an Option</Text>
+                    }}>Rating Shift</Text>
+
+                    <Image source={Logo} style={{width: 150, height: 150}}/>
 
                     <FlatButton color={colors.red} text={"Log In"} style={{width: '100%'}}
                                 onPress={() => setSigningUp(1)}/>
