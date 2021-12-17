@@ -30,7 +30,7 @@ export default function SearchPage() {
         }), {signal}).then(async res => {
             const items = await res.json();
             setSearchedItems(items);
-        });
+        }).catch(() => {});
         fetch(link + new URLSearchParams({
             text: text,
             allImages: true
@@ -38,7 +38,7 @@ export default function SearchPage() {
             const items = await res.json();
             controller = null;
             setSearchedItems(items);
-        });
+        }).catch(() => {});
     }
 
     const renderApp = (item) => {
