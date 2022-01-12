@@ -1,7 +1,19 @@
 import * as React from 'react';
 import {FlatList} from 'react-native';
 
-export function HorizontalFlatList({items, renderItem, numColums, listStyle, key}) {
+/**
+ * Creates a horizontal list of items while making each page of the list have a certain number of rows
+ * @param items an iterable object
+ * @param renderItem a function to render each item
+ * @param numColums the number of columns needed
+ * @param listStyle the style of the list
+ * @param keyID an id to update the list
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export function HorizontalFlatList({items, renderItem, numColums, listStyle, keyID, ...props}) {
+
     return (
             <FlatList
                 key={key}
@@ -16,6 +28,7 @@ export function HorizontalFlatList({items, renderItem, numColums, listStyle, key
                 showsVerticalScrollIndicator={false}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
+                {...props}
             />
     );
-};
+}

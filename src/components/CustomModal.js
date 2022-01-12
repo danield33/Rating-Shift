@@ -5,6 +5,15 @@ import {Styles} from "../global";
 import colors from "../global/styles/colors";
 
 
+/**
+ * Creates a standard modal over the component this is in
+ * @param children the content inside the modal
+ * @param onClose what happens when the modal is closed
+ * @param isOpen if this modal is open
+ * @param iconColor the color of the close button
+ * @returns {JSX.Element}
+ * @constructor none
+ */
 export function CustomModal({children, onClose, isOpen, iconColor}) {
     return (
         <Modal visible={isOpen} animationType={'slide'}>

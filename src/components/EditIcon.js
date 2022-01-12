@@ -3,6 +3,13 @@ import {View} from 'react-native';
 import colors from "../global/styles/colors";
 import {Ionicons} from "@expo/vector-icons";
 
+/**
+ * Editing icon style to indicate if something is editable
+ * @param style additional styles for the icon
+ * @param size the size of the icon
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function EditIcon({style, size = 25}) {
     return (
         <View style={{

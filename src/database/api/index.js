@@ -6,7 +6,7 @@ module.exports = class API {
     genres = IOSGenres;
     #link = 'http://192.168.1.2:3000';
     #topLink = this.#link+'/api/top?';
-    #searchLink = this.#link+'/api/get?';
+    #getLink = this.#link+'/api/get?';
 
     top(options, callback) {
 
@@ -22,14 +22,13 @@ module.exports = class API {
             trackId: trackId,
         })
 
-        const link = `${this.#searchLink + params}`;
-
+        const link = `${this.#getLink + params}`;
         fetch(link, {signal}).then(async res => {
             const response = await res.json();
             const app = new App(response);
             await app.waitForData();
             callback(app);
-        }).catch(() => {})
+        }).catch(() => {});
         return aborter;
     }
 

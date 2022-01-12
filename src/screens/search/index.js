@@ -21,7 +21,7 @@ export default function SearchPage() {
         controller = new AbortController();
         const {signal} = controller;
 
-        const link = 'http://ratingshift.ddns.net:3000/api/search?';
+        const link = 'http://192.168.1.2:3000/api/search?';
 
         setSearchedItems(undefined);
         fetch(link + new URLSearchParams({
@@ -30,7 +30,7 @@ export default function SearchPage() {
         }), {signal}).then(async res => {
             const items = await res.json();
             setSearchedItems(items);
-        });
+        }).catch(() => {});
         fetch(link + new URLSearchParams({
             text: text,
             allImages: true
@@ -38,7 +38,7 @@ export default function SearchPage() {
             const items = await res.json();
             controller = null;
             setSearchedItems(items);
-        });
+        }).catch(() => {});
     }
 
     const renderApp = (item) => {
