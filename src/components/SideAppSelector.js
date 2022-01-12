@@ -5,6 +5,13 @@ import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {viewApp} from "../global/redux/actions/AppListActions";
 
+/**
+ * A component to display apps in a horizontal list
+ * @param app the app to display
+ * @returns {JSX.Element}
+ * @constructor
+ */
+
 export function SideAppSelector({app}) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
