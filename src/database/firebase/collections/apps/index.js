@@ -1,6 +1,9 @@
-// const {RShift} = require('../../../index')
 import RShift from '../../../index';
 
+/**
+ * A collection to get an app
+ * @type {Apps}
+ */
 module.exports = class Apps {
 
     static apps = new Map();

@@ -8,6 +8,12 @@ module.exports = class API {
     #topLink = this.#link+'/api/top?';
     #getLink = this.#link+'/api/get?';
 
+    /**
+     * Gets the top apps in the appstore
+     * @param options can specify the top free or top paid apps as well as getting the top most recent apps
+     * @param callback
+     * @returns {AbortController}
+     */
     top(options, callback) {
 
         const abort = new AbortController();
@@ -15,6 +21,12 @@ module.exports = class API {
         return abort;
     }
 
+    /**
+     * Get information about a specific app
+     * @param trackId the id of the app
+     * @param callback
+     * @returns {AbortController}
+     */
     get(trackId, callback){
         const aborter = new AbortController();
         const {signal} = aborter;

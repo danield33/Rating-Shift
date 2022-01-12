@@ -1,3 +1,7 @@
+/**
+ * App genres specific to the app store
+ * @type {{"6010": string, "6012": string, "6011": string, "6014": string, "6013": string, "6016": string, "6015": string, "6007": string, "6006": string, "6009": string, "6008": string, "6021": string, "6020": string, "6001": string, "6023": string, "6000": string, "6022": string, "6003": string, "6025": string, "6002": string, "6024": string, "6005": string, "6027": string, "6004": string, "6026": string, "6018": string, "6017": string}}
+ */
 module.exports = {
     6000: "Business",
     6001: "Weather",

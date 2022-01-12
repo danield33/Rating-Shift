@@ -4,6 +4,10 @@ import {createUserWithEmailAndPassword, deleteUser, getAuth, signInWithEmailAndP
 import {deleteObject, getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import DefaultUser from './schema'
 
+/**
+ * Class to manage user information
+ * @type {User}
+ */
 module.exports = class User {
 
     static users = new Map();
@@ -26,6 +30,12 @@ module.exports = class User {
         await deleteDoc(doc(db, "users", this.id));
     }
 
+    /**
+     * Saves the app id to a user to show it in the page where they have rated apps
+     * @param trackId the id of the app
+     * @param ratingCount the rating they gave of the app
+     * @returns {Promise<void>}
+     */
     async addRating(trackId, ratingCount) {
         const {ratings} = this.activity;
         ratings[trackId] = ratingCount;
@@ -34,6 +44,12 @@ module.exports = class User {
         });
     }
 
+    /**
+     * Saves a review to be shown where they have reviews apps
+     * @param trackId the id of the app
+     * @param review the review content
+     * @returns {Promise<void>}
+     */
     async addReview(trackId, review) {
 
         const reviews = this.activity.reviews[trackId] || [];
@@ -48,6 +64,7 @@ module.exports = class User {
         this.addRating(trackId, review.attributes.rating);
 
     }
+
 
     async setUsername(name) {
         this.username = name;
@@ -87,6 +104,12 @@ module.exports = class User {
         return this.#pfp
     }
 
+    /**
+     * Method to get a user. It will search for the user in the users property of this class and if it is not present,
+     * it will get it from firebase
+     * @param id the id of the user
+     * @returns {Promise<unknown>}
+     */
     static async get(id) {
 
         const user = User.users.get(id);

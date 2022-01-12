@@ -16,5 +16,5 @@ When you select the account button in the bottom navigation bar (the right icon)
 ### Single App Page
 When you select an app you want to view, you are first presented with the image, title, and subtitle of the app. Underneath you can horizontally scroll through basic information about the app such as the rating, developer, language, etc. Below that is an expandable description of the app. Then you'll see a preview of the app provided by the developer. The preview is a horizontal list showcasing the app with images. Finally, you have the reviews for the app. You can see the number of reviews, the average rating, and a few reviews at the bottom. You can create your own review by pressing the *Write a review* button and you can see more reviews by pressing the *See all* button. Reviews and ratings are saved in [firebase](https://firebase.google.com/).
 
-## Server
-The server is where this app gets all its information about apps from. The app then caches information about the app whenever needed. 
+## Express Server
+The server is where this app gets all its information about apps from. The server scrapes data from [fnd.io](https://fnd.io/) and [the appstore](https://www.apple.com/app-store/).   The app then caches information about the app whenever needed. 

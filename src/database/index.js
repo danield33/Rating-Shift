@@ -2,6 +2,9 @@ import API from "./api";
 import User from './firebase/collections/user/User'
 import Apps from './firebase/collections/apps'
 
+/**
+ * The manager for the app's backend
+ */
 class RShift {
 
     api = new API();
