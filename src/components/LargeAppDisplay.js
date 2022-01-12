@@ -20,6 +20,14 @@ const renderApp = (item) => {
 
 }
 
+/**
+ * A large display of an app icon. The first app in the apps list is the icon to be displayed
+ * @param apps a list of apps that should be shown in this category
+ * @param title a string the title above this icon
+ * @returns {JSX.Element}
+ * @constructor
+ */
+
 export function LargeAppDisplay({apps, title}) {
 
     return (

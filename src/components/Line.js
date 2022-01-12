@@ -3,8 +3,8 @@ import {View} from 'react-native';
 import {colors} from "../global/styles";
 
 /**
- * Line instead of border width because of touchable opacity opacity changes
- * @param style
+ * A convenience component to not have the border of a touchable opacity change the opacity of its border
+ * @param style a view style
  * @returns {JSX.Element}
  * @constructor
  */
