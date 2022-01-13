@@ -9,8 +9,6 @@ class RShift {
 
 }
 
-export default new RShift();
-
 export const errorCodes = {
     "auth/email-already-in-use": "Email is already in use! Please try again",
     "auth/wrong-password": "Invalid email or password",
@@ -18,3 +16,4 @@ export const errorCodes = {
 }
 
 export {User as Users}
+export default new RShift();
