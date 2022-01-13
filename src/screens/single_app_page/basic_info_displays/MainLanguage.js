@@ -13,8 +13,7 @@ export function MainLanguageDisp({mainLanguage, additionalLanguagesSize}) {
                 marginTop: 6,
                 marginBottom: 6
             }}>{mainLanguage.toUpperCase()}</Text>
-            <Text
-                adjustsFontSizeToFit={true}
+            <Text adjustsFontSizeToFit={true}
                 numberOfLines={1}
                 style={{
                     fontSize: 15,

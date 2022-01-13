@@ -55,7 +55,6 @@ export function AppInfo({appData}) {
 
             </If>
 
-
             <ContentAdvisoryDisplay age={appData.contentAdvisoryRating}/>
 
         </ScrollView>
