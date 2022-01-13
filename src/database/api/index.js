@@ -4,7 +4,7 @@ import App from "../firebase/collections/app/App";
 module.exports = class API {
 
     genres = IOSGenres;
-    #link = 'http://192.168.1.2:3000';
+    #link = 'http://192.168.1.35:3000';
     #topLink = this.#link+'/api/top?';
     #getLink = this.#link+'/api/get?';
 
