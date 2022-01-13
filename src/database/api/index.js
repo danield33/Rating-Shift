@@ -8,6 +8,12 @@ module.exports = class API {
     #topLink = this.#link+'/api/top?';
     #getLink = this.#link+'/api/get?';
 
+    /**
+     * Fetches the top apps
+     * @param options options for fetching: genre, type: free | top
+     * @param callback returns the apps found
+     * @returns {AbortController}
+     */
     top(options, callback) {
 
         const abort = new AbortController();
@@ -15,6 +21,12 @@ module.exports = class API {
         return abort;
     }
 
+    /**
+     * Fetches an app by trackID
+     * @param trackId the id of the app to get
+     * @param callback returns the app found
+     * @returns {AbortController}
+     */
     get(trackId, callback){
         const aborter = new AbortController();
         const {signal} = aborter;
@@ -32,6 +44,13 @@ module.exports = class API {
         return aborter;
     }
 
+    /**
+     * gets information from the server
+     * @param url the url to fetch
+     * @param options the parameters of the url
+     * @param signal abort signal
+     * @param callback returns fetched data
+     */
     getData(url, options, signal, callback) {
         fetch(url+new URLSearchParams(options), {signal}).then(async res => {
             callback(await res.json())
