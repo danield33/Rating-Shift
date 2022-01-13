@@ -17,7 +17,6 @@ export function createUUID(string = 'xxxx-xxxx-xxxx-xxxx') {
     return uuid;
 }
 
-
 export async function selectProfilePicture() {
     const perms = await checkForCameraRollPermission()
 
