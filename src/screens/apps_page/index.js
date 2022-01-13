@@ -19,9 +19,8 @@ export default function Apps() {
 
     useEffect(() => {
 
-        headerApps.length = 0;
-
-        aborters.length = 0;//for refreshing purposes <^
+        headerApps.length = 0;//remove content without removing reference
+        aborters.length = 0;
         const topFreeAborter = RShift.api.top({type: 'free'}, apps => {
             setFreeApps(apps);
         });
@@ -43,19 +42,6 @@ export default function Apps() {
         })
         aborters.push(newAborter)
 
-        const getGenre = (genreID) => {
-            const genreTopAborter = RShift.api.top({type: 'free', genre: RShift.api.genres[genreID]}, apps => {
-                const result = {
-                    title: RShift.api.genres[genreID],
-                    results: apps
-                }
-                headerApps.push(result);
-                if (!RShift.api.genres[genreID + 1]) {
-                    forceUpdate();
-                } else getGenre(genreID + 1);
-            })
-            aborters.push(genreTopAborter);
-        }
         getGenre(6000);
 
         return () => {
@@ -63,6 +49,24 @@ export default function Apps() {
         }
 
     }, []);
+
+    /**
+     * recursively gets genres from the genre id list
+     * @param genreID the starting id of the genres. This must exist in the genre list
+     */
+    const getGenre = (genreID) => {
+        const genreTopAborter = RShift.api.top({type: 'free', genre: RShift.api.genres[genreID]}, apps => {
+            const result = {
+                title: RShift.api.genres[genreID],
+                results: apps
+            }
+            headerApps.push(result);
+            if (!RShift.api.genres[genreID + 1]) {
+                forceUpdate();
+            } else getGenre(genreID + 1);
+        })
+        aborters.push(genreTopAborter);
+    }
 
 
     return (

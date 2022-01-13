@@ -26,6 +26,7 @@ export default function SearchPage() {
         setSearchedItems(undefined);
         fetch(link + new URLSearchParams({
             text: text,
+
             allImages: false
         }), {signal}).then(async res => {
             const items = await res.json();
