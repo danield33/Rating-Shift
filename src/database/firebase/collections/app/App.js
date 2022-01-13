@@ -43,7 +43,7 @@ module.exports = class Application {
     }
 
     async addRating(ratingCount) {
-        if (ratingCount) {//checks for 0
+        if (ratingCount) {//needed to check for 0
             this.userRatingCount++;
             this.averageUserRating = (this.averageUserRating * this.userRatingCount + ratingCount) / this.userRatingCount;
             this.updateRatings();
