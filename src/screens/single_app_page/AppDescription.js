@@ -10,11 +10,13 @@ export function AppDescription({description}) {
     const animatedHeight = useRef(new Animated.Value(startingHeight)).current;
 
     useEffect(() => {
+
         Animated.spring(animatedHeight, {
             friction: 500,
             toValue: isExpanded ? fullHeight : startingHeight,
             useNativeDriver: false
         }).start();
+
     }, [isExpanded])
 
     const toggleShow = () => {

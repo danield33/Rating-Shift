@@ -3,7 +3,7 @@ import {Image, Text, View} from 'react-native';
 import {LargeAppDisplay} from "../../components/LargeAppDisplay";
 
 export function AppPreview({screenshotsUrls}) {
-
+    
     if (!screenshotsUrls) return null;
 
     return (
@@ -22,7 +22,6 @@ export function AppPreview({screenshotsUrls}) {
                     </View>
                 );
             }}/>
-
         </View>
     );
 }

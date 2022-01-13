@@ -11,5 +11,4 @@ const firebaseConfig = initializeApp({//not gonna throw this into an env b/c sch
     measurementId: "G-HGEFMV2CBC"
 });
 
-
 export const db = getFirestore(firebaseConfig);

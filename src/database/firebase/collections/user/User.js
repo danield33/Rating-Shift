@@ -7,7 +7,6 @@ import DefaultUser from './schema'
 module.exports = class User {
 
     static users = new Map();
-
     #pfp;
     #ref;
 

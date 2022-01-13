@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 }
 
 const appReducer = (state = INITIAL_STATE, action) => {
-
     switch (action.type) {
         case actionTypes.SET_APPS: {
             let {currentApps, ...restOfState} = state;
@@ -29,7 +28,6 @@ const appReducer = (state = INITIAL_STATE, action) => {
             currentReviews = action.payload;
             return {currentReviews, ...restOfState};
         }
-
         default:
             return state;
     }

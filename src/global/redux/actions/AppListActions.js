@@ -10,6 +10,7 @@ export const appendApps = apps => ({
     payload: apps
 })
 
+
 export const viewApp = app => ({
     type: actionTypes.VIEW_APP,
     payload: app

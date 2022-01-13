@@ -8,8 +8,7 @@ export function DeveloperInfo({name}) {
         <View style={{alignItems: 'center', margin: 5}}>
             <Text style={{fontSize: 15, fontWeight: '600', color: colors.pink}}
                   adjustsFontSizeToFit={true}
-                  numberOfLines={1}
-            >Developer</Text>
+                  numberOfLines={1}>Developer</Text>
             <Ionicons name={'person-circle-outline'} size={40} color={'white'}/>
             <Text style={{fontSize: 15, fontWeight: '600', color: colors.aqua}}
                   adjustsFontSizeToFit={true}
