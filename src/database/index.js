@@ -2,17 +2,12 @@ import API from "./api";
 import User from './firebase/collections/user/User'
 import Apps from './firebase/collections/apps'
 
-/**
- * The manager for the app's backend
- */
 class RShift {
 
     api = new API();
     apps = new Apps();
 
 }
-
-export default new RShift();
 
 export const errorCodes = {
     "auth/email-already-in-use": "Email is already in use! Please try again",
@@ -21,3 +16,4 @@ export const errorCodes = {
 }
 
 export {User as Users}
+export default new RShift();
