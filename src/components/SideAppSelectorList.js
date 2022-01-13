@@ -8,6 +8,12 @@ const renderAppItem = (item) => {
     return <SideAppSelector app={app}/>
 }
 
+/**
+ * Component to render top apps in a horizontal scroll view with multiple rows
+ * @param apps
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function SideAppSelectorList({apps}) {
     return (
         <HorizontalFlatList items={apps}

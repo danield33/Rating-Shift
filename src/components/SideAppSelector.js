@@ -5,6 +5,11 @@ import {useNavigation} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {viewApp} from "../global/redux/actions/AppListActions";
 
+/**
+ * Renders an app in a side selector
+ * @param app the app to render
+ * @returns {JSX.Element}
+ */
 export function SideAppSelector({app}) {
     const navigation = useNavigation();
     const dispatch = useDispatch();

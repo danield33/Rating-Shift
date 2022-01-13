@@ -2,6 +2,10 @@ import * as React from 'react';
 import {forwardRef, useImperativeHandle, useRef} from 'react';
 import {Keyboard, TextInput} from 'react-native';
 
+/**
+ * Component to wrap around text inputs to easily access and clear the text content with its reference
+ * @type {React.ForwardRefExoticComponent<React.PropsWithoutRef<{readonly onTextChange?: *, readonly endEditing?: *, readonly onSetText?: *, readonly blur?: *, readonly textChange?: *, readonly submitEditing?: *}> & React.RefAttributes<unknown>>}
+ */
 const TextInputValue = forwardRef(({
                                        endEditing,
                                        submitEditing,

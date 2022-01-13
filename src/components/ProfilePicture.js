@@ -4,6 +4,13 @@ import {Ionicons} from "@expo/vector-icons";
 import {If} from "./If";
 import {EditIcon} from "./EditIcon";
 
+/**
+ * Component to render a profile picture or a default icon in place of a picture
+ * @param image the image to display
+ * @param size the size of the image
+ * @param showEdit whether to show it as editable or not
+ * @returns {JSX.Element}
+ */
 export function ProfilePicture({image, size = 75, showEdit}) {
     return (
         <View>
