@@ -1,10 +1,11 @@
 import IOSGenres from './IOSGenres';
 import App from "../firebase/collections/app/App";
+import {Data} from "../../global";
 
 module.exports = class API {
 
     genres = IOSGenres;
-    #link = 'http://192.168.1.35:3000';
+    #link = Data.serverURL;
     #topLink = this.#link+'/api/top?';
     #getLink = this.#link+'/api/get?';
 

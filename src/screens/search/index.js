@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, Text, View} from 'react-native';
-import {Styles} from "../../global";
+import {Data, Styles} from "../../global";
 import colors from "../../global/styles/colors";
 import {SearchBar} from "./SearchBar";
 import {If} from "../../components/If";
@@ -21,9 +21,10 @@ export default function SearchPage() {
         controller = new AbortController();
         const {signal} = controller;
 
-        const link = 'http://192.168.1.35:3000/api/search?';
+        const link = Data.serverURL+'/api/search?';
 
         setSearchedItems(undefined);
+        //first time quick search
         fetch(link + new URLSearchParams({
             text: text,
 
@@ -32,6 +33,7 @@ export default function SearchPage() {
             const items = await res.json();
             setSearchedItems(items);
         }).catch(() => {});
+        //second time slow search but with more data to load
         fetch(link + new URLSearchParams({
             text: text,
             allImages: true
