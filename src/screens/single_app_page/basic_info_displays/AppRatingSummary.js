@@ -19,7 +19,7 @@ export function AppRatingSummary({userRatingCount, averageUserRating}) {
                 color: 'white',
                 fontWeight: '600',
                 margin: 5
-            }}>{Math.round(averageUserRating * 10) / 10}</Text>
+            }}>{Math.min(Math.round(averageUserRating * 10) / 10, 5)}</Text>
 
             <CustomStarRating isDisabled={true} rating={averageUserRating}/>
         </View>

@@ -79,7 +79,7 @@ export function ReviewHeader({hideButton = false, onNewReview}) {
                         fontSize: 40,
                         fontWeight: 'bold',
                         color: colors.aqua,
-                    }}>{(Math.round(app.averageUserRating * 10) / 10).toString()}</Text>
+                    }}>{(Math.min(Math.round(app.averageUserRating * 10) / 10, 5)).toString()}</Text>
                     <Text style={{
                         fontSize: 15,
                         fontWeight: '600',
