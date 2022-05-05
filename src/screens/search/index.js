@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Text, View, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {ActivityIndicator, FlatList, Text, View, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
 import {Data, Styles} from "../../global";
 import colors from "../../global/styles/colors";
 import {SearchBar} from "./SearchBar";
@@ -12,6 +12,7 @@ let controller = null;
 export default function SearchPage() {
 
     const [searchedItems, setSearchedItems] = useState([])//undefined = is searching
+
 
     const search = (text) => {
 
@@ -32,6 +33,9 @@ export default function SearchPage() {
         }), {signal}).then(async res => {
             const items = await res.json();
             setSearchedItems(items);
+            if(!items.length){
+                Alert.alert("No apps were found. Please try again or try a different search.")
+            }
         }).catch(() => {});
         //second time slow search but with more data to load
         fetch(link + new URLSearchParams({
