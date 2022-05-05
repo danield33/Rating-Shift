@@ -32,6 +32,7 @@ export function SearchBar({onSearch, onClear}) {
                         fontSize: 20,
                         flex: 1
                     }}
+                    returnKeyType='search'
                     inlineImageLeft={'search-icon'}
                     endEditing={true}
                     onSetText={onSearch}

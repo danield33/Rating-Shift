@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, Text, View, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {Data, Styles} from "../../global";
 import colors from "../../global/styles/colors";
 import {SearchBar} from "./SearchBar";
@@ -60,23 +60,26 @@ export default function SearchPage() {
 
     return (
         <View style={{...Styles.background}}>
-            <SearchBar onSearch={search}/>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <>
+                    <SearchBar onSearch={search}/>
 
-            <If can={searchedItems === undefined}>
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                    <ActivityIndicator size={'large'} color={colors.red}/>
-                    <Text style={{color: colors.aqua, fontSize: 20}}>Loading</Text>
-                </View>
-                <FlatList data={searchedItems}
-                          style={{width: '100%', top: 20}}
-                          renderItem={renderApp}
-                          keyExtractor={(app, index) => index.toString()}
-                          showsHorizontalScrollIndicator={false}
-                          showsVerticalScrollIndicator={false}
-                          alwaysBounceHorizontal={false}
-                />
-            </If>
-
+                    <If can={searchedItems === undefined}>
+                        <View style={{flex: 1, justifyContent: 'center'}}>
+                            <ActivityIndicator size={'large'} color={colors.red}/>
+                            <Text style={{color: colors.aqua, fontSize: 20}}>Loading</Text>
+                        </View>
+                        <FlatList data={searchedItems}
+                                  style={{width: '100%', top: 20}}
+                                  renderItem={renderApp}
+                                  keyExtractor={(app, index) => index.toString()}
+                                  showsHorizontalScrollIndicator={false}
+                                  showsVerticalScrollIndicator={false}
+                                  alwaysBounceHorizontal={false}
+                        />
+                    </If>
+                </>
+            </TouchableWithoutFeedback>
         </View>
     );
 };
