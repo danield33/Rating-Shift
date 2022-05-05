@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {LayoutAnimation, Text, TouchableOpacity, View} from 'react-native';
+import {LayoutAnimation, Text, TouchableOpacity, View, ScrollView} from 'react-native';
 import {colors} from "../../global/styles";
 import {CustomModal} from "../../components/CustomModal";
 import {If} from "../../components/If";
@@ -32,10 +32,10 @@ export function ReviewCard({review, size, canExpand, renderModal = true, default
 
             <If can={renderModal}>
                 <CustomModal isOpen={isModalOpen} onClose={toggleExpanded}>
-                    <View style={{padding: 20, flex: 1, width: '100%', alignItems: 'center'}}>
+                    <ScrollView style={{padding: 20, flex: 1, width: '100%'}} contentContainerStyle={{alignItems: 'center'}}>
                         <ReviewCard review={review} size={size} canExpand={true} defaultExpanded={true}
                                     renderModal={false}/>
-                    </View>
+                    </ScrollView>
                 </CustomModal>
             </If>
 
@@ -79,6 +79,7 @@ export function ReviewCard({review, size, canExpand, renderModal = true, default
                 </View>
 
 
+                <ScrollView>
                 <Text numberOfLines={canExpand ? isExpanded ? undefined : 3 : 3}
                       ellipsizeMode={'tail'}
                       style={{
@@ -86,6 +87,7 @@ export function ReviewCard({review, size, canExpand, renderModal = true, default
                           fontSize: 15,
                           fontWeight: '500'
                       }}>{reviewObj.review}</Text>
+                </ScrollView>
 
                 <View style={{justifyContent: 'flex-end'}}>
                     <TouchableOpacity

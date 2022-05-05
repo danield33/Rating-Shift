@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, Modal, TouchableWithoutFeedback, View} from "react-native";
+import {Keyboard, Modal, TouchableWithoutFeedback, View, ScrollView} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {Styles} from "../global";
 import colors from "../global/styles/colors";
