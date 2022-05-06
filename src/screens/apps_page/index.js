@@ -61,9 +61,11 @@ export default function Apps() {
                 results: apps
             }
             headerApps.push(result);
-            if (!RShift.api.genres[genreID + 1]) {
-                forceUpdate();
-            } else getGenre(genreID + 1);
+            if(genreID  % 3 === 0)
+                setHeaderApps([...headerApps]);
+            if (RShift.api.genres[genreID + 1])
+                getGenre(genreID + 1);
+            else forceUpdate();
         })
         aborters.push(genreTopAborter);
     }
